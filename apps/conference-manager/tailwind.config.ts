@@ -1,0 +1,15 @@
+import { nextui } from "@nextui-org/theme";
+import type { Config } from "tailwindcss";
+import sharedConfig from "@repo/config/tailwind/tailwind.config"
+
+const config: Config = {
+  ...sharedConfig,
+  content: [
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "../../node_modules/@nextui-org/theme/dist/components/(accordion|button|card|chip|date-input|divider|dropdown|input|link|navbar|pagination|popover|radio|select|spinner|toggle|table|tabs|user|ripple|menu|listbox|scroll-shadow|checkbox|spacer|avatar).js",
+  ],
+  darkMode: "class",
+  plugins: [nextui()],
+};
+export default config;

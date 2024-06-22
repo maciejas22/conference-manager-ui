@@ -1,0 +1,29 @@
+{
+  "extends": "@repo/config/typescript/base.json",
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "next"
+      },
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "http://localhost:8080/graphql",
+        "tadaoutputlocation": "./graphql/__types__/graphql-env.d.ts",
+        "tadaturbolocation": "./graphql/__types__/graphql-turbo.d.ts",
+        "tadapersistedlocation": "./graphql/__types__/graphql-persisted.d.ts"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "next.config.mjs"
+  ]
+}

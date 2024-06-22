@@ -1,0 +1,17 @@
+{
+  "name": "@repo/libs/cn",
+  "version": "0.0.0",
+  "private": true,
+  "main": "src/cn.ts",
+  "exports": {
+    ".": "./src/cn.ts"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.3.0"
+  },
+  "devDependencies": {
+    "@repo/config/typescript": "workspace:*",
+    "@repo/config/eslint": "workspace:*"
+  }
+}

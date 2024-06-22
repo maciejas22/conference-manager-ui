@@ -1,0 +1,20 @@
+{
+  "name": "@repo/libs/graphql",
+  "version": "0.0.0",
+  "private": true,
+  "main": "src/graphql.ts",
+  "scripts": {
+    "genOutput": "gql.tada generate output",
+    "genTurbo": "gql.tada generate turbo",
+    "genPersisted": "gql.tada generate persisted",
+    "gen": "bun genOutput && bun genTurbo && bun genPersisted"
+  },
+  "dependencies": {
+    "gql.tada": "^1.7.6"
+  },
+  "devDependencies": {
+    "@0no-co/graphqlsp": "^1.12.8",
+    "@repo/config/eslint": "workspace:*",
+    "@repo/config/typescript": "workspace:*"
+  }
+}

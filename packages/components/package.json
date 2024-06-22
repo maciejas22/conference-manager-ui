@@ -1,0 +1,36 @@
+{
+  "name": "@repo/components",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "lint": "eslint src/",
+    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@repo/libs/cn": "workspace:*",
+    "@repo/libs/nextui": "workspace:*",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@repo/config/eslint": "workspace:*",
+    "@repo/config/prettier": "workspace:*",
+    "@repo/config/tailwind": "workspace:*",
+    "@repo/config/typescript": "workspace:*",
+    "@types/react": "^18.3.3",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4"
+  }
+}

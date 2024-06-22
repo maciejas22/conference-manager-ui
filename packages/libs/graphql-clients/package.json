@@ -1,0 +1,14 @@
+{
+  "name": "@repo/libs/graphql-client",
+  "version": "0.0.0",
+  "private": true,
+  "main": "src/client.ts",
+  "dependencies": {
+    "graphql": "^16.9.0",
+    "graphql-request": "^7.0.1"
+  },
+  "devDependencies": {
+    "@repo/config/typescript": "workspace:*",
+    "@repo/config/eslint": "workspace:*"
+  }
+}
