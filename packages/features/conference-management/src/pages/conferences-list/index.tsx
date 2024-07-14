@@ -14,7 +14,7 @@ const parseSearchParams = (
     param: string | string[] | undefined,
     defaultValue: string,
   ) => {
-    return Array.isArray(param) ? param[0] : param || defaultValue;
+    return (Array.isArray(param) ? param[0] : param) ?? defaultValue;
   };
 
   const getNumberParam = (

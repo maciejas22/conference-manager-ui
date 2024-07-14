@@ -90,10 +90,14 @@ export const modifyConferenceAction = async (
   };
   console.log(agendaItems);
 
-  let newConferenceData;
   try {
     const res = await modifyConference(input);
-    newConferenceData = res.modifyConference;
+    const newConferenceData = res.modifyConference;
+    if (newConferenceData?.id) {
+      revalidatePath('/conferences');
+      revalidatePath(`/conference/${newConferenceData.id}`);
+      redirect(`/conference/${newConferenceData.id}`);
+    }
   } catch (error) {
     return {
       errors: {},
@@ -103,8 +107,4 @@ export const modifyConferenceAction = async (
       },
     };
   }
-
-  revalidatePath('/conferences');
-  revalidatePath(`/conference/${newConferenceData?.id}`);
-  redirect(`/conference/${newConferenceData?.id}`);
 };

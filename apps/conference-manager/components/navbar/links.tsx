@@ -4,19 +4,19 @@ import { usePathname } from 'next/navigation';
 
 import { Link, NavbarItem } from '@repo/libs/nextui';
 
-import { Role } from '@/types/role';
+import { type Role } from '@/types/role';
 
 interface NavigationLinksProps {
   userRole: Role;
 }
 
-interface ILink {
+interface NavLink {
   href: string;
   label: string;
   role?: Role;
 }
 
-const links: ILink[] = [
+const links: NavLink[] = [
   { href: '/conferences/list', label: 'Conferences' },
   {
     href: '/conference/create',

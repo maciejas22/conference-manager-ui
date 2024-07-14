@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { type z } from 'zod';
 
 import { type ColumnKey } from '../../table/columns';
 import { type searchParamsSchema } from '../search-params';

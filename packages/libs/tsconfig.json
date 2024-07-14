@@ -1,8 +1,11 @@
 {
   "extends": "@repo/config/typescript/base.json",
   "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "baseUrl": ".",
+    "rootDir": "src",
     "outDir": "dist",
-    "rootDir": ".",
     "plugins": [
       {
         "name": "@0no-co/graphqlsp",
@@ -13,6 +16,6 @@
       }
     ]
   },
-  "include": ["."],
+  "include": ["src"],
   "exclude": ["dist", "build", "node_modules"]
 }

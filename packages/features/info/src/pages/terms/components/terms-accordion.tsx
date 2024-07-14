@@ -32,12 +32,16 @@ function TermsAccordion({ termsConent }: TermsAccordionProps) {
       {termsConent.map((section, sectionId) => (
         <AccordionItem
           key={section.id}
-          title={`${String(sectionId + 1)}. ${section.title}`}
+          title={
+            section.title ? `${String(sectionId + 1)}. ${section.title}` : null
+          }
         >
           {!!section.content && <p>{formatContent(section.content)}</p>}
           {section.subsections.map((subsection, subsectionId) => (
             <div key={subsection.id} className="info-my-2">
-              <h3 className="info-my-2 info-text-lg">{`${String(sectionId + 1)}.${String(subsectionId + 1)}. ${subsection.title}`}</h3>
+              {subsection.title ? (
+                <h3 className="info-my-2 info-text-lg">{`${String(sectionId + 1)}.${String(subsectionId + 1)}. ${subsection.title}`}</h3>
+              ) : null}
               {!!subsection.content && (
                 <p>{formatContent(subsection.content)}</p>
               )}

@@ -7,6 +7,7 @@ import {
   DropdownTrigger,
   User,
 } from '@repo/libs/nextui';
+import { logout } from '@repo/user-management';
 
 import { navigate } from '@/actions/utils';
 
@@ -15,10 +16,6 @@ interface UserAvatarProps {
 }
 
 const usernameFallback = 'User';
-
-const logoutUser = async () => {
-  console.log('Logout user');
-};
 
 interface Item {
   key: string;
@@ -31,7 +28,7 @@ interface Item {
     | 'success'
     | 'warning';
   className?: string;
-  action?: () => void;
+  action?: () => Promise<void> | void;
 }
 
 const items: Item[] = [
@@ -39,26 +36,34 @@ const items: Item[] = [
     key: 'settings',
     label: 'Settings',
     color: 'default',
-    action: () => navigate('/user/settings/personal'),
+    action: async () => {
+      await navigate('/user/settings/personal');
+    },
   },
   {
     key: 'news',
     label: 'News',
     color: 'default',
-    action: () => navigate('/info/news'),
+    action: async () => {
+      await navigate('/info/news');
+    },
   },
   {
     key: 'terms',
     label: 'Terms of Service',
     color: 'default',
-    action: () => navigate('/info/terms'),
+    action: async () => {
+      await navigate('/info/terms');
+    },
   },
   {
     key: 'logout',
     label: 'Logout',
     color: 'danger',
     className: 'text-danger',
-    action: () => logoutUser(),
+    action: async () => {
+      await logout();
+    },
   },
 ];
 
@@ -86,7 +91,9 @@ function UserAvatar({ username }: UserAvatarProps) {
           <DropdownItem
             key={item.label}
             color={item.color}
-            onClick={() => item.action?.()}
+            onClick={async () => {
+              await item.action?.();
+            }}
             className={item.className}
           >
             {item.label}

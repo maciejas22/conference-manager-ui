@@ -47,7 +47,9 @@ function TopContent() {
       />
       <Popover placement="bottom" showArrow backdrop="blur">
         <PopoverTrigger>
-          <Button className="h-14">Filters</Button>
+          <Button className="h-14" color="primary">
+            Filters
+          </Button>
         </PopoverTrigger>
         <PopoverContent className="">
           {(titleProps) => (
