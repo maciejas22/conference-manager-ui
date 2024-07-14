@@ -12,7 +12,7 @@ import {
   createConference,
   type CreateConferenceAgendaItem,
   type CreateConferenceInput,
-} from '@/services/create-conference';
+} from '#services/create-conference';
 
 const createConferenceSchema = z.object({
   title: z.string().min(1),

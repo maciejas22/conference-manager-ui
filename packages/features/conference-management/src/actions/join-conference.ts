@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { addUserToConference } from '@/services/add-user-to-conference';
+import { addUserToConference } from '#services/add-user-to-conference';
 
 export const joinConferenceAction = async (
   conferenceId: string,

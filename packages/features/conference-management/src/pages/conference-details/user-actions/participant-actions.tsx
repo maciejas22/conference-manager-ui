@@ -4,9 +4,9 @@ import { useFormState } from 'react-dom';
 
 import { SubmitButton } from '@repo/components';
 
-import { isParticipant as isParticipantOfConference } from '@/actions/is-participant';
-import { joinConferenceAction as joinConference } from '@/actions/join-conference';
-import { leaveConferenceAction as leaveConference } from '@/actions/leave-conference';
+import { isParticipant as isParticipantOfConference } from '#actions/is-participant';
+import { joinConferenceAction as joinConference } from '#actions/join-conference';
+import { leaveConferenceAction as leaveConference } from '#actions/leave-conference';
 
 interface ParticipantActionsProps {
   conferenceId: string;

@@ -5,12 +5,22 @@
   "sideEffects": [
     "**/*.css"
   ],
+  "imports": {
+    "#actions/*": "./src/actions/*.ts",
+    "#components/*": "./src/components/*.tsx",
+    "#hooks/*": "./src/hooks/*.ts",
+    "#graphql/*": "./src/graphql/*.ts",
+    "#services/*": "./src/services/*.ts",
+    "#types/*": "./src/types/*.ts",
+    "#utils/*": "./src/utils/*.ts"
+  },
   "main": "src/index.ts",
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "tsc --emitDeclarationOnly && tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "clean": "rm -rf dist",
     "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "lint": "eslint src/",
     "type-check": "tsc --noEmit"

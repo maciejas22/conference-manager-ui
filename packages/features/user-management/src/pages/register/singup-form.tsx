@@ -8,8 +8,8 @@ import { toast } from 'sonner';
 import { SubmitButton } from '@repo/components';
 import { Input, Radio, RadioGroup } from '@repo/libs/nextui';
 
-import { signup, type SignupFormState } from '@/actions/signup';
-import { type Role } from '@/types/role';
+import { signup, type SignupFormState } from '#actions/signup';
+import { type Role } from '#types/role';
 
 interface RoleOption {
   value: Role;

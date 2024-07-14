@@ -8,11 +8,13 @@ import { toast } from 'sonner';
 import { SubmitButton } from '@repo/components';
 import { Input } from '@repo/libs/nextui';
 
-import { login, type LoginFormState } from '@/actions/login';
+import { login, type LoginFormState } from '#actions/login';
 
 const initialState: LoginFormState = {
   errors: {},
 };
+
+console.log(login);
 
 function LoginForm() {
   const [state, formAction] = useFormState(login, initialState);

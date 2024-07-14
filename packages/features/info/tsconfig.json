@@ -5,10 +5,7 @@
     "incremental": true,
     "outDir": "dist",
     "declarationDir": "dist/types",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "baseUrl": "."
   },
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]

@@ -2,7 +2,7 @@
 
 import { getGqlClient } from '@repo/libs/graphql-client';
 
-import { getNewsQuery } from '@/graphql/get-news';
+import { getNewsQuery } from '#graphql/get-news';
 
 export const getNews = () => {
   const gqlClient = getGqlClient();

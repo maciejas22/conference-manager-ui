@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { removeUserFromConference } from '@/services/remove-user-from-conference';
+import { removeUserFromConference } from '#services/remove-user-from-conference';
 
 export const leaveConferenceAction = async (
   conferenceId: string,

@@ -15,6 +15,11 @@
       "cache": false,
       "persistent": true
     },
-    "type-check": {}
+    "type-check": {
+      "dependsOn": ["^build"]
+    },
+    "clean": {
+      "cache": false
+    }
   }
 }

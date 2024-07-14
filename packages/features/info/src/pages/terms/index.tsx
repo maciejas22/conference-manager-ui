@@ -1,7 +1,7 @@
 import { Header, Subtext } from '@repo/components';
 import { getFormattedDateTime } from '@repo/utils';
 
-import { getTermsOfService } from '@/actions/get-terms-of-service';
+import { getTermsOfService } from '#actions/get-terms-of-service';
 
 import { TermsAccordion } from './components/terms-accordion';
 

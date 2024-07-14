@@ -11,7 +11,7 @@ import { Input } from '@repo/libs/nextui';
 import {
   changePasswordAction,
   type ChangePasswordFormState,
-} from '@/actions/change-password';
+} from '#actions/change-password';
 
 const initialState: ChangePasswordFormState = {
   errors: {},

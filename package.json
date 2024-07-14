@@ -5,9 +5,10 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
+    "clean": "turbo clean",
     "format": "prettier --write \"**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
     "type-check": "turbo run type-check",
-    "genGraph": "turbo run build --graph=graph.pdf"
+    "gen-graph": "turbo run build --graph=graph.pdf"
   },
   "devDependencies": {
     "prettier": "^3.2.5",

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
@@ -15,7 +15,7 @@ import {
   Switch,
 } from '@repo/libs/nextui';
 
-import { useDebounce } from '@/hooks/use-debounce';
+import { useDebounce } from '#hooks/use-debounce/index';
 
 import { createQueryString } from '../utils/search-params';
 

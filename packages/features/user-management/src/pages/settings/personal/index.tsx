@@ -1,6 +1,6 @@
 import { Header } from '@repo/components';
 
-import { getUser } from '@/services/get-user-data';
+import { getUser } from '#services/get-user-data';
 
 import { UpdateUserForm } from './update-user-form';
 

@@ -7,9 +7,9 @@
       {
         "name": "@0no-co/graphqlsp",
         "schema": "http://localhost:8080/graphql",
-        "tadaOutputLocation": "./graphql/types/graphql-env.d.ts",
-        "tadaTurboLocation": "./graphql/types/graphql-turbo.d.ts",
-        "tadaPersistedLocation": "./graphql/types/graphql-persisted.d.ts"
+        "tadaOutputLocation": "./src/graphql/types/graphql-env.d.ts",
+        "tadaTurboLocation": "./src/graphql/types/graphql-turbo.d.ts",
+        "tadaPersistedLocation": "./src/graphql/types/graphql-persisted.d.ts"
       }
     ]
   },

@@ -1,5 +1,5 @@
-import { type CreateConferenceAgendaItem } from '@/services/create-conference';
-import { type ModifyConferenceAgendaItem } from '@/services/modify-conference';
+import { type CreateConferenceAgendaItem } from '#services/create-conference';
+import { type ModifyConferenceAgendaItem } from '#services/modify-conference';
 
 export interface AgendaItem
   extends CreateConferenceAgendaItem,

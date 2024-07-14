@@ -14,7 +14,7 @@ import {
   type SortDescriptor,
 } from '@repo/libs/nextui';
 
-import { type GetConferencesQueryResponse } from '@/services/get-conferences';
+import { type GetConferencesQueryResponse } from '#services/get-conferences';
 
 import {
   columnKeyToFieldMap,

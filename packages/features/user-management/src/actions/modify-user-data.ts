@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
-import { modifyUserData } from '@/services/modify-user-data';
+import { modifyUserData } from '#services/modify-user-data';
 
 export interface ModifyUserDataFormState {
   errors: {

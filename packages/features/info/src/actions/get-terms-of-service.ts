@@ -2,7 +2,7 @@
 
 import { getGqlClient } from '@repo/libs/graphql-client';
 
-import { getTermsOfServiceQuery } from '@/graphql/get-terms-of-service';
+import { getTermsOfServiceQuery } from '#graphql/get-terms-of-service';
 
 export const getTermsOfService = () => {
   const gqlClient = getGqlClient();

@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { Pagination, Select, SelectItem } from '@repo/libs/nextui';
 
-import { type GetConferencesQueryResponse } from '@/services/get-conferences';
+import { type GetConferencesQueryResponse } from '#services/get-conferences';
 
 import { createQueryString, pageSizeOptions } from '../utils/search-params';
 

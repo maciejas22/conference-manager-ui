@@ -19,7 +19,7 @@ import {
   modifyConference,
   type ModifyConferenceAgendaItem,
   type ModifyConferenceInput,
-} from '@/services/modify-conference';
+} from '#services/modify-conference';
 
 const modifyConferenceSchema = z.object({
   title: z.string().min(1),

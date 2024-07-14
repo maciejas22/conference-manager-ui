@@ -1,4 +1,4 @@
-import { getNews } from '@/actions/get-news';
+import { getNews } from '#actions/get-news';
 
 import { News } from './components/news';
 

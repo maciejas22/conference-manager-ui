@@ -1,4 +1,4 @@
-import { type GetConferencesQueryResponse } from '@/services/get-conferences';
+import { type GetConferencesQueryResponse } from '#services/get-conferences';
 
 type ColumnKey = Exclude<
   keyof GetConferencesQueryResponse['data'][number],

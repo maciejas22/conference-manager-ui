@@ -1,4 +1,4 @@
-import { getConferences } from '@/services/get-conferences';
+import { getConferences } from '#services/get-conferences';
 
 import { ConferencesTable } from './table';
 import { defaultSearchParams, searchParamsSchema } from './utils/search-params';

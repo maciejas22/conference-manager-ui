@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "build": "tsc --emitDeclarationOnly && tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "clean": "rm -rf dist",
     "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "lint": "eslint src/",
     "type-check": "tsc --noEmit"

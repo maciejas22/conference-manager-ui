@@ -6,7 +6,6 @@ import {
 } from 'react';
 
 import { Time, toCalendarDateTime, today } from '@internationalized/date';
-import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
 import {
@@ -18,7 +17,7 @@ import {
   type TimeInputValue,
 } from '@repo/libs/nextui';
 
-import { type AgendaItem } from '@/types/agenda';
+import { type AgendaItem } from '#types/agenda';
 
 const agendaFormSchema = z.object({
   id: z.string().optional(),

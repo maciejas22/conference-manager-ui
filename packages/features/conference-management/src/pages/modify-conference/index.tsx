@@ -1,7 +1,7 @@
 import { Header } from '@repo/components';
 
-import { getAgenda } from '@/services/get-agenda';
-import { getConference } from '@/services/get-conference';
+import { getAgenda } from '#services/get-agenda';
+import { getConference } from '#services/get-conference';
 
 import { ConferenceForm } from '../components/conference-form';
 

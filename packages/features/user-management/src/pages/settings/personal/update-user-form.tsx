@@ -11,7 +11,7 @@ import { Input } from '@repo/libs/nextui';
 import {
   modifyUserDataAction,
   type ModifyUserDataFormState,
-} from '@/actions/modify-user-data';
+} from '#actions/modify-user-data';
 
 const initialState: ModifyUserDataFormState = {
   errors: {},

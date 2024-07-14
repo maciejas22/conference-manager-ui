@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { parseAbsolute } from '@internationalized/date';
 import { nanoid } from 'nanoid';
@@ -12,16 +12,16 @@ import { DateInput, Input, Textarea, TimeInput } from '@repo/libs/nextui';
 import {
   createConferenceAction,
   type CreateConferenceFormState,
-} from '@/actions/create-conference';
+} from '#actions/create-conference';
 import {
   modifyConferenceAction,
   type ModifyConferenceFormState,
-} from '@/actions/modify-conference';
-import { type AgendaItem } from '@/types/agenda';
-import { type Conference } from '@/types/conference';
+} from '#actions/modify-conference';
+import { TimeLine } from '#components/timeline/index';
+import { type AgendaItem } from '#types/agenda';
+import { type Conference } from '#types/conference';
 
 import { AgendaForm } from '../agenda-form';
-import { TimeLine } from '../agenda-timeline';
 
 const formInitialState: CreateConferenceFormState | ModifyConferenceFormState =
   {

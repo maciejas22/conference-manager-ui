@@ -1,6 +1,6 @@
 import { Button, Link } from '@repo/libs/nextui';
 
-import { isOrganizer as isOrganizerOfConference } from '@/services/is-organizer';
+import { isOrganizer as isOrganizerOfConference } from '#services/is-organizer';
 
 interface OrganizerActionsProps {
   conferenceId: string;

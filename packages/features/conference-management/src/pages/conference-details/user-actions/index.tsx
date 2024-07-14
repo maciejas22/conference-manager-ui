@@ -1,4 +1,4 @@
-import { getUser } from '@/services/get-user';
+import { getUser } from '#services/get-user';
 
 import { OrganizerActions } from './organizer-actions';
 import { ParticipantActions } from './participant-actions';

@@ -3,9 +3,9 @@ import { Icon } from '@iconify/react';
 import { Header } from '@repo/components';
 import { getFormattedDate } from '@repo/utils';
 
-import { TimeLine } from '@/pages/components/agenda-timeline';
-import { getAgenda } from '@/services/get-agenda';
-import { getConference } from '@/services/get-conference';
+import { TimeLine } from '#components/timeline/index';
+import { getAgenda } from '#services/get-agenda';
+import { getConference } from '#services/get-conference';
 
 import { UserActions } from './user-actions';
 

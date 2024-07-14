@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { getFormattedDateTime } from '@repo/utils';
 
-import { type GetConferencesQueryResponse } from '@/services/get-conferences';
+import { type GetConferencesQueryResponse } from '#services/get-conferences';
 
 import { type ColumnKey } from './columns';
 
@@ -20,7 +20,9 @@ function Cell({ item, columnKey }: CellProps) {
     case 'title':
       return (
         <span
-          onClick={() => router.push(`/conference/${item.id}`)}
+          onClick={() => {
+            router.push(`/conference/${item.id}`);
+          }}
           className="cm-cursor-pointer"
         >
           {item.title}
