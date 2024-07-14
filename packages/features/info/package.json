@@ -2,19 +2,19 @@
   "name": "@repo/info",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "build": "tsc --emitDeclarationOnly && tailwindcss -i ./src/styles.css -o ./dist/index.css",
-    "lint": "eslint src/",
-    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
-    "type-check": "tsc --noEmit"
-  },
   "sideEffects": [
     "**/*.css"
   ],
+  "main": "./src/index.ts",
   "files": [
     "dist"
   ],
-  "main": "./src/index.ts",
+  "scripts": {
+    "build": "tsc --emitDeclarationOnly && tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
+    "lint": "eslint src/",
+    "type-check": "tsc --noEmit"
+  },
   "dependencies": {
     "@repo/components": "workspace:*",
     "@repo/libs": "workspace:*",

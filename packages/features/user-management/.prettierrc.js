@@ -1,4 +1,4 @@
-const sharedConfig = require("@repo/config/prettier/prettier.config.js");
+const sharedConfig = require('@repo/config/prettier/prettier.config.js');
 
 /**
  * @see https://prettier.io/docs/en/configuration.html

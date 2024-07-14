@@ -3,21 +3,21 @@
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
-  "scripts": {
-    "build": "tsc --emitDeclarationOnly && tailwindcss -i ./src/styles.css -o ./dist/index.css",
-    "lint": "eslint src/",
-    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
-    "type-check": "tsc --noEmit"
-  },
   "sideEffects": [
     "**/*.css"
-  ],
-  "files": [
-    "dist"
   ],
   "exports": {
     ".": "./src/index.ts",
     "./styles": "./dist/index.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --emitDeclarationOnly && tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
+    "lint": "eslint src/",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@repo/libs": "workspace:*",

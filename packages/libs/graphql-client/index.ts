@@ -1,13 +1,13 @@
-import { createClient } from '@repo/libs/supabase/client';
-import { GraphQLClient, RequestMiddleware } from 'graphql-request';
+import { createClient } from "@repo/libs/supabase/client";
+import { GraphQLClient, RequestMiddleware } from "graphql-request";
 
 export const requestMiddleware: RequestMiddleware = async (req) => {
   const headers = new Headers(req.headers);
   const supabase = createClient();
   const { data } = await supabase.auth.getSession();
-  const token = data.session?.access_token ?? '';
+  const token = data.session?.access_token ?? "";
 
-  headers.append('Authorization', `Bearer ${token}`);
+  headers.append("Authorization", `Bearer ${token}`);
   return {
     ...req,
     headers,
@@ -15,9 +15,9 @@ export const requestMiddleware: RequestMiddleware = async (req) => {
 };
 
 const getGqlClient = () => {
-  return new GraphQLClient('http://localhost:8080/graphql', {
+  return new GraphQLClient("http://localhost:8080/graphql", {
     requestMiddleware,
-    credentials: 'include',
+    credentials: "include",
   });
 };
 

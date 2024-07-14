@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
+    "dev": "next dev --turbo",
     "graphql": "graphql-codegen --config .graphqlrc.yml",
+    "lint": "next lint",
+    "start": "next start",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
@@ -15,8 +15,8 @@
     "@repo/components": "workspace:*",
     "@repo/conference-management": "workspace:*",
     "@repo/info": "workspace:*",
-    "@repo/user-management": "workspace:*",
     "@repo/libs": "workspace:*",
+    "@repo/user-management": "workspace:*",
     "next": "^14.2.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -6,7 +6,10 @@ export const useDebounce = <T>(value: T, delay: number): T => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   const debouncedSetValue = useMemo(
-    () => debounce((newValue: T) => { setDebouncedValue(newValue); }, delay),
+    () =>
+      debounce((newValue: T) => {
+        setDebouncedValue(newValue);
+      }, delay),
     [delay],
   );
 

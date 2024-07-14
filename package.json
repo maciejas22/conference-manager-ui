@@ -5,7 +5,7 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
     "type-check": "turbo run type-check",
     "genGraph": "turbo run build --graph=graph.pdf"
   },

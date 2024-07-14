@@ -1,4 +1,4 @@
-const sharedConfig = require("@repo/config/eslint/nextjs.js");
+const sharedConfig = require('@repo/config/eslint/nextjs.js');
 
 /** @type {import("eslint").Linter.Config} */
 module.exports = {

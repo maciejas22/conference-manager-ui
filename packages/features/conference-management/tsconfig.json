@@ -6,18 +6,9 @@
     "outDir": "dist",
     "declarationDir": "dist/types",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "."
-  ],
-  "exclude": [
-    "dist",
-    "build",
-    "node_modules",
-    "@repo"
-  ]
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules", "@repo"]
 }

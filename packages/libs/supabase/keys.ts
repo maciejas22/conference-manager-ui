@@ -1,8 +1,8 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 const keysSchema = z.object({
-  projectURL: z.string().url().catch('http://localhost:3000'),
-  anonKey: z.string().catch('anonKey'),
+  projectURL: z.string().url().catch("http://localhost:3000"),
+  anonKey: z.string().catch("anonKey"),
 });
 
 const keys = keysSchema.parse({

@@ -1,5 +1,5 @@
-import { initGraphQLTada } from 'gql.tada';
-import { type introspection } from './types/graphql-env';
+import { initGraphQLTada } from "gql.tada";
+import { type introspection } from "./types/graphql-env";
 
 export const graphql = initGraphQLTada<{
   introspection: introspection;
@@ -13,4 +13,4 @@ export {
   type FragmentOf,
   type ResultOf,
   type VariablesOf,
-} from 'gql.tada';
+} from "gql.tada";
