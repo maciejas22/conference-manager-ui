@@ -1,37 +1,34 @@
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
-import { Navbar, NavbarContent, NavbarItem } from "@nextui-org/navbar";
+import { Navbar, NavbarContent, NavbarItem } from '@repo/libs/nextui';
 
-import { getUserQueryOptions } from "@/services/user/queries";
+import { getUser } from '@/services/get-user';
 
-import { Avatar } from "./avatar";
-import { HomeLink, NavigationLinks } from "./links";
+import { Avatar } from './avatar';
+import { HomeLink, NavigationLinks } from './links';
 
 async function Nav() {
-  const queryClient = new QueryClient();
+  const userData = await getUser().catch(() => {
+    return null;
+  });
 
-  await queryClient.prefetchQuery(getUserQueryOptions());
+  if (!userData?.user) {
+    return null;
+  }
 
   return (
     <Navbar isBordered>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <NavbarContent justify="start">
-          <HomeLink />
-        </NavbarContent>
+      <NavbarContent justify="start">
+        <HomeLink />
+      </NavbarContent>
 
-        <NavbarContent justify="center">
-          <NavigationLinks />
-        </NavbarContent>
+      <NavbarContent justify="center">
+        <NavigationLinks userRole={userData.user.role} />
+      </NavbarContent>
 
-        <NavbarContent justify="end">
-          <NavbarItem>
-            <Avatar />
-          </NavbarItem>
-        </NavbarContent>
-      </HydrationBoundary>
+      <NavbarContent justify="end">
+        <NavbarItem>
+          <Avatar username={userData.user.username ?? userData.user.email} />
+        </NavbarItem>
+      </NavbarContent>
     </Navbar>
   );
 }

@@ -4,7 +4,23 @@
  */
 const config = {
   singleQuote: true,
-  plugins: ['prettier-plugin-tailwindcss'],
+  plugins: [
+    'prettier-plugin-tailwindcss',
+    '@ianvs/prettier-plugin-sort-imports',
+  ],
+  importOrder: [
+    '^react$',
+    '',
+    '^next(/.*)?$',
+    '',
+    '<THIRD_PARTY_MODULES>',
+    '',
+    '^@repo/(.*)$',
+    '',
+    '^@/(.*)$',
+    '',
+    '^[.]',
+  ],
 };
 
 module.exports = config;

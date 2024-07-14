@@ -1,0 +1,36 @@
+{
+  "name": "@repo/info",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc --emitDeclarationOnly && tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "lint": "eslint src/",
+    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "./src/index.ts",
+  "dependencies": {
+    "@repo/components": "workspace:*",
+    "@repo/libs": "workspace:*",
+    "@repo/utils": "workspace:*",
+    "next": "^14.2.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@iconify/react": "^5.0.1",
+    "@repo/config": "workspace:*",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "8",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.4.5"
+  }
+}

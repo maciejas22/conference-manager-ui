@@ -1,10 +1,11 @@
-import { SingUpPage as Tmp } from '@repo/features/user-management';
 import { type Metadata } from 'next';
+
+import { RegisterPage } from '@repo/user-management';
 
 export const metadata: Metadata = {
   title: 'Register',
 };
 
-export default function RegisterPage() {
-  return <Tmp />;
+export default function Register() {
+  return <RegisterPage />;
 }

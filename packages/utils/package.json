@@ -1,0 +1,14 @@
+{
+  "name": "@repo/utils",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "dependencies": {
+    "@repo/libs": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/config": "workspace:*",
+    "eslint": "8",
+    "typescript": "^5.4.5"
+  }
+}

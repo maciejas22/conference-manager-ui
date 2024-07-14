@@ -1,18 +1,9 @@
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from '@tanstack/react-query';
-import { getNewsQueryOptions } from '@/services/info/queries';
-import { NewsPage } from './_components/news-page';
+import { NewsPage } from '@repo/info';
+
+import { protectRoute } from '@/utils/protect-route';
 
 export default async function News() {
-  const queryClient = new QueryClient();
-  await queryClient.fetchQuery(getNewsQueryOptions());
+  await protectRoute();
 
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <NewsPage />
-    </HydrationBoundary>
-  );
+  return <NewsPage />;
 }

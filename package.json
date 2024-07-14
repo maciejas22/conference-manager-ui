@@ -5,7 +5,9 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "type-check": "turbo run type-check",
+    "genGraph": "turbo run build --graph=graph.pdf"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
@@ -13,6 +15,11 @@
     "typescript": "^5.4.5"
   },
   "engines": {
-    "node": ">=18"
-  }
+    "node": ">=20"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/**"
+  ],
+  "packageManager": "bun@1.1.3"
 }

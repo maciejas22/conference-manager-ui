@@ -1,0 +1,18 @@
+{
+  "extends": "@repo/config/typescript/base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": ".",
+    "plugins": [
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "http://localhost:8080/graphql",
+        "tadaOutputLocation": "./graphql/types/graphql-env.d.ts",
+        "tadaTurboLocation": "./graphql/types/graphql-turbo.d.ts",
+        "tadaPersistedLocation": "./graphql/types/graphql-persisted.d.ts"
+      }
+    ]
+  },
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
+}

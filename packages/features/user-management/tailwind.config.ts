@@ -1,8 +1,11 @@
-import sharedConfig from '@repo/config/tailwind/tailwind.config';
 import type { Config } from 'tailwindcss';
 
-const config: Config = {
-  ...sharedConfig,
+import sharedConfig from '@repo/config/tailwind';
+import { nextui } from '@repo/libs/nextui';
+
+export default {
+  prefix: 'um-',
   content: ['./src/**/*.tsx'],
-};
-export default config;
+  presets: [sharedConfig],
+  plugins: [nextui()],
+} satisfies Config;

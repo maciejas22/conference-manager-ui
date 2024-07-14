@@ -1,4 +1,4 @@
-import { cn } from '@repo/libs/cn';
+import {cn} from '@repo/libs/nextui'
 import React, { type ComponentPropsWithoutRef } from 'react';
 
 interface HeaderProps extends ComponentPropsWithoutRef<'h2'> {
@@ -7,7 +7,7 @@ interface HeaderProps extends ComponentPropsWithoutRef<'h2'> {
 
 function Header({ children, className, ...props }: HeaderProps) {
   return (
-    <h2 {...props} className={cn('my-4', 'text-2xl', className)} {...props}>
+    <h2 {...props} className={cn('comps-my-4', 'comps-text-2xl', className)} {...props}>
       {children}
     </h2>
   );

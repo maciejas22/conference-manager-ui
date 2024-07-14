@@ -9,13 +9,13 @@
     "isolatedModules": true,
     "lib": ["es2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "moduleResolution": "Bundler",
     "moduleDetection": "force",
+    "moduleResolution": "Bundler",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "target": "ES2022",
     "strictNullChecks": true
   }

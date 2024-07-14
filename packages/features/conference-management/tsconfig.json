@@ -1,0 +1,23 @@
+{
+  "extends": "@repo/config/typescript/base.json",
+  "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "outDir": "dist",
+    "declarationDir": "dist/types",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "dist",
+    "build",
+    "node_modules",
+    "@repo"
+  ]
+}

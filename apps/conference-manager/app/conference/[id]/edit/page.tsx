@@ -1,33 +1,14 @@
-import { QueryClient } from "@tanstack/react-query";
+import { ConferenceEditPage } from '@repo/conference-management';
 
-import { Header } from "@/components/header";
+import { protectRoute } from '@/utils/protect-route';
 
-import {
-  getAgendaQueryOptions,
-  getConferenceQueryOptions,
-} from "@/services/conference/queries";
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
 
-import { ConferenceForm } from "../../_components/form";
-
-export default async function ConferenceEditPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const queryClient = new QueryClient();
-  const conference = await queryClient.fetchQuery(
-    getConferenceQueryOptions(params.id),
-  );
-  const agenda = await queryClient.fetchQuery(getAgendaQueryOptions(params.id));
-
-  return (
-    <>
-      <Header>Edit conference</Header>
-      <ConferenceForm
-        operation="edit"
-        initialConferenceData={conference.conference}
-        initialAgendaData={agenda.conference?.agenda}
-      />
-    </>
-  );
+export default async function Page({ params }: PageProps) {
+  await protectRoute();
+  return <ConferenceEditPage params={params} />;
 }

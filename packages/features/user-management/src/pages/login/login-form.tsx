@@ -1,25 +1,30 @@
 'use client';
 
-import { Input } from '@nextui-org/input';
+import { useEffect } from 'react';
+
 import { useFormState } from 'react-dom';
+import { toast } from 'sonner';
 
-import { SubmitButton } from '@/components/submit-button';
+import { SubmitButton } from '@repo/components';
+import { Input } from '@repo/libs/nextui';
 
-import { login } from '@/actions/login';
+import { login, type LoginFormState } from '@/actions/login';
 
-const initialState = {
-  errors: {
-    email: [],
-    password: [],
-  },
-  message: '',
+const initialState: LoginFormState = {
+  errors: {},
 };
 
 function LoginForm() {
   const [state, formAction] = useFormState(login, initialState);
 
+  useEffect(() => {
+    if (state.message?.text) {
+      toast(state.message.text);
+    }
+  }, [state.message]);
+
   return (
-    <form className="mt-10 space-y-6" action={formAction}>
+    <form className="um-mt-10 um-space-y-6" action={formAction}>
       <Input
         name="email"
         type="email"

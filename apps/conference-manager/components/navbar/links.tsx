@@ -1,13 +1,14 @@
-"use client";
+'use client';
 
-import { usePathname } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { Link } from "@nextui-org/link";
-import { NavbarItem } from "@nextui-org/navbar";
+import { usePathname } from 'next/navigation';
 
-import { Role } from "@/graphql/__types__/types";
+import { Link, NavbarItem } from '@repo/libs/nextui';
 
-import { getUserQueryOptions } from "@/services/user/queries";
+import { Role } from '@/types/role';
+
+interface NavigationLinksProps {
+  userRole: Role;
+}
 
 interface ILink {
   href: string;
@@ -16,11 +17,11 @@ interface ILink {
 }
 
 const links: ILink[] = [
-  { href: "/conferences/list", label: "Conferences" },
+  { href: '/conferences/list', label: 'Conferences' },
   {
-    href: "/conference/create",
-    label: "Create conference",
-    role: Role.Organizer,
+    href: '/conference/create',
+    label: 'Create conference',
+    role: 'Organizer',
   },
 ];
 
@@ -28,29 +29,28 @@ function HomeLink() {
   const pathname = usePathname();
 
   return (
-    <NavbarItem isActive={pathname === "/"}>
-      <Link href="/" color={pathname === "/" ? "primary" : "foreground"}>
+    <NavbarItem isActive={pathname === '/'}>
+      <Link href="/" color={pathname === '/' ? 'primary' : 'foreground'}>
         Conference Manager
       </Link>
     </NavbarItem>
   );
 }
 
-function NavigationLinks() {
-  const { data } = useQuery(getUserQueryOptions());
+function NavigationLinks({ userRole }: NavigationLinksProps) {
   const pathname = usePathname();
 
   return (
     <>
       {links.map(({ href, label, role }) => {
-        const shouldShowLink = !role || data?.user?.role === role;
+        const shouldShowLink = !role || userRole === role;
 
         return (
           shouldShowLink && (
             <NavbarItem key={href} isActive={pathname === href}>
               <Link
                 href={href}
-                color={pathname === href ? "primary" : "foreground"}
+                color={pathname === href ? 'primary' : 'foreground'}
               >
                 {label}
               </Link>

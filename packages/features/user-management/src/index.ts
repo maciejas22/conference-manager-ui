@@ -1,2 +1,3 @@
-export { default as LoginPage } from './pages/login';
-export { default as SingUpPage } from './pages/register';
+export * from './pages/login';
+export * from './pages/register';
+export * from './pages/settings';

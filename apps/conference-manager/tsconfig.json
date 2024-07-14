@@ -1,6 +1,10 @@
 {
   "extends": "@repo/config/typescript/base.json",
   "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "outDir": "dist",
+    "declarationDir": "dist/types",
     "plugins": [
       {
         "name": "next"
@@ -8,7 +12,7 @@
       {
         "name": "@0no-co/graphqlsp",
         "schema": "http://localhost:8080/graphql",
-        "tadaoutputlocation": "./graphql/__types__/graphql-env.d.ts",
+        "tadaOutputLocation": "./graphql/__types__/graphql-env.ts",
         "tadaturbolocation": "./graphql/__types__/graphql-turbo.d.ts",
         "tadapersistedlocation": "./graphql/__types__/graphql-persisted.d.ts"
       }
@@ -17,13 +21,34 @@
       "@/*": [
         "./*"
       ]
-    }
+    },
+    "allowJs": true,
+    "emitDeclarationOnly": false,
+    "noEmit": true,
+    "jsx": "preserve"
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "./**/*.ts",
+    "./**/*.tsx",
     ".next/types/**/*.ts",
     "next.config.mjs"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "references": [
+    {
+      "path": "../../packages/components/tsconfig.json"
+    },
+    {
+      "path": "../../packages/features/conference-management/tsconfig.json"
+    },
+    {
+      "path": "../../packages/features/info/tsconfig.json"
+    },
+    {
+      "path": "../../packages/features/user-management/tsconfig.json"
+    }
   ]
 }

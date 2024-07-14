@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
+import { NextUIProvider as SystemProvider } from '@repo/libs/nextui';
 import { useRouter } from "next/navigation";
-import { NextUIProvider as SystemProvider } from "@nextui-org/system";
+import React from "react";
 
 export interface NextUIProviderProps {
   children: React.ReactNode;

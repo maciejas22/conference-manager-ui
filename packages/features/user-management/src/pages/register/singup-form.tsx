@@ -1,53 +1,50 @@
 'use client';
 
-import { Input } from '@nextui-org/input';
+import { useEffect } from 'react';
+
 import { useFormState } from 'react-dom';
+import { toast } from 'sonner';
 
-import { SubmitButton } from '@/components/submit-button';
+import { SubmitButton } from '@repo/components';
+import { Input, Radio, RadioGroup } from '@repo/libs/nextui';
 
-import { signup } from '@/actions/signup';
+import { signup, type SignupFormState } from '@/actions/signup';
+import { type Role } from '@/types/role';
 
-enum Role {
-  Participant = 'participant',
-  Organizer = 'organizer',
+interface RoleOption {
+  value: Role;
+  label: string;
+  description: string;
 }
 
-const roles = [
+const roles: RoleOption[] = [
   {
-    value: Role.Participant,
+    value: 'Participant',
     label: 'Participant',
     description: 'Join events',
   },
   {
-    value: Role.Organizer,
+    value: 'Organizer',
     label: 'Organizer',
     description: 'Create and manage events',
   },
 ];
 
-const initialState = {
-  errors: {
-    // username: '',
-    email: [],
-    password: [],
-    // confirmPassword: '',
-    // role: '',
-  },
-  message: '',
+const initialState: SignupFormState = {
+  errors: {},
 };
 
 function RegisterForm() {
   const [state, formAction] = useFormState(signup, initialState);
 
+  useEffect(() => {
+    if (state.message?.text) {
+      toast(state.message.text);
+    }
+  }, [state.message]);
+
   return (
-    <form className="mt-10 space-y-6" action={formAction}>
-      {/* <Input
-        name="username"
-        label="Username"
-        isRequired
-        isInvalid={!!state.errors.username}
-        errorMessage={state.errors.username}
-      /> */}
+    <form className="um-mt-10 um-space-y-6" action={formAction}>
       <Input
         name="email"
         type="email"
@@ -64,15 +61,15 @@ function RegisterForm() {
         isInvalid={!!state.errors.password}
         errorMessage={state.errors.password}
       />
-      {/* <Input
+      <Input
         name="confirmPassword"
         type="password"
         label="Confirm Password"
         isRequired
         isInvalid={!!state.errors.confirmPassword}
         errorMessage={state.errors.confirmPassword}
-      /> */}
-      {/* <RadioGroup
+      />
+      <RadioGroup
         name="role"
         label="Role"
         color="primary"
@@ -89,7 +86,7 @@ function RegisterForm() {
             {role.label}
           </Radio>
         ))}
-      </RadioGroup> */}
+      </RadioGroup>
 
       <SubmitButton>Sign in</SubmitButton>
     </form>

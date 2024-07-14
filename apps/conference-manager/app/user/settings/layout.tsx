@@ -1,18 +1,19 @@
-"use client";
+'use client';
 
-import { usePathname } from "next/navigation";
-import { Tab, Tabs } from "@nextui-org/tabs";
+import { usePathname } from 'next/navigation';
+
+import { Tab, Tabs } from '@repo/libs/nextui';
 
 const tabs = [
   {
-    id: "/user/settings/personal",
-    href: "/user/settings/personal",
-    title: "Personal",
+    id: '/user/settings/personal',
+    href: '/user/settings/personal',
+    title: 'Personal',
   },
   {
-    id: "/user/settings/change-password",
-    href: "/user/settings/change-password",
-    title: "Change password",
+    id: '/user/settings/change-password',
+    href: '/user/settings/change-password',
+    title: 'Change password',
   },
 ];
 
@@ -21,7 +22,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <div className="flex justify-center mt-10">
+      <div className="main-flex main-justify-center main-mt-10">
         <Tabs
           selectedKey={pathname}
           color="primary"

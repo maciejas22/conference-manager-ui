@@ -1,16 +1,22 @@
 'use server';
 
-import { createServerClient } from '@repo/libs/supabase';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+
+import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
-interface LoginFormState {
+import { createClient } from '@repo/libs/supabase/client';
+
+export interface LoginFormState {
   errors: {
     email?: string[];
     password?: string[];
   };
-  message?: string;
+  message?: {
+    id: string;
+    text: string;
+  };
 }
 
 const loginSchema = z.object({
@@ -19,7 +25,7 @@ const loginSchema = z.object({
 });
 
 export async function login(_formState: LoginFormState, formData: FormData) {
-  const supabase = createServerClient();
+  const supabase = createClient();
 
   const validatedData = loginSchema.safeParse({
     email: formData.get('email'),
@@ -29,7 +35,10 @@ export async function login(_formState: LoginFormState, formData: FormData) {
   if (!validatedData.success) {
     return {
       errors: validatedData.error.flatten().fieldErrors,
-      message: 'Validation failed',
+      message: {
+        id: nanoid(),
+        text: 'Validation failed',
+      },
     };
   }
 
@@ -41,7 +50,10 @@ export async function login(_formState: LoginFormState, formData: FormData) {
         email: ['Invalid email or password'],
         password: ['Invalid email or password'],
       },
-      message: 'Login failed',
+      message: {
+        id: nanoid(),
+        text: 'Login failed',
+      },
     };
   }
 

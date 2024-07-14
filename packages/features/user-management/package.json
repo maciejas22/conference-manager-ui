@@ -1,9 +1,9 @@
 {
-  "name": "@repo/features/user-management",
+  "name": "@repo/user-management",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "build": "tsc --emitDeclarationOnly && tailwindcss -i ./src/styles.css -o ./dist/index.css",
     "lint": "eslint src/",
     "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "type-check": "tsc --noEmit"
@@ -14,27 +14,24 @@
   "files": [
     "dist"
   ],
-  "main": "./src/index.ts",
-  "exports": {
-    "./middleware": "./src/middleware.ts"
-  },
+  "main": "src/index.ts",
   "dependencies": {
     "@repo/components": "workspace:*",
-    "@repo/libs/cn": "workspace:*",
-    "@repo/libs/graphql": "workspace:*",
-    "@repo/libs/nextui": "workspace:*",
-    "@repo/libs/supabase": "workspace:*",
+    "@repo/libs": "workspace:*",
+    "nanoid": "^5.0.7",
     "next": "^14.2.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "sonner": "^1.5.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@repo/config/eslint": "workspace:*",
-    "@repo/config/prettier": "workspace:*",
-    "@repo/config/tailwind": "workspace:*",
-    "@repo/config/typescript": "workspace:*",
+    "@repo/config": "workspace:*",
     "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0"
+    "@types/react-dom": "^18.3.0",
+    "eslint": "8",
+    "prettier": "^3.3.2",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.4.5"
   }
 }

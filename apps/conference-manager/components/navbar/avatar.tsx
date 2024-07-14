@@ -1,75 +1,77 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/dropdown";
-import { User } from "@nextui-org/user";
+  User,
+} from '@repo/libs/nextui';
 
-import { getUserQueryOptions } from "@/services/user/queries";
+import { navigate } from '@/actions/utils';
 
-import { logoutUser } from "@/actions/user";
-import { navigate } from "@/actions/utils";
+interface UserAvatarProps {
+  username?: string;
+}
 
-const usernameFallback = "User";
+const usernameFallback = 'User';
+
+const logoutUser = async () => {
+  console.log('Logout user');
+};
 
 interface Item {
   key: string;
   label: string;
   color?:
-    | "default"
-    | "danger"
-    | "primary"
-    | "secondary"
-    | "success"
-    | "warning";
+    | 'default'
+    | 'danger'
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'warning';
   className?: string;
   action?: () => void;
 }
 
 const items: Item[] = [
   {
-    key: "settings",
-    label: "Settings",
-    color: "default",
-    action: () => navigate("/user/settings/personal"),
+    key: 'settings',
+    label: 'Settings',
+    color: 'default',
+    action: () => navigate('/user/settings/personal'),
   },
   {
-    key: "news",
-    label: "News",
-    color: "default",
-    action: () => navigate("/info/news"),
+    key: 'news',
+    label: 'News',
+    color: 'default',
+    action: () => navigate('/info/news'),
   },
   {
-    key: "terms",
-    label: "Terms of Service",
-    color: "default",
-    action: () => navigate("/info/terms"),
+    key: 'terms',
+    label: 'Terms of Service',
+    color: 'default',
+    action: () => navigate('/info/terms'),
   },
   {
-    key: "logout",
-    label: "Logout",
-    color: "danger",
-    className: "text-danger",
-    action: logoutUser,
+    key: 'logout',
+    label: 'Logout',
+    color: 'danger',
+    className: 'text-danger',
+    action: () => logoutUser(),
   },
 ];
 
-function UserAvatar() {
-  const { data } = useQuery(getUserQueryOptions());
-
+function UserAvatar({ username }: UserAvatarProps) {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <button className="focus:outline-none">
+        <button className="focus:outline-none" type="button">
           <User
-            name={data?.user?.username ?? usernameFallback}
+            name={username ?? usernameFallback}
             avatarProps={{
-              size: "sm",
-              color: "primary",
+              size: 'sm',
+              color: 'primary',
               isBordered: true,
             }}
             className="cursor-pointer flex-row-reverse"
@@ -83,9 +85,9 @@ function UserAvatar() {
         {(item) => (
           <DropdownItem
             key={item.label}
-            color={item?.color}
-            onClick={async () => item.action?.()}
-            className={item?.className}
+            color={item.color}
+            onClick={() => item.action?.()}
+            className={item.className}
           >
             {item.label}
           </DropdownItem>

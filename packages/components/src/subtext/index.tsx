@@ -1,5 +1,6 @@
-import { cn } from '@repo/libs/cn';
 import React, { type ComponentPropsWithoutRef } from 'react';
+
+import { cn } from '@repo/libs/nextui';
 
 interface SubtextProps extends ComponentPropsWithoutRef<'p'> {
   children: React.ReactNode;
@@ -7,7 +8,15 @@ interface SubtextProps extends ComponentPropsWithoutRef<'p'> {
 
 function Subtext({ children, className, ...props }: SubtextProps) {
   return (
-    <p className={cn('my-2', 'text-sm', 'text-gray-500', className)} {...props}>
+    <p
+      className={cn(
+        'comps-my-2',
+        'comps-text-sm',
+        'comps-text-gray-500',
+        className,
+      )}
+      {...props}
+    >
       {children}
     </p>
   );

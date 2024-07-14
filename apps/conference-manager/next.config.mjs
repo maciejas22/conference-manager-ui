@@ -3,7 +3,13 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@repo/features/user-management'],
+  transpilePackages: [
+    '@repo/components',
+    '@repo/libs',
+    '@repo/user-management',
+    '@repo/info',
+    '@repo/conference-management',
+  ],
 };
 
 export default withBundleAnalyzer({
