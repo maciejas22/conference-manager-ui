@@ -88,7 +88,6 @@ export const modifyConferenceAction = async (
       _destroy: item._destroy,
     })),
   };
-  console.log(agendaItems);
 
   try {
     const res = await modifyConference(input);
@@ -107,4 +106,8 @@ export const modifyConferenceAction = async (
       },
     };
   }
+
+  return {
+    errors: {},
+  };
 };

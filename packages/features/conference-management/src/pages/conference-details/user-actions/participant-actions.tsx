@@ -21,7 +21,7 @@ export async function ParticipantActions({
   const action = data.isParticipant
     ? leaveConferenceAction
     : joinConferenceAction;
-  const [_state, formAction] = useFormState(action, null);
+  const [_state, formAction] = useFormState(action, {});
 
   return (
     <form action={formAction}>

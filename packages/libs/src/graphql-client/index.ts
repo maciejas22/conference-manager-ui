@@ -1,5 +1,6 @@
-import { createClient } from '@repo/libs/supabase/client';
 import { GraphQLClient, RequestMiddleware } from 'graphql-request';
+
+import { createClient } from '@repo/libs/supabase/client';
 
 export const requestMiddleware: RequestMiddleware = async (req) => {
   const headers = new Headers(req.headers);

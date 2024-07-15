@@ -19,7 +19,9 @@
     "build": "tsc --emitDeclarationOnly && tailwindcss -i ./src/styles.css -o ./dist/index.css",
     "clean": "rm -rf dist",
     "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
     "lint": "eslint src/",
+    "prettier-check": "prettier --check \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

@@ -2,6 +2,8 @@
 
 import { revalidatePath } from 'next/cache';
 
+import { nanoid } from 'nanoid';
+
 import { addUserToConference } from '#services/add-user-to-conference';
 
 interface JoinConferenceFormState {
@@ -15,7 +17,22 @@ export const joinConferenceAction = async (
   conferenceId: string,
   _formState: JoinConferenceFormState,
   _formData: FormData,
-) => {
-  await addUserToConference(conferenceId);
+): Promise<JoinConferenceFormState> => {
+  await addUserToConference(conferenceId).catch((error) => {
+    console.error(error);
+    return {
+      message: {
+        id: nanoid(),
+        text: 'Failed to join conference',
+      },
+    };
+  });
+
   revalidatePath(`/conference/${conferenceId}`);
+  return {
+    message: {
+      id: nanoid(),
+      text: 'Successfully joined conference',
+    },
+  };
 };

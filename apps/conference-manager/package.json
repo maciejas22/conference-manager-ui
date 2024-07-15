@@ -6,7 +6,9 @@
     "build": "next build",
     "clean": "rm -rf .next",
     "dev": "next dev --turbo",
+    "format": "prettier --write \"**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
     "lint": "next lint",
+    "prettier-check": "prettier --check \"**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
