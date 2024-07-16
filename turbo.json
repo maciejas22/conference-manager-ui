@@ -4,26 +4,29 @@
   "globalEnv": ["SUPABASE_URL", "SUPABASE_ANON_KEY"],
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^gen-types", "^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env", ".env.*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
-    "lint": {
-      "dependsOn": ["^lint"]
+    "clean": {
+      "cache": false
     },
     "dev": {
       "cache": false,
       "persistent": true
     },
-    "type-check": {
-      "dependsOn": ["^build"]
-    },
-    "clean": {
-      "cache": false
-    },
-    "prettier-check": {},
     "format": {
       "dependsOn": ["^format"]
+    },
+    "gen-types": {
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "prettier-check": {},
+    "type-check": {
+      "dependsOn": ["^gen-types"]
     }
   }
 }

@@ -9,7 +9,8 @@
     "format": "turbo format",
     "prettier-check": "turbo prettier-check",
     "type-check": "turbo run type-check",
-    "gen-graph": "turbo run build --graph=graph.pdf"
+    "gen-graph": "turbo run build --graph=graph.pdf",
+    "gen-types": "turbo gen-types"
   },
   "devDependencies": {
     "@repo/config": "workspace:*",

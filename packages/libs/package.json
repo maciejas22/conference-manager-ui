@@ -17,13 +17,17 @@
     "dev": "bun gen && bun gen-tailwind --watch",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
     "gen": "bun gen-gql&& bun gen-tailwind",
-    "gen-gql": "bun gen-gql-output && bun gen-gql-turbo && bun gen-gql-persisted",
+    "gen-gql": "bun gen-schema && bun gen-types",
     "gen-gql-output": "gql.tada generate output",
     "gen-gql-persisted": "gql.tada generate persisted",
     "gen-gql-turbo": "gql.tada generate turbo",
+    "gen-schema": "gql.tada generate schema 'http://localhost:8080/graphql' --output ./src/graphql/schema.graphql",
     "gen-tailwind": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "gen-types": "bun gen-gql-output && bun gen-gql-turbo && bun gen-gql-persisted",
+    "gql-check": "gql.tada check",
     "lint": "eslint src",
-    "prettier-check": "prettier --check \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\""
+    "prettier-check": "prettier --check \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
+    "type-check": "bun gql-check && tsc --noEmit"
   },
   "dependencies": {
     "@nextui-org/accordion": "^2.0.35",
