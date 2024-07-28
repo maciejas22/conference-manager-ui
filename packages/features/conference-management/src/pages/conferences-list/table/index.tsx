@@ -17,34 +17,36 @@ import {
 import { type GetConferencesQueryResponse } from '#services/get-conferences';
 
 import {
-  columnKeyToFieldMap,
-  fieldToColumnKeyMap,
-  type SortField,
-} from '../utils/field-maps';
-import { createQueryString } from '../utils/search-params';
-import { BottomContent } from './bottom-content';
+  createQueryString,
+  defaultSearchParams,
+  SortDirection,
+} from '../utils/search-params';
 import { Cell } from './cells';
-import { columns, type ColumnKey } from './columns';
-import { TopContent } from './top-content';
+import { ColumnKey, columns } from './columns';
 
 interface ConferencesTableProps {
   conferenceData: GetConferencesQueryResponse['data'];
-  metaData: GetConferencesQueryResponse['meta'];
+  visibleColumns: ColumnKey[];
 }
 
-function ConferencesTable({ conferenceData, metaData }: ConferencesTableProps) {
+function ConferencesTable({
+  conferenceData,
+  visibleColumns,
+}: ConferencesTableProps) {
   const searchParamsCtx = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
   const handleSortChange = useCallback(
     (descriptor: SortDescriptor) => {
-      const columnField = columnKeyToFieldMap[descriptor.column as ColumnKey];
+      const columnField = descriptor.column
+        ? (descriptor.column as ColumnKey)
+        : defaultSearchParams.sort;
       const newDirection =
         columnField === searchParamsCtx.get('sort') &&
         searchParamsCtx.get('sortDirection') === 'ASC'
-          ? 'DESC'
-          : 'ASC';
+          ? SortDirection.Desc
+          : SortDirection.Asc;
 
       const newParams = createQueryString(searchParamsCtx, {
         sort: columnField,
@@ -57,22 +59,26 @@ function ConferencesTable({ conferenceData, metaData }: ConferencesTableProps) {
 
   return (
     <Table
-      className="cm-mt-10"
       aria-label="Conference table list"
-      topContent={<TopContent />}
-      bottomContent={<BottomContent meta={metaData} />}
       sortDescriptor={{
-        column: fieldToColumnKeyMap[searchParamsCtx.get('sort') as SortField],
+        column: searchParamsCtx.get('sort') as ColumnKey,
         direction:
           searchParamsCtx.get('sortDirection') === 'ASC'
             ? 'ascending'
             : 'descending',
       }}
       onSortChange={handleSortChange}
+      shadow="none"
     >
-      <TableHeader columns={columns}>
+      <TableHeader
+        columns={columns.filter((c) => visibleColumns.includes(c.key))}
+      >
         {(column) => (
-          <TableColumn key={column.key} allowsSorting>
+          <TableColumn
+            key={column.key}
+            allowsSorting={column.sortable}
+            align={column.key === ColumnKey.Actions ? 'center' : 'start'}
+          >
             {column.label}
           </TableColumn>
         )}

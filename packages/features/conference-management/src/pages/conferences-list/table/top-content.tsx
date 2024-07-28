@@ -8,6 +8,10 @@ import { Icon } from '@iconify/react';
 
 import {
   Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
   Input,
   Popover,
   PopoverContent,
@@ -18,13 +22,19 @@ import {
 import { useDebounce } from '#hooks/use-debounce/index';
 
 import { createQueryString } from '../utils/search-params';
+import { columns, type ColumnKey } from './columns';
 
-function TopContent() {
+interface TopContentProps {
+  visibleColumns: ColumnKey[];
+}
+
+function TopContent({ visibleColumns }: TopContentProps) {
   const searchParamsCtx = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const [title, setTitle] = useState(searchParamsCtx.get('title') ?? '');
   const debouncedTitle = useDebounce(title, 500);
+  const selectedVisibleColumns = new Set(visibleColumns);
 
   useEffect(() => {
     const params = createQueryString(searchParamsCtx, {
@@ -34,7 +44,7 @@ function TopContent() {
   }, [debouncedTitle, searchParamsCtx, router, pathname]);
 
   return (
-    <div className="cm-flex gap-4">
+    <div className="cm-flex gap-4 cm-w-full">
       <Input
         isClearable
         label="Search by title"
@@ -45,11 +55,34 @@ function TopContent() {
         value={title}
         onValueChange={setTitle}
       />
+      <Dropdown backdrop="blur">
+        <DropdownTrigger>
+          <Button className="cm-h-14">Columns</Button>
+        </DropdownTrigger>
+        <DropdownMenu
+          variant="faded"
+          aria-label="Visible columns select"
+          selectionMode="multiple"
+          closeOnSelect={false}
+          items={columns}
+          selectedKeys={selectedVisibleColumns}
+          onSelectionChange={(selection) => {
+            const selectedKeys = Array.from(selection);
+            const params = createQueryString(searchParamsCtx, {
+              visibleColumns: selectedKeys as ColumnKey[],
+            });
+            console.log(params);
+            router.push(`${pathname}?${params}`);
+          }}
+        >
+          {(column) => (
+            <DropdownItem key={column.key}>{column.label}</DropdownItem>
+          )}
+        </DropdownMenu>
+      </Dropdown>
       <Popover placement="bottom" showArrow backdrop="blur">
         <PopoverTrigger>
-          <Button className="h-14" color="primary">
-            Filters
-          </Button>
+          <Button className="cm-h-14">Filters</Button>
         </PopoverTrigger>
         <PopoverContent className="">
           {(titleProps) => (

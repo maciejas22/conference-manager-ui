@@ -18,8 +18,11 @@ type AgendaItem {
 type Conference {
   id: ID!
   title: String!
-  date: Time!
+  startDate: Time!
+  endDate: Time!
   location: String!
+  website: String
+  acronym: String
   additionalInfo: String
   agenda: [AgendaItem!]!
   participantsCount: Int!
@@ -57,8 +60,11 @@ input CreateAgendaItemInput {
 
 input CreateConferenceInput {
   title: String!
-  date: Time!
+  startDate: Time!
+  endDate: Time!
   location: String!
+  website: String
+  acronym: String
   additionalInfo: String
   participantsLimit: Int
   registrationDeadline: Time
@@ -77,8 +83,11 @@ input ModifyAgendaItemInput {
 input ModifyConferenceInput {
   id: ID!
   title: String
-  date: Time
+  startDate: Time
+  endDate: Time
   location: String
+  website: String
+  acronym: String
   additionalInfo: String
   participantsLimit: Int
   registrationDeadline: Time

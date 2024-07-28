@@ -1,14 +1,15 @@
 import { Header, Subtext } from '@repo/components';
-import { getFormattedDateTime } from '@repo/utils';
+import { getFormattedDateTime } from '@repo/utils/date-formatter';
 
 import { getTermsOfService } from '#actions/get-terms-of-service';
 
+import { parseAbsoluteToLocal } from '@internationalized/date';
 import { TermsAccordion } from './components/terms-accordion';
 
 export async function TermsPage() {
   const data = await getTermsOfService();
   const terms = data.termsAndConditions;
-  const formattedDate = getFormattedDateTime(terms.updatedAt);
+  const formattedDate = getFormattedDateTime(parseAbsoluteToLocal(terms.updatedAt));
 
   return (
     <div className="info-my-10 info-space-y-6">

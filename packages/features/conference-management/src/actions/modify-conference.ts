@@ -3,62 +3,67 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-import {
-  parseTime,
-  parseZonedDateTime,
-  toCalendarDate,
-  toCalendarDateTime,
-  toZoned,
-} from '@internationalized/date';
+import { parseAbsolute } from '@internationalized/date';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
-import { dayjs } from '@repo/libs/dayjs';
-
 import {
   modifyConference,
-  type ModifyConferenceAgendaItem,
   type ModifyConferenceInput,
 } from '#services/modify-conference';
+import { type AgendaItem } from '#types/agenda';
 
 const modifyConferenceSchema = z.object({
+  id: z.string().min(1),
   title: z.string().min(1),
+  acronym: z.string().optional(),
   location: z.string().min(1),
-  additionalInfo: z.string().min(1),
-  hour: z.string().refine((val) => dayjs(val, 'HH:mm:ss', true).isValid()),
-  date: z.string().refine((val) => dayjs(val).isValid()),
+  website: z.string().optional(),
+  additionalInfo: z.string().optional(),
+  startDateTime: z.string().datetime({ offset: true }),
+  endDateTime: z.string().datetime({ offset: true }),
 });
 
+type ModifyConferenceSchemaType = z.infer<typeof modifyConferenceSchema>;
+
 export interface ModifyConferenceFormState {
-  errors: {
-    title?: string[];
-    location?: string[];
-    hour?: string[];
-    date?: string[];
-    additionalInfo?: string[];
-  };
+  errors: Partial<
+    Record<keyof ModifyConferenceSchemaType, string[] | undefined>
+  >;
   message?: {
     id: string;
     text: string;
   };
 }
 
+interface AdditionalFormData {
+  agendaItems: AgendaItem[];
+  dateRange: {
+    start: string;
+    end: string;
+  } | null;
+}
+
 export const modifyConferenceAction = async (
-  agendaItems: ModifyConferenceAgendaItem[],
+  additionalFormData: AdditionalFormData,
   _formState: ModifyConferenceFormState,
   formData: FormData,
 ): Promise<ModifyConferenceFormState> => {
-  const date = toCalendarDate(
-    parseZonedDateTime(formData.get('date') as string),
-  );
-  const time = parseTime(formData.get('hour') as string);
-
+  const startDateTime =
+    additionalFormData.dateRange &&
+    parseAbsolute(additionalFormData.dateRange.start, 'UTC').toAbsoluteString();
+  const endDateTime =
+    additionalFormData.dateRange &&
+    parseAbsolute(additionalFormData.dateRange.end, 'UTC').toAbsoluteString();
   const validatedFields = modifyConferenceSchema.safeParse({
+    id: formData.get('id'),
     title: formData.get('title'),
+    acronym: formData.get('acronym'),
     location: formData.get('location'),
-    hour: time.toString(),
-    date: date.toString(),
+    website: formData.get('website'),
     additionalInfo: formData.get('additionalInfo'),
+    startDateTime,
+    endDateTime,
   });
 
   if (!validatedFields.success) {
@@ -71,43 +76,43 @@ export const modifyConferenceAction = async (
     };
   }
 
-  const dateTime = toCalendarDateTime(date, time);
-  const isoDate = toZoned(dateTime, 'UTC').toAbsoluteString();
   const input: ModifyConferenceInput = {
-    id: formData.get('id') as string,
+    id: validatedFields.data.id,
     title: validatedFields.data.title,
+    acronym: validatedFields.data.acronym,
     location: validatedFields.data.location,
-    date: isoDate,
+    startDate: validatedFields.data.startDateTime,
+    endDate: validatedFields.data.endDateTime,
+    website: validatedFields.data.website,
     additionalInfo: validatedFields.data.additionalInfo,
-    agenda: agendaItems.map((item) => ({
+    agenda: additionalFormData.agendaItems.map((item) => ({
       id: item.id,
       event: item.event,
       speaker: item.speaker,
-      startTime: dayjs(item.startTime).format(),
-      endTime: dayjs(item.endTime).format(),
-      _destroy: item._destroy,
+      startTime: item.startTime,
+      endTime: item.endTime,
     })),
   };
 
+  let newConferenceData;
   try {
-    const res = await modifyConference(input);
-    const newConferenceData = res.modifyConference;
-    if (newConferenceData?.id) {
-      revalidatePath('/conferences');
-      revalidatePath(`/conference/${newConferenceData.id}`);
-      redirect(`/conference/${newConferenceData.id}`);
+    newConferenceData = await modifyConference(input);
+
+    if (!newConferenceData.modifyConference?.id) {
+      throw new Error('Failed to modify conference');
     }
   } catch (error) {
+    console.error(error);
     return {
       errors: {},
       message: {
-        id: nanoid(),
-        text: 'Could not modify conference',
+        id: 'error',
+        text: 'Failed to modify conference',
       },
     };
   }
 
-  return {
-    errors: {},
-  };
+  revalidatePath('/conferences');
+  revalidatePath(`/conference/${newConferenceData.modifyConference.id}`);
+  redirect(`/conference/${newConferenceData.modifyConference.id}`);
 };

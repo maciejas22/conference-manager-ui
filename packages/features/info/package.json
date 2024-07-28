@@ -9,7 +9,10 @@
     "#actions/*": "./src/actions/*.ts",
     "#graphql/*": "./src/graphql/*.ts"
   },
-  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles": "./dist/index.css"
+  },
   "files": [
     "dist"
   ],
@@ -23,6 +26,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@internationalized/date": "^3.5.4",
     "@repo/components": "workspace:*",
     "@repo/libs": "workspace:*",
     "@repo/utils": "workspace:*",

@@ -10,7 +10,7 @@ function Header({ children, className, ...props }: HeaderProps) {
   return (
     <h2
       {...props}
-      className={cn('comps-my-4', 'comps-text-2xl', className)}
+      className={cn('comps-my-4', 'comps-text-4xl', 'cm-font-bold', className)}
       {...props}
     >
       {children}

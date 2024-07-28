@@ -1,15 +1,77 @@
-import { Icon } from '@iconify/react';
+import { Icon, type IconifyIcon } from '@iconify/react';
+import { parseAbsoluteToLocal } from '@internationalized/date';
 
 import { Header } from '@repo/components';
-import { getFormattedDate } from '@repo/utils';
+import { Link } from '@repo/libs/nextui';
+import { getFormattedDateTime } from '@repo/utils/date-formatter';
 
 import { TimeLine } from '#components/timeline/index';
 import { getAgenda } from '#services/get-agenda';
-import { getConference } from '#services/get-conference';
+import { getConference, type Conference } from '#services/get-conference';
+import { getUser } from '#services/get-user';
 
-import { UserActions } from './user-actions';
+import { ParticipantActions } from './user-actions/participant-actions';
+
+interface Metric {
+  id: number;
+  label: string;
+  value: string;
+  icon?: IconifyIcon | string;
+  link?: boolean;
+}
+
+const getMetrics = (conference: Conference): Metric[] => {
+  const metrics: Metric[] = [
+    {
+      id: 1,
+      label: 'Location',
+      value: conference.location,
+      icon: 'ri:map-pin-line',
+    },
+    {
+      id: 2,
+      label: 'Dates',
+      value: `${getFormattedDateTime(parseAbsoluteToLocal(conference.startDate))} - ${getFormattedDateTime(parseAbsoluteToLocal(conference.endDate))}`,
+      icon: 'ri:time-line',
+    },
+    {
+      id: 4,
+      label: 'Participants',
+      value: `${conference.participantsCount.toString()}${
+        conference.participantsLimit
+          ? `/${conference.participantsLimit.toString()}`
+          : ''
+      }`,
+      icon: 'ri:user-line',
+    },
+  ];
+  if (conference.website) {
+    metrics.push({
+      id: 3,
+      label: 'Website',
+      value: conference.website,
+      icon: 'ri:hashtag',
+      link: true,
+    });
+  }
+  if (conference.registrationDeadline) {
+    metrics.push({
+      id: 5,
+      label: 'Registration Deadline',
+      value: getFormattedDateTime(
+        parseAbsoluteToLocal(conference.registrationDeadline),
+      ),
+      icon: 'ri:time-line',
+    });
+  }
+
+  return metrics;
+};
 
 export async function ConferencePage({ params }: { params: { id: string } }) {
+  const userData = await getUser();
+  const user = userData.user;
+
   const conferenceData = await getConference(params.id);
   const agendaData = await getAgenda(params.id);
   const conference = conferenceData.conference;
@@ -19,52 +81,48 @@ export async function ConferencePage({ params }: { params: { id: string } }) {
     return null;
   }
 
+  const metrics = getMetrics(conference);
   return (
-    <div className="cm-space-y-4">
-      <div className="cm-space-y-4">
-        <div className="cm-flex cm-items-center cm-justify-between">
-          <Header>{conference.title}</Header>
-          <UserActions conferenceId={params.id} />
+    <div className="cm-m-12">
+      <div className="cm-grid cm-gap-8 cm-grid-cols-2">
+        <div>
+          <h1 className="cm-text-4xl cm-font-bold ">{conference.title}</h1>
+          <p className="cm-my-4 cm-text-xl cm-text-gray-400">
+            {conference.acronym}
+          </p>
+          <p>{conference.additionalInfo}</p>
         </div>
-        <p className="cm-my-2">{conference.additionalInfo}</p>
-        <div className="cm-flex cm-space-x-1">
-          <Icon icon="ri:user-line" className="cm-h-6" />
-          <h2>
-            <span className="cm-font-semibold">Participants:</span>{' '}
-            {conference.participantsCount}
-            {conference.participantsLimit
-              ? `/${conference.participantsLimit.toString()}`
-              : null}
-          </h2>
-        </div>
-        <div className="cm-flex cm-space-x-1">
-          <Icon icon="ri:map-pin-line" className="cm-h-6" />
-          <h2>
-            <span className="font-semibold">Location:</span>{' '}
-            {conference.location}
-          </h2>
-        </div>
-        <div className="cm-flex cm-space-x-1">
-          <Icon icon="ri:time-line" className="cm-h-6" />
-          <h2>
-            <span className="font-semibold">Date:</span>{' '}
-            {getFormattedDate(conference.date)}
-          </h2>
-        </div>
-        <div className="cm-flex">
-          <Icon icon="ri:bar-chart-fill" className="cm-h-6" />
-          <h2 className="cm-font-semibold">Agenda: </h2>
+        <div className="cm-space-y-4">
+          {metrics.map((metric) => (
+            <div key={metric.id} className="cm-flex cm-space-x-1">
+              {metric?.icon && <Icon icon={metric.icon} className="cm-h-6" />}
+              <h2>
+                <p className="cm-font-semibold cm-text-lg">{metric.label}: </p>
+                {metric.link ? (
+                  <Link href={metric.value}>{metric.value}</Link>
+                ) : (
+                  <p>{metric.value}</p>
+                )}
+              </h2>
+            </div>
+          ))}
+          {user?.role === 'Participant' && (
+            <ParticipantActions conferenceId={conference.id} />
+          )}
         </div>
       </div>
-      <TimeLine
-        mode="display"
-        events={agenda.map((event) => ({
-          id: event.id,
-          title: event.speaker,
-          description: event.event,
-          date: event.startTime,
-        }))}
-      />
+
+      <div className="cm-space-y-8">
+        <Header className="cm-text-3xl">Agenda</Header>
+        <TimeLine
+          mode="display"
+          events={agenda.map((event) => ({
+            title: event.speaker,
+            description: event.event,
+            date: parseAbsoluteToLocal(event.startTime),
+          }))}
+        />
+      </div>
     </div>
   );
 }

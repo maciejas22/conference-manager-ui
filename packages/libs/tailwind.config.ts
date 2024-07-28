@@ -6,9 +6,15 @@ import sharedConfig from '@repo/config/tailwind';
 const config: Config = {
   ...sharedConfig,
   content: [
-    './node_modules/@nextui-org/theme/dist/components/(accordion|button|card|chip|date-input|divider|dropdown|input|link|navbar|pagination|popover|radio|select|spinner|toggle|table|tabs|user|ripple|menu|listbox|scroll-shadow|checkbox|spacer|avatar).js',
-    '../../node_modules/@nextui-org/theme/dist/components/(accordion|button|card|chip|date-input|divider|dropdown|input|link|navbar|pagination|popover|radio|select|spinner|toggle|table|tabs|user|ripple|menu|listbox|scroll-shadow|checkbox|spacer|avatar).js',
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    "../../node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    'dark',
+    'bg-background', 
+    'text-foreground'
+  ],
+  darkMode: 'class',
   plugins: [nextui()],
 };
 export default config;

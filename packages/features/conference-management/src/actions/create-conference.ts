@@ -3,50 +3,65 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
+import { parseAbsolute } from '@internationalized/date';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
-import { dayjs } from '@repo/libs/dayjs';
-
 import {
   createConference,
-  type CreateConferenceAgendaItem,
   type CreateConferenceInput,
 } from '#services/create-conference';
+import { type AgendaItem } from '#types/agenda';
 
 const createConferenceSchema = z.object({
   title: z.string().min(1),
+  acronym: z.string().optional(),
   location: z.string().min(1),
-  additionalInfo: z.string(),
-  hour: z.string().refine((val) => dayjs(val, 'HH:mm:ss', true).isValid()),
-  date: z.string().refine((val) => dayjs(val).isValid()),
+  website: z.string().optional(),
+  additionalInfo: z.string().optional(),
+  startDateTime: z.string().datetime({ offset: true }),
+  endDateTime: z.string().datetime({ offset: true }),
 });
 
+type CreateConferenceSchemaType = z.infer<typeof createConferenceSchema>;
+
 export interface CreateConferenceFormState {
-  errors: {
-    title?: string[];
-    location?: string[];
-    hour?: string[];
-    date?: string[];
-    additionalInfo?: string[];
-  };
+  errors: Partial<
+    Record<keyof CreateConferenceSchemaType, string[] | undefined>
+  >;
   message?: {
     id: string;
     text: string;
   };
 }
 
+interface AdditionalFormData {
+  agendaItems: AgendaItem[];
+  dateRange: {
+    start: string;
+    end: string;
+  } | null;
+}
+
 export const createConferenceAction = async (
-  agendaItems: CreateConferenceAgendaItem[],
+  additionalFormData: AdditionalFormData,
   _formState: CreateConferenceFormState,
   formData: FormData,
 ): Promise<CreateConferenceFormState> => {
+  const startDateTime =
+    additionalFormData.dateRange &&
+    parseAbsolute(additionalFormData.dateRange.start, 'UTC').toAbsoluteString();
+  const endDateTime =
+    additionalFormData.dateRange &&
+    parseAbsolute(additionalFormData.dateRange.end, 'UTC').toAbsoluteString();
   const validatedFields = createConferenceSchema.safeParse({
     title: formData.get('title'),
+    acronym: formData.get('acronym'),
     location: formData.get('location'),
-    hour: formData.get('hour'),
-    date: formData.get('date'),
+    website: formData.get('website'),
     additionalInfo: formData.get('additionalInfo'),
+    startDateTime,
+    endDateTime,
   });
 
   if (!validatedFields.success) {
@@ -61,32 +76,26 @@ export const createConferenceAction = async (
 
   const input: CreateConferenceInput = {
     title: validatedFields.data.title,
+    acronym: validatedFields.data.acronym,
     location: validatedFields.data.location,
-    date: dayjs(
-      `${validatedFields.data.date} ${validatedFields.data.hour}`,
-    ).format(),
+    startDate: validatedFields.data.startDateTime,
+    endDate: validatedFields.data.endDateTime,
+    website: validatedFields.data.website,
     additionalInfo: validatedFields.data.additionalInfo,
-    agenda: agendaItems.map((item) => ({
+    agenda: additionalFormData.agendaItems.map((item) => ({
       event: item.event,
       speaker: item.speaker,
-      startTime: dayjs(item.startTime).format(),
-      endTime: dayjs(item.endTime).format(),
+      startTime: item.startTime,
+      endTime: item.endTime,
     })),
   };
 
+  let newConferenceData;
   try {
-    const res = await createConference(input);
-    revalidatePath('/conferences');
-    if (res.createConference) {
-      redirect(`/conference/${res.createConference.id}`);
+    newConferenceData = await createConference(input);
+    if (!newConferenceData.createConference?.id) {
+      throw new Error('Could not create conference');
     }
-    return {
-      errors: {},
-      message: {
-        id: nanoid(),
-        text: 'Conference created successfully',
-      },
-    };
   } catch (error) {
     return {
       errors: {},
@@ -96,4 +105,7 @@ export const createConferenceAction = async (
       },
     };
   }
+
+  revalidatePath('/conferences');
+  redirect(`/conference/${newConferenceData.createConference.id}`);
 };

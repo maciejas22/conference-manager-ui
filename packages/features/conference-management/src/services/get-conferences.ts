@@ -7,9 +7,12 @@ export const getConferencesQuery = graphql(`
       data {
         id
         title
-        date
+        acronym
+        startDate
+        endDate
         location
         participantsCount
+        registrationDeadline
       }
       meta {
         page {

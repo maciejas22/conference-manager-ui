@@ -1,8 +1,9 @@
 @import url('@repo/components/styles');
-@import url('@repo/info/dist/index.css');
-@import url('@repo/user-management/dist/index.css');
-@import url('@repo/conference-management/dist/index.css');
 @import url('@repo/libs/styles');
+@import url('@repo/info/styles');
+@import url('@repo/user-management/styles');
+@import url('@repo/conference-management/styles');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

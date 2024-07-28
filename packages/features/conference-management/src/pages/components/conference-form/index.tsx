@@ -2,12 +2,18 @@
 
 import { useState } from 'react';
 
-import { parseAbsolute } from '@internationalized/date';
-import { nanoid } from 'nanoid';
+import { parseAbsoluteToLocal } from '@internationalized/date';
 import { useFormState } from 'react-dom';
 
 import { Header, SubmitButton } from '@repo/components';
-import { DateInput, Input, Textarea, TimeInput } from '@repo/libs/nextui';
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  DateRangePicker,
+  Input,
+  Textarea,
+} from '@repo/libs/nextui';
 
 import {
   createConferenceAction,
@@ -42,9 +48,24 @@ function ConferenceForm({
   const [agendaItems, setAgendaItems] = useState<AgendaItem[]>(
     initialAgendaData ?? [],
   );
+  const [dateRange, setDateRange] = useState(
+    initialConferenceData
+      ? {
+          start: parseAbsoluteToLocal(initialConferenceData.startDate),
+          end: parseAbsoluteToLocal(initialConferenceData.endDate),
+        }
+      : null,
+  );
+
   const mutation =
     operation === 'create' ? createConferenceAction : modifyConferenceAction;
-  const conferenceFormAction = mutation.bind(null, agendaItems);
+  const conferenceFormAction = mutation.bind(null, {
+    agendaItems,
+    dateRange: dateRange && {
+      start: dateRange.start.toAbsoluteString(),
+      end: dateRange.end.toAbsoluteString(),
+    },
+  });
   const [state, formAction] = useFormState(
     conferenceFormAction,
     formInitialState,
@@ -55,72 +76,87 @@ function ConferenceForm({
       {initialConferenceData?.id ? (
         <input type="hidden" name="id" value={initialConferenceData.id} />
       ) : null}
-      <Input
-        label="Title"
-        name="title"
-        defaultValue={initialConferenceData?.title ?? ''}
-        errorMessage={state.errors.title}
-        isInvalid={!!state.errors.title}
-      />
-      <Input
-        label="Location "
-        name="location"
-        defaultValue={initialConferenceData?.location ?? ''}
-        errorMessage={state.errors.location}
-        isInvalid={!!state.errors.location}
-      />
-      <div className="cm-flex cm-gap-4">
-        <DateInput
-          label="Date"
-          name="date"
-          defaultValue={
-            initialConferenceData?.date
-              ? parseAbsolute(initialConferenceData.date, 'UTC')
-              : undefined
-          }
-          errorMessage={state.errors.date}
-          isInvalid={!!state.errors.date}
-          granularity="day"
-        />
-        <TimeInput
-          label="Hour"
-          name="hour"
-          defaultValue={
-            initialConferenceData?.date
-              ? parseAbsolute(initialConferenceData.date, 'UTC')
-              : undefined
-          }
-          errorMessage={state.errors.hour}
-          isInvalid={!!state.errors.hour}
-          hourCycle={24}
-        />
-      </div>
-      <Textarea
-        label="Additional informations"
-        name="additionalInfo"
-        defaultValue={initialConferenceData?.additionalInfo ?? ''}
-        errorMessage={state.errors.additionalInfo}
-        isInvalid={!!state.errors.additionalInfo}
-      />
+      <Card>
+        <CardHeader>Informations</CardHeader>
+        <CardBody className="cm-space-y-4">
+          <Input
+            label="Title"
+            name="title"
+            isRequired
+            defaultValue={initialConferenceData?.title ?? ''}
+            errorMessage={state.errors.title}
+            isInvalid={!!state.errors.title}
+          />
+          <Input
+            label="Acronym"
+            name="acronym"
+            defaultValue={initialConferenceData?.acronym ?? ''}
+            errorMessage={state.errors.acronym}
+            isInvalid={!!state.errors.acronym}
+          />
+        </CardBody>
+      </Card>
+
+      <Card>
+        <CardHeader>Details</CardHeader>
+        <CardBody className="cm-space-y-4">
+          <Input
+            label="Location "
+            name="location"
+            isRequired
+            defaultValue={initialConferenceData?.location ?? ''}
+            errorMessage={state.errors.location}
+            isInvalid={!!state.errors.location}
+          />
+          <DateRangePicker
+            label="Duration"
+            hideTimeZone
+            isRequired
+            granularity="minute"
+            value={dateRange}
+            onChange={setDateRange}
+          />
+          <Input
+            label="Website"
+            name="website"
+            defaultValue={initialConferenceData?.website ?? ''}
+            errorMessage={state.errors.website}
+            isInvalid={!!state.errors.website}
+          />
+          <Textarea
+            label="Additional informations"
+            name="additionalInfo"
+            defaultValue={initialConferenceData?.additionalInfo ?? ''}
+            errorMessage={state.errors.additionalInfo}
+            isInvalid={!!state.errors.additionalInfo}
+          />
+        </CardBody>
+      </Card>
+
       <Header>Agenda</Header>
-      <TimeLine
-        events={agendaItems
-          .filter((i) => !i._destroy)
-          .map((i) => ({
-            id: i.id ?? nanoid(),
-            title: i.speaker,
-            description: i.event,
-            date: i.startTime,
-            onDeleteClick: () => {
-              setAgendaItems((prev) =>
-                prev.map((item) =>
-                  item.id === i.id ? { ...item, _destroy: true } : item,
-                ),
-              );
-            },
-          }))}
-        mode="edit"
-      />
+      <Card>
+        <CardHeader>Timeline</CardHeader>
+        <CardBody className="cm-space-y-4">
+          <TimeLine
+            events={agendaItems
+              .filter((i) => !i._destroy)
+              .map((i) => ({
+                title: i.speaker,
+                description: i.event,
+                date: parseAbsoluteToLocal(i.startTime),
+                onDeleteClick: () => {
+                  setAgendaItems((prev) =>
+                    prev.map((item) =>
+                      item === i ? { ...item, _destroy: true } : item,
+                    ),
+                  );
+                },
+              }))}
+            mode="edit"
+          />
+        </CardBody>
+      </Card>
+
       <AgendaForm setAgendaItems={setAgendaItems} />
       <SubmitButton>Submit</SubmitButton>
     </form>

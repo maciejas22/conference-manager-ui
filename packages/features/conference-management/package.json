@@ -14,7 +14,10 @@
     "#types/*": "./src/types/*.ts",
     "#utils/*": "./src/utils/*.ts"
   },
-  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles": "./dist/index.css"
+  },
   "files": [
     "dist"
   ],

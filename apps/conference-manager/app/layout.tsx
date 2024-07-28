@@ -22,7 +22,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.className} main-dark bg-background text-foreground dark`}
+      className={`${inter.className} bg-background text-foreground dark`}
+      data-theme="dark"
     >
       <body className="main-container main-mx-auto main-px-4 main-sm:px-6 main-lg:px-8">
         <Providers>

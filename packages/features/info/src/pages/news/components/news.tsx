@@ -1,6 +1,8 @@
+import { parseAbsoluteToLocal } from '@internationalized/date';
+
 import { Subtext, Text } from '@repo/components';
 import { Card, CardBody, CardHeader, Divider } from '@repo/libs/nextui';
-import { getFormattedDateTime } from '@repo/utils';
+import { getFormattedDateTime } from '@repo/utils/date-formatter';
 
 interface NewsProps {
   title: string;
@@ -9,7 +11,7 @@ interface NewsProps {
 }
 
 function News({ title, date, content }: NewsProps) {
-  const formattedDate = getFormattedDateTime(date);
+  const formattedDate = getFormattedDateTime(parseAbsoluteToLocal(date));
 
   return (
     <Card>

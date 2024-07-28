@@ -7,8 +7,8 @@ import {
   DropdownTrigger,
   User,
 } from '@repo/libs/nextui';
-import { logout } from '@repo/user-management';
 
+import { logout } from '@/actions/logout';
 import { navigate } from '@/actions/utils';
 
 interface UserAvatarProps {

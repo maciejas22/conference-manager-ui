@@ -1,13 +1,13 @@
 import { Icon } from '@iconify/react';
+import { type ZonedDateTime } from '@internationalized/date';
 
-import { dayjs } from '@repo/libs/dayjs';
 import { Button, Chip } from '@repo/libs/nextui';
+import { getFormattedDateTime } from '@repo/utils/date-formatter';
 
 interface Event {
-  id: string;
   title: string;
   description: string;
-  date: string;
+  date: ZonedDateTime;
   onDeleteClick?: () => void;
 }
 
@@ -17,19 +17,22 @@ interface TimeLineProps {
 }
 
 function TimeLine({ events, mode }: TimeLineProps) {
-  const sortedEvents = events.sort((a, b) => dayjs(a.date).diff(dayjs(b.date)));
+  const sortedEvents = events.sort((a, b) => a.date.compare(b.date));
 
   return sortedEvents.length < 1 ? (
     <h2>No agenda found</h2>
   ) : (
     <ul className="cm-space-y-6">
       {events.map((event, eventIdx) => (
-        <li key={event.id} className="cm-flex cm-space-x-4">
+        <li
+          key={event.title + event.description + event.date.toAbsoluteString()}
+          className="cm-flex cm-space-x-4"
+        >
           <div className="relative">
             {/*TODO: Change to mono font*/}
             <Chip color="primary" className="cm-z-20">
-              <time dateTime={event.date} className="cm-flex-none">
-                {dayjs(event.date).format('DD/MM HH:mm')}
+              <time dateTime={event.date.toString()} className="cm-flex-none">
+                {getFormattedDateTime(event.date)}
               </time>
             </Chip>
             {eventIdx !== events.length - 1 ? (
@@ -42,10 +45,10 @@ function TimeLine({ events, mode }: TimeLineProps) {
               />
             ) : null}
           </div>
-          <p className="cm-flex-auto cm-py-0.5">
-            <span className="cm-text-primary">{event.title}: </span>
-            {event.description}
-          </p>
+          <div className="cm-flex-auto cm-py-0.5">
+            <p>{event.title}: </p>
+            <p className="cm-text-gray-400">{event.description}</p>
+          </div>
           {mode === 'edit' && (
             <Button
               isIconOnly

@@ -9,7 +9,7 @@ function SubmitButton({ children }: { children: React.ReactNode }) {
 
   return (
     <Button
-      className="um-mt-2"
+      className="comps-mt-2"
       type="submit"
       color="primary"
       fullWidth

@@ -1,4 +1,4 @@
-import { graphql } from '@repo/libs/graphql';
+import { graphql, type ResultOf } from '@repo/libs/graphql';
 import { getGqlClient } from '@repo/libs/graphql-client';
 
 export const getConferenceQuery = graphql(`
@@ -6,8 +6,11 @@ export const getConferenceQuery = graphql(`
     conference(id: $id) {
       id
       title
-      date
+      startDate
+      endDate
       location
+      website
+      acronym
       additionalInfo
       participantsCount
       participantsLimit
@@ -15,6 +18,10 @@ export const getConferenceQuery = graphql(`
     }
   }
 `);
+
+export type Conference = NonNullable<
+  ResultOf<typeof getConferenceQuery>['conference']
+>;
 
 export const getConference = (id: string) => {
   const gqlClient = getGqlClient();
