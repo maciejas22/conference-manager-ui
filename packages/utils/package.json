@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
+  "scripts": {
+    "clean": "rm -rf node_modules"
+  },
   "exports": {
     "./date-formatter": "./src/date-formatter.ts"
   },
@@ -13,6 +16,6 @@
   "devDependencies": {
     "@repo/config": "workspace:*",
     "eslint": "8",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.4"
   }
 }

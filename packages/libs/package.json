@@ -2,6 +2,9 @@
   "name": "@repo/libs",
   "version": "0.0.0",
   "private": true,
+  "imports": {
+    "#supabase/*": "./src/supabase/*.ts"
+  },
   "exports": {
     "./dayjs": "./src/dayjs/dayjs.ts",
     "./graphql": "./src/graphql/graphql.ts",
@@ -12,22 +15,22 @@
     "./styles": "./dist/index.css"
   },
   "scripts": {
-    "build": "bun gen",
-    "clean": "rm -rf dist",
-    "dev": "bun gen && bun gen-tailwind --watch",
+    "build": "pnpm gen-tailwind",
+    "clean": "rm -rf dist node_modules",
+    "dev": "pnpm gen && pnpm gen-tailwind --watch",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
-    "gen": "bun gen-gql&& bun gen-tailwind",
-    "gen-gql": "bun gen-schema && bun gen-types",
+    "gen": "pnpm gen-gql && pnpm gen-tailwind",
+    "gen-gql": "pnpm gen-schema && pnpm gen-types",
     "gen-gql-output": "gql.tada generate output",
     "gen-gql-persisted": "gql.tada generate persisted",
     "gen-gql-turbo": "gql.tada generate turbo",
     "gen-schema": "gql.tada generate schema 'http://localhost:8080/graphql' --output ./src/graphql/schema.graphql",
     "gen-tailwind": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
-    "gen-types": "bun gen-gql-output && bun gen-gql-turbo && bun gen-gql-persisted",
+    "gen-types": "pnpm gen-gql-output && pnpm gen-gql-turbo && pnpm gen-gql-persisted",
     "gql-check": "gql.tada check",
     "lint": "eslint src",
     "prettier-check": "prettier --check \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
-    "type-check": "bun gql-check && tsc --noEmit"
+    "type-check": "pnpm gql-check && tsc --noEmit"
   },
   "dependencies": {
     "@nextui-org/accordion": "^2.0.38",
@@ -54,6 +57,7 @@
     "@nextui-org/tooltip": "^2.0.39",
     "@nextui-org/user": "^2.0.31",
     "@supabase/ssr": "^0.3.0",
+    "@supabase/supabase-js": "^2.44.4",
     "dayjs": "^1.11.11",
     "framer-motion": "^11.2.11",
     "gql.tada": "^1.7.6",
@@ -68,6 +72,6 @@
     "eslint": "8",
     "nextui-cli": "^0.3.2",
     "tailwindcss": "^3.4.4",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.4"
   }
 }

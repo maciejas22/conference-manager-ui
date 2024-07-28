@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "build": "tsc --emitDeclarationOnly && tailwindcss -i ./src/styles.css -o ./dist/index.css",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist node_modules",
     "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
     "lint": "eslint src/",
@@ -34,6 +34,6 @@
     "@types/react-dom": "^18.3.0",
     "eslint": "8",
     "tailwindcss": "^3.4.4",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.4"
   }
 }
