@@ -23,9 +23,10 @@
     "gen-gql-turbo": "gql.tada generate turbo",
     "gen-schema": "gql.tada generate schema 'http://localhost:8080/graphql' --output ./src/graphql/schema.graphql",
     "gen-tailwind": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
-    "gen-types": "pnpm gen-gql-output && pnpm gen-gql-turbo && pnpm gen-gql-persisted",
+    "gen-types": "pnpm prepare-gql-directories && pnpm gen-gql-output && pnpm gen-gql-turbo && pnpm gen-gql-persisted",
     "gql-check": "gql.tada check",
     "lint": "eslint src",
+    "prepare-gql-directories": "mkdir -p ./src/graphql/types",
     "prettier-check": "prettier --check \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
     "type-check": "pnpm gql-check && tsc --noEmit"
   },
