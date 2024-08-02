@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "main": "./src/index.ts",
+  "exports": {
+    "./date-formatter": "./src/date-formatter.ts",
+    "./bytes-formatter": "./src/bytes-formatter.ts"
+  },
   "scripts": {
     "clean": "rm -rf node_modules"
-  },
-  "exports": {
-    "./date-formatter": "./src/date-formatter.ts"
   },
   "dependencies": {
     "@internationalized/date": "^3.5.4",

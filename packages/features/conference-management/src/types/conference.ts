@@ -2,7 +2,7 @@ import { type CreateConferenceInput } from '#services/create-conference';
 import { type ModifyConferenceInput } from '#services/modify-conference';
 import { type MergeTypes } from '#utils/merge-types';
 
-export type Conference = Omit<
+export type ConferenceInput = Omit<
   MergeTypes<CreateConferenceInput, ModifyConferenceInput>,
-  'agenda'
+  'agenda' | 'files'
 >;

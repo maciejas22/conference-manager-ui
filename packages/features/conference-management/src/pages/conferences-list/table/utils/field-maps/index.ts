@@ -17,4 +17,3 @@ export const fieldToColumnKeyMap: Record<Column, ColumnKey> =
   Object.fromEntries(
     Object.entries(columnKeyToFieldMap).map(([key, value]) => [value, key]),
   ) as Record<Column, ColumnKey>;
-

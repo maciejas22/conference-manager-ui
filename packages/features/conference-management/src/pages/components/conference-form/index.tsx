@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { parseAbsoluteToLocal } from '@internationalized/date';
 import { useFormState } from 'react-dom';
 
-import { Header, SubmitButton } from '@repo/components';
+import { DropZone, Header, SubmitButton } from '@repo/components';
 import {
   Card,
   CardBody,
@@ -23,9 +23,11 @@ import {
   modifyConferenceAction,
   type ModifyConferenceFormState,
 } from '#actions/modify-conference';
+import { FileList } from '#components/file-list/index';
 import { TimeLine } from '#components/timeline/index';
 import { type AgendaItem } from '#types/agenda';
-import { type Conference } from '#types/conference';
+import { type ConferenceInput } from '#types/conference';
+import { isRemoteFile, ListFile } from '#types/file';
 
 import { AgendaForm } from '../agenda-form';
 
@@ -36,15 +38,18 @@ const formInitialState: CreateConferenceFormState | ModifyConferenceFormState =
 
 interface ConferenceFormProps {
   operation: 'create' | 'edit';
-  initialConferenceData?: Conference | null;
+  initialConferenceData?: Omit<ConferenceInput, 'files'> | null;
   initialAgendaData?: AgendaItem[] | null;
+  initialFiles?: ListFile[];
 }
 
 function ConferenceForm({
   operation,
   initialConferenceData,
   initialAgendaData,
+  initialFiles,
 }: ConferenceFormProps) {
+  const [files, setFiles] = useState<ListFile[]>(initialFiles ?? []);
   const [agendaItems, setAgendaItems] = useState<AgendaItem[]>(
     initialAgendaData ?? [],
   );
@@ -129,6 +134,34 @@ function ConferenceForm({
             defaultValue={initialConferenceData?.additionalInfo ?? ''}
             errorMessage={state.errors.additionalInfo}
             isInvalid={!!state.errors.additionalInfo}
+          />
+        </CardBody>
+      </Card>
+
+      <Card>
+        <CardHeader>Attachments</CardHeader>
+        <CardBody className="cm-space-y-4">
+          <FileList
+            mode="edit"
+            attachments={files
+              .filter((i) => !isRemoteFile(i) || !i._destroy)
+              .map((i) => ({
+                file: i,
+                onDeleteClick: () =>
+                  setFiles((prev) =>
+                    prev
+                      .filter((file) => file !== i)
+                      .concat(
+                        isRemoteFile(i) ? [{ ...i, _destroy: true }] : [],
+                      ),
+                  ),
+              }))}
+          />
+          <DropZone
+            onDrop={(files) => {
+              console.log([...files]);
+              setFiles((prev) => [...prev, ...files]);
+            }}
           />
         </CardBody>
       </Card>

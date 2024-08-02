@@ -16,6 +16,10 @@ export type ModifyConferenceAgendaItem = NonNullable<
   ModifyConferenceInput['agenda']
 >[number];
 
+export type ModifyConferenceInputFile = NonNullable<
+  ModifyConferenceInput['files']
+>[number];
+
 export const modifyConference = (vars: ModifyConferenceInput) => {
   const gqlClient = getGqlClient();
   return gqlClient.request(modifyConferenceQuery, { input: vars });

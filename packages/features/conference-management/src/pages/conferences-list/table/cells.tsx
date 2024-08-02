@@ -13,8 +13,12 @@ interface CellProps {
   columnKey: ColumnKey;
 }
 
-function DefaultCell({children}: {children: React.ReactNode}) {
-  return <span className='cm-whitespace-nowrap cm-overflow-hidden cm-text-ellipsis'>{children}</span>;
+function DefaultCell({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="cm-whitespace-nowrap cm-overflow-hidden cm-text-ellipsis">
+      {children}
+    </span>
+  );
 }
 
 function Cell({ item, columnKey }: CellProps) {
@@ -24,7 +28,9 @@ function Cell({ item, columnKey }: CellProps) {
     case ColumnKey.RegistrationDeadline:
       return (
         <DefaultCell>
-          { item[columnKey] ? getFormattedDateTime(parseAbsoluteToLocal(item[columnKey])) : 'N/A' }
+          {item[columnKey]
+            ? getFormattedDateTime(parseAbsoluteToLocal(item[columnKey]))
+            : 'N/A'}
         </DefaultCell>
       );
     case ColumnKey.Actions:

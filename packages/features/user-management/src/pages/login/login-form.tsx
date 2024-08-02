@@ -14,8 +14,6 @@ const initialState: LoginFormState = {
   errors: {},
 };
 
-console.log(login);
-
 function LoginForm() {
   const [state, formAction] = useFormState(login, initialState);
 

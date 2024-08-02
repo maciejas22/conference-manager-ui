@@ -2,9 +2,6 @@
   "name": "@repo/libs",
   "version": "0.0.0",
   "private": true,
-  "imports": {
-    "#supabase/*": "./src/supabase/*.ts"
-  },
   "exports": {
     "./dayjs": "./src/dayjs/dayjs.ts",
     "./graphql": "./src/graphql/graphql.ts",
@@ -67,11 +64,15 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@0no-co/graphqlsp": "^1.12.8",
+    "@ianvs/prettier-plugin-sort-imports": "^4.3.0",
     "@repo/config": "workspace:*",
     "eslint": "8",
     "nextui-cli": "^0.3.2",
+    "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.4"
+  },
+  "imports": {
+    "#supabase/*": "./src/supabase/*.ts"
   }
 }

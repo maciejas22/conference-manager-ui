@@ -7,7 +7,7 @@ export interface MetricCardProps {
 
 export const MetricCard = ({ metric, value }: MetricCardProps) => {
   return (
-    <Card className='comps-flex comps-justify-between'>
+    <Card className="comps-flex comps-justify-between">
       <CardHeader>{metric}</CardHeader>
       <CardFooter className="comps-text-2xl">{value}</CardFooter>
     </Card>

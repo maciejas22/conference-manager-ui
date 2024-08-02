@@ -10,7 +10,6 @@ export async function OrganizerActions({
   conferenceId,
 }: OrganizerActionsProps) {
   const data = await isOrganizerOfConference(conferenceId);
-  console.log(data);
 
   return (
     data.isOrganizer && (

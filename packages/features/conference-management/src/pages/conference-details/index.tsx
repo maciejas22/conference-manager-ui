@@ -5,6 +5,7 @@ import { Header } from '@repo/components';
 import { Link } from '@repo/libs/nextui';
 import { getFormattedDateTime } from '@repo/utils/date-formatter';
 
+import { FileList } from '#components/file-list/index';
 import { TimeLine } from '#components/timeline/index';
 import { getAgenda } from '#services/get-agenda';
 import { getConference, type Conference } from '#services/get-conference';
@@ -114,14 +115,30 @@ export async function ConferencePage({ params }: { params: { id: string } }) {
 
       <div className="cm-space-y-8">
         <Header className="cm-text-3xl">Agenda</Header>
-        <TimeLine
-          mode="display"
-          events={agenda.map((event) => ({
-            title: event.speaker,
-            description: event.event,
-            date: parseAbsoluteToLocal(event.startTime),
-          }))}
-        />
+        {agenda.length === 0 ? (
+          <p>No agenda</p>
+        ) : (
+          <TimeLine
+            mode="display"
+            events={agenda.map((event) => ({
+              title: event.speaker,
+              description: event.event,
+              date: parseAbsoluteToLocal(event.startTime),
+            }))}
+          />
+        )}
+      </div>
+
+      <div className="cm-space-y-8">
+        <Header className="cm-text-2xl">Attachments</Header>
+        {conference.files.length === 0 ? (
+          <p>No files uploaded</p>
+        ) : (
+          <FileList
+            mode="view"
+            attachments={conference.files.map((f) => ({ file: f }))}
+          />
+        )}
       </div>
     </div>
   );

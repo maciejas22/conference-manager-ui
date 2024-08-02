@@ -28,13 +28,7 @@ type Conference {
   participantsCount: Int!
   participantsLimit: Int
   registrationDeadline: Time
-}
-
-enum ConferenceField {
-  TITLE
-  DATE
-  LOCATION
-  PARTICIPANTS_COUNT
+  files: [File!]!
 }
 
 input ConferenceFilter {
@@ -68,7 +62,23 @@ input CreateConferenceInput {
   additionalInfo: String
   participantsLimit: Int
   registrationDeadline: Time
-  agenda: [CreateAgendaItemInput!]!
+  agenda: [CreateAgendaItemInput!]
+  files: [CreateConferenceInputFile!]
+}
+
+input CreateConferenceInputFile {
+  uploadFile: UploadFile
+}
+
+input DeleteFile {
+  id: ID!
+}
+
+type File {
+  id: ID!
+  name: String!
+  url: String!
+  size: Int!
 }
 
 input ModifyAgendaItemInput {
@@ -92,6 +102,12 @@ input ModifyConferenceInput {
   participantsLimit: Int
   registrationDeadline: Time
   agenda: [ModifyAgendaItemInput!]
+  files: [ModifyConferenceInputFile!]
+}
+
+input ModifyConferenceInputFile {
+  uploadFile: UploadFile
+  deleteFile: DeleteFile
 }
 
 type Mutation {
@@ -174,6 +190,12 @@ input UpdateUserInput {
   surname: String!
   username: String!
   email: String!
+}
+
+scalar Upload
+
+input UploadFile {
+  file: Upload
 }
 
 type User {

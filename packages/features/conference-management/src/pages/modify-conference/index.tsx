@@ -20,6 +20,7 @@ export async function ConferenceEditPage({
         operation="edit"
         initialConferenceData={conference.conference}
         initialAgendaData={agenda.conference?.agenda}
+        initialFiles={conference.conference?.files}
       />
     </>
   );

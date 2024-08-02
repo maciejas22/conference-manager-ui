@@ -2,16 +2,22 @@
   "name": "conference-manager-ui",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
     "clean": "turbo clean && rm -rf node_modules",
-    "format": "turbo format",
-    "prettier-check": "turbo prettier-check",
-    "type-check": "turbo run type-check",
+    "dev": "turbo dev",
+    "format": "turbo format && pnpm syncpack:format",
     "gen-graph": "turbo run build --graph=graph.pdf",
-    "gen-types": "turbo gen-types"
+    "gen-schema": "turbo gen-schema",
+    "gen-types": "turbo gen-types",
+    "lint": "turbo lint",
+    "prettier-check": "turbo prettier-check",
+    "syncpack:format": "syncpack format",
+    "syncpack:list": "syncpack list",
+    "type-check": "turbo run type-check"
   },
   "devDependencies": {
     "@repo/config": "workspace:*",
@@ -20,12 +26,9 @@
     "turbo": "^2.0.4",
     "typescript": "^5.5.4"
   },
-  "engines": {
-    "node": ">=22"
-  },
+  "packageManager": "pnpm@9.6.0",
   "workspaces": [
     "apps/*",
     "packages/**"
-  ],
-  "packageManager": "pnpm@9.6.0"
+  ]
 }

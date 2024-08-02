@@ -15,6 +15,12 @@ export const getConferenceQuery = graphql(`
       participantsCount
       participantsLimit
       registrationDeadline
+      files {
+        id
+        name
+        size
+        url
+      }
     }
   }
 `);
@@ -22,6 +28,10 @@ export const getConferenceQuery = graphql(`
 export type Conference = NonNullable<
   ResultOf<typeof getConferenceQuery>['conference']
 >;
+
+export type RemoteFile = NonNullable<
+  ResultOf<typeof getConferenceQuery>['conference']
+>['files'][number] & { _destroy?: boolean };
 
 export const getConference = (id: string) => {
   const gqlClient = getGqlClient();

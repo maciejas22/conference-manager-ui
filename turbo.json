@@ -18,6 +18,9 @@
     "format": {
       "dependsOn": ["^format"]
     },
+    "gen-schema": {
+      "cache": false
+    },
     "gen-types": {
       "cache": false
     },

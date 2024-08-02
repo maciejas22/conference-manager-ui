@@ -1,0 +1,53 @@
+{
+  "$schema": "https://unpkg.com/syncpack@11.2.1/dist/schema.json",
+  "semverRange": "^",
+  "sortFirst": [
+    "name",
+    "version",
+    "flat",
+    "private",
+    "publishConfig",
+    "description",
+    "license",
+    "repository",
+    "author",
+    "homepage",
+    "bugs",
+    "main",
+    "bin",
+    "module",
+    "type",
+    "exports",
+    "engines",
+    "cpu",
+    "os",
+    "scripts",
+    "files",
+    "keywords",
+    "bundledDependencies",
+    "optionalDependencies",
+    "peerDependencies",
+    "peerDependenciesMeta",
+    "dependencies",
+    "devDependencies",
+    "resolutions",
+    "types",
+    "typing"
+  ],
+  "sortPackages": true,
+  "customTypes": {
+    "nodeEngine": {
+      "path": "engines.node",
+      "strategy": "version"
+    }
+  },
+  "versionGroups": [
+    {
+      "label": "Use workspace protocol when developing local packages",
+      "dependencies": [
+        "$LOCAL"
+      ],
+      "pinVersion": "workspace:*"
+    }
+  ]
+}

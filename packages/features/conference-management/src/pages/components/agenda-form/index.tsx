@@ -58,7 +58,6 @@ export function AgendaForm({ setAgendaItems }: AgendaFormProps) {
         }
       : null;
 
-  console.log(formValue.startDateTime);
   const handleAgendaChange = useCallback(
     (name: string, value: string | ZonedDateTime) => {
       setFormValue((prevValues) => ({ ...prevValues, [name]: value }));

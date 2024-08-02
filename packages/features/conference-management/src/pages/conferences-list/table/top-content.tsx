@@ -71,7 +71,6 @@ function TopContent({ visibleColumns }: TopContentProps) {
             const params = createQueryString(searchParamsCtx, {
               visibleColumns: selectedKeys as ColumnKey[],
             });
-            console.log(params);
             router.push(`${pathname}?${params}`);
           }}
         >

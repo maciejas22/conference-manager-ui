@@ -12,8 +12,14 @@ export const createConferenceQuery = graphql(`
 export type CreateConferenceInput = VariablesOf<
   typeof createConferenceQuery
 >['createConferenceInput'];
-export type CreateConferenceAgendaItem =
-  CreateConferenceInput['agenda'][number];
+
+export type CreateConferenceAgendaItem = NonNullable<
+  CreateConferenceInput['agenda']
+>[number];
+
+export type CreateConferenceInputFile = NonNullable<
+  CreateConferenceInput['files']
+>[number];
 
 export const createConference = async (vars: CreateConferenceInput) => {
   const gqlClient = getGqlClient();
