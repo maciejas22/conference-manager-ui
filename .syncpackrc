@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/syncpack@11.2.1/dist/schema.json",
-  "semverRange": "^",
+  "semverRange": "",
   "sortFirst": [
     "name",
     "version",
@@ -34,13 +34,23 @@
     "types",
     "typing"
   ],
-  "sortPackages": true,
   "customTypes": {
     "nodeEngine": {
       "path": "engines.node",
       "strategy": "version"
     }
   },
+  "semverGroups": [
+    {
+      "packages": [
+        "**"
+      ],
+      "dependencies": [
+        "**"
+      ],
+      "range": "^"
+    }
+  ],
   "versionGroups": [
     {
       "label": "Use workspace protocol when developing local packages",

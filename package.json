@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "engines": {
-    "node": ">=22"
+    "node": "^22"
   },
   "scripts": {
     "build": "turbo build",
@@ -16,6 +16,7 @@
     "lint": "turbo lint",
     "prettier-check": "turbo prettier-check",
     "syncpack:format": "syncpack format",
+    "syncpack:lint": "syncpack lint",
     "syncpack:list": "syncpack list",
     "type-check": "turbo run type-check"
   },
