@@ -1,5 +1,7 @@
 {
   "extends": "./typescript/base.json",
-  "include": ["."],
-  "exclude": ["dist", "build", "node_modules"]
+
+  "rootDir": ".",
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
 }
