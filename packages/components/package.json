@@ -8,7 +8,7 @@
     "./styles": "./dist/index.css"
   },
   "scripts": {
-    "build": "tsc --emitDeclarationOnly && tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "build": "tsc && tailwindcss -i ./src/styles.css -o ./dist/index.css",
     "clean": "rm -rf dist node_modules",
     "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
