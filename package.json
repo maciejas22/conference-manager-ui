@@ -10,7 +10,7 @@
     "clean": "turbo clean && rm -rf node_modules",
     "dev": "turbo dev",
     "format": "turbo format && pnpm syncpack:format",
-    "gen-graph": "turbo run build --graph=graph.pdf",
+    "gen-graph": "turbo run build --graph=graph.png",
     "gen-schema": "turbo gen-schema",
     "gen-types": "turbo gen-types",
     "lint": "turbo lint",
