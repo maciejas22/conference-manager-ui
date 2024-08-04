@@ -1,2 +1,2 @@
-export * from './bytes-formatter'
-export * from './date-formatter'
+export * from './bytes-formatter';
+export * from './date-formatter';
