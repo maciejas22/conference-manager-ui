@@ -1,45 +1,39 @@
-const { resolve } = require("node:path");
+const { resolve } = require('node:path');
 
-const project = resolve(process.cwd(), "tsconfig.json");
+const project = resolve(process.cwd(), 'tsconfig.json');
 
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-  extends: ["eslint:recommended", "prettier", "turbo"],
-  plugins: ["only-warn"],
-  globals: {
-    React: true,
-    JSX: true,
+  extends: [
+    'eslint:recommended',
+    'prettier',
+    'turbo',
+    ...[
+      '@vercel/style-guide/eslint/browser',
+      '@vercel/style-guide/eslint/node',
+      '@vercel/style-guide/eslint/typescript',
+    ].map(require.resolve),
+  ],
+  rules: {
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'import/order': 'off',
   },
-  env: {
-    node: true,
+  ignorePatterns: [
+    '.*.js',
+    'node_modules/',
+    'dist/',
+    'tailwind.config.ts',
+    '*.d.ts',
+  ],
+  parserOptions: {
+    project,
   },
+  plugins: ['only-warn'],
   settings: {
-    "import/resolver": {
+    'import/resolver': {
       typescript: {
         project,
       },
     },
   },
-  parserOptions: {
-    project,
-    sourceType: "module",
-    ecmaVersion: "latest",
-  },
-  ignorePatterns: [
-    // Ignore dotfiles
-    ".*.js",
-    "node_modules/",
-    "dist/",
-  ],
-  overrides: [
-    {
-      files: ["*.js?(x)", "*.ts?(x)"],
-      parser: "@typescript-eslint/parser",
-      plugins: ["@typescript-eslint"],
-      extends: [
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-      ],
-    },
-  ],
 };
