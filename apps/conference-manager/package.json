@@ -17,7 +17,7 @@
     "@repo/components": "workspace:*",
     "@repo/conference-management": "workspace:*",
     "@repo/info": "workspace:*",
-    "@repo/libs": "workspace:*",
+    "@repo/shared": "workspace:*",
     "@repo/user-management": "workspace:*",
     "next": "^14.2.4",
     "react": "^18.3.1",

@@ -1,6 +1,6 @@
 'use server';
 
-import { getGqlClient } from '@repo/libs/graphql-client';
+import { getGqlClient } from '@repo/shared/graphql-client';
 
 import { getTermsOfServiceQuery } from '#graphql/get-terms-of-service';
 

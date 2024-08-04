@@ -1,7 +1,7 @@
 import { parseAbsoluteToLocal } from '@internationalized/date';
 
 import { Header, Subtext } from '@repo/components';
-import { getFormattedDateTime } from '@repo/utils/date-formatter';
+import { getFormattedDateTime } from '@repo/shared/utils/formatters';
 
 import { getTermsOfService } from '#actions/get-terms-of-service';
 

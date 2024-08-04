@@ -1,15 +1,12 @@
 import { MetricCardGroup } from '@repo/components';
-import { Card, CardBody, CardFooter, CardHeader } from '@repo/libs/nextui';
+import { Card, CardBody } from '@repo/shared/nextui';
 
 import { getConferences } from '#services/get-conferences';
 
 import { ConferencesTable } from './table';
 import { BottomContent } from './table/bottom-content';
 import { TopContent } from './table/top-content';
-import {
-  columnKeyToFieldMap,
-  fieldToColumnKeyMap,
-} from './table/utils/field-maps';
+import { columnKeyToFieldMap } from './table/utils/field-maps';
 import { searchParamsSchema } from './utils/search-params';
 
 interface ConferenceListPageProps {

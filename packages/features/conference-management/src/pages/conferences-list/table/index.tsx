@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
   type SortDescriptor,
-} from '@repo/libs/nextui';
+} from '@repo/shared/nextui';
 
 import { type GetConferencesQueryResponse } from '#services/get-conferences';
 

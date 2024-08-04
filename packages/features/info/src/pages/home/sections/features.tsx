@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 
 import { Header, Subtext } from '@repo/components';
-import { Card, CardBody, CardHeader } from '@repo/libs/nextui';
+import { Card, CardBody, CardHeader } from '@repo/shared/nextui';
 
 const features = [
   {

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { NextUIProvider as SystemProvider } from '@repo/libs/nextui';
+import { NextUIProvider as SystemProvider } from '@repo/shared/nextui';
 
 export interface NextUIProviderProps {
   children: React.ReactNode;

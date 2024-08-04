@@ -1,6 +1,6 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
-import { cn } from '@repo/libs/nextui';
+import { cn } from '@repo/shared/nextui';
 
 interface SubtextProps extends ComponentPropsWithoutRef<'p'> {
   children: React.ReactNode;

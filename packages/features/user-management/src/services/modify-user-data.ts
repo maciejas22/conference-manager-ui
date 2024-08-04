@@ -1,5 +1,5 @@
-import { type VariablesOf } from '@repo/libs/graphql';
-import { getGqlClient } from '@repo/libs/graphql-client';
+import { type VariablesOf } from '@repo/shared/graphql';
+import { getGqlClient } from '@repo/shared/graphql-client';
 
 import { modifyUserDataMutation } from '../graphql/modify-user-data';
 

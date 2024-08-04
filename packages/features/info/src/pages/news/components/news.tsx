@@ -1,8 +1,8 @@
 import { parseAbsoluteToLocal } from '@internationalized/date';
 
 import { Subtext, Text } from '@repo/components';
-import { Card, CardBody, CardHeader, Divider } from '@repo/libs/nextui';
-import { getFormattedDateTime } from '@repo/utils/date-formatter';
+import { Card, CardBody, CardHeader, Divider } from '@repo/shared/nextui';
+import { getFormattedDateTime } from '@repo/shared/utils/formatters';
 
 interface NewsProps {
   title: string;

@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
-import { createClient } from '@repo/libs/supabase/client';
+import { createClient } from '@repo/shared/supabase/client';
 
 const protectRoute = async () => {
   const supabase = createClient();

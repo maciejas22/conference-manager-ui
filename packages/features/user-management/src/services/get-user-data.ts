@@ -1,4 +1,4 @@
-import { getGqlClient } from '@repo/libs/graphql-client';
+import { getGqlClient } from '@repo/shared/graphql-client';
 
 import { getUserDataQuery } from '../graphql/get-user-data';
 

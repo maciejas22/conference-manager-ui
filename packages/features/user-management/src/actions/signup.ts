@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
-import { createClient } from '@repo/libs/supabase/client';
+import { createClient } from '@repo/shared/supabase/client';
 
 export interface SignupFormState {
   errors: {

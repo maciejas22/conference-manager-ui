@@ -1,5 +1,5 @@
-import { graphql, type ResultOf, type VariablesOf } from '@repo/libs/graphql';
-import { getGqlClient } from '@repo/libs/graphql-client';
+import { graphql, type ResultOf, type VariablesOf } from '@repo/shared/graphql';
+import { getGqlClient } from '@repo/shared/graphql-client';
 
 export const getConferencesQuery = graphql(`
   query GetConferences($filters: ConferenceFilter, $page: Page, $sort: Sort) {

@@ -1,4 +1,4 @@
-import { Navbar, NavbarContent, NavbarItem } from '@repo/libs/nextui';
+import { Navbar, NavbarContent, NavbarItem } from '@repo/shared/nextui';
 
 import { getUser } from '@/services/get-user';
 

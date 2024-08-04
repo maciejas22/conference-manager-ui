@@ -1,5 +1,5 @@
-import { graphql } from '@repo/libs/graphql';
-import { getGqlClient } from '@repo/libs/graphql-client';
+import { graphql } from '@repo/shared/graphql';
+import { getGqlClient } from '@repo/shared/graphql-client';
 
 export const addUserToConferenceQuery = graphql(`
   mutation AddUserToConference($conferenceId: String!) {

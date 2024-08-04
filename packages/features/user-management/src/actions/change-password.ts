@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
-import { createClient } from '@repo/libs/supabase/client';
+import { createClient } from '@repo/shared/supabase/client';
 
 export interface ChangePasswordFormState {
   errors: {

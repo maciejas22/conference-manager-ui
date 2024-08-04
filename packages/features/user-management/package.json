@@ -20,7 +20,7 @@
   ],
   "dependencies": {
     "@repo/components": "workspace:*",
-    "@repo/libs": "workspace:*",
+    "@repo/shared": "workspace:*",
     "nanoid": "^5.0.7",
     "next": "^14.2.4",
     "react": "^18.3.1",

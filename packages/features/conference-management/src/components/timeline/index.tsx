@@ -1,8 +1,8 @@
 import { Icon } from '@iconify/react';
 import { type ZonedDateTime } from '@internationalized/date';
 
-import { Button, Chip } from '@repo/libs/nextui';
-import { getFormattedDateTime } from '@repo/utils/date-formatter';
+import { Button, Chip } from '@repo/shared/nextui';
+import { getFormattedDateTime } from '@repo/shared/utils/formatters';
 
 interface Event {
   title: string;

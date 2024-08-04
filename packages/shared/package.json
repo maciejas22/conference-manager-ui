@@ -1,15 +1,15 @@
 {
-  "name": "@repo/libs",
+  "name": "@repo/shared",
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./dayjs": "./src/dayjs/dayjs.ts",
     "./graphql": "./src/graphql/graphql.ts",
     "./graphql-client": "./src/graphql-client/index.ts",
     "./nextui": "./src/nextui/index.ts",
     "./supabase/client": "./src/supabase/client.ts",
     "./supabase/middleware": "./src/supabase/middleware.ts",
-    "./styles": "./dist/index.css"
+    "./styles": "./dist/index.css",
+    "./utils/formatters": "./src/utils/formatters/index.ts"
   },
   "scripts": {
     "build": "pnpm gen-tailwind",
@@ -31,6 +31,7 @@
     "type-check": "pnpm gql-check && tsc --noEmit"
   },
   "dependencies": {
+    "@internationalized/date": "^3.5.4",
     "@nextui-org/accordion": "^2.0.38",
     "@nextui-org/button": "^2.0.35",
     "@nextui-org/card": "^2.0.31",
@@ -50,18 +51,19 @@
     "@nextui-org/switch": "^2.0.31",
     "@nextui-org/system": "^2.2.3",
     "@nextui-org/table": "^2.0.36",
-    "@nextui-org/tabs": "^2.0.32",
+    "@nextui-org/tabs": "^2.0.35",
     "@nextui-org/theme": "^2.2.6",
     "@nextui-org/tooltip": "^2.0.39",
     "@nextui-org/user": "^2.0.31",
     "@supabase/ssr": "^0.3.0",
     "@supabase/supabase-js": "^2.44.4",
-    "dayjs": "^1.11.11",
     "framer-motion": "^11.2.11",
     "gql.tada": "^1.8.5",
     "graphql": "^16.9.0",
     "graphql-request": "^7.0.1",
     "next": "^14.2.4",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -69,6 +71,7 @@
     "@repo/config": "workspace:*",
     "eslint": "^8",
     "nextui-cli": "^0.3.2",
+    "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.4"

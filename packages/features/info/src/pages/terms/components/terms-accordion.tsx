@@ -1,6 +1,6 @@
 'use client';
 
-import { Accordion, AccordionItem } from '@repo/libs/nextui';
+import { Accordion, AccordionItem } from '@repo/shared/nextui';
 
 interface Section {
   id: string;
