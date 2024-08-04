@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@repo/libs/nextui';
+import { cn } from '@repo/shared/nextui';
 
 interface TextProps extends React.ComponentPropsWithoutRef<'p'> {
   children: React.ReactNode;

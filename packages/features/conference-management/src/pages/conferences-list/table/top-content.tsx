@@ -17,7 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Switch,
-} from '@repo/libs/nextui';
+} from '@repo/shared/nextui';
 
 import { useDebounce } from '#hooks/use-debounce/index';
 

@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
-import { Tab, Tabs } from '@repo/libs/nextui';
+import { Tab, Tabs } from '@repo/shared/nextui';
 
 const tabs = [
   {

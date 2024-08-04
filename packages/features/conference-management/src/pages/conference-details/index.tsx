@@ -2,8 +2,8 @@ import { Icon, type IconifyIcon } from '@iconify/react';
 import { parseAbsoluteToLocal } from '@internationalized/date';
 
 import { Header } from '@repo/components';
-import { Link } from '@repo/libs/nextui';
-import { getFormattedDateTime } from '@repo/utils/date-formatter';
+import { Link } from '@repo/shared/nextui';
+import { getFormattedDateTime } from '@repo/shared/utils/formatters';
 
 import { FileList } from '#components/file-list/index';
 import { TimeLine } from '#components/timeline/index';
@@ -96,7 +96,9 @@ export async function ConferencePage({ params }: { params: { id: string } }) {
         <div className="cm-space-y-4">
           {metrics.map((metric) => (
             <div key={metric.id} className="cm-flex cm-space-x-1">
-              {metric?.icon && <Icon icon={metric.icon} className="cm-h-6" />}
+              {metric.icon ? (
+                <Icon icon={metric.icon} className="cm-h-6" />
+              ) : null}
               <h2>
                 <p className="cm-font-semibold cm-text-lg">{metric.label}: </p>
                 {metric.link ? (

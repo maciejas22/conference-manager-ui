@@ -1,6 +1,6 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
-import { cn } from '@repo/libs/nextui';
+import { cn } from '@repo/shared/nextui';
 
 interface HeaderProps extends ComponentPropsWithoutRef<'h2'> {
   children: React.ReactNode;

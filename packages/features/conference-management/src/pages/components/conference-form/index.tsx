@@ -13,7 +13,7 @@ import {
   DateRangePicker,
   Input,
   Textarea,
-} from '@repo/libs/nextui';
+} from '@repo/shared/nextui';
 
 import {
   createConferenceAction,
@@ -27,7 +27,7 @@ import { FileList } from '#components/file-list/index';
 import { TimeLine } from '#components/timeline/index';
 import { type AgendaItem } from '#types/agenda';
 import { type ConferenceInput } from '#types/conference';
-import { isRemoteFile, ListFile } from '#types/file';
+import { isRemoteFile, type ListFile } from '#types/file';
 
 import { AgendaForm } from '../agenda-form';
 
@@ -90,14 +90,14 @@ function ConferenceForm({
             isRequired
             defaultValue={initialConferenceData?.title ?? ''}
             errorMessage={state.errors.title}
-            isInvalid={!!state.errors.title}
+            isInvalid={Boolean(state.errors.title)}
           />
           <Input
             label="Acronym"
             name="acronym"
             defaultValue={initialConferenceData?.acronym ?? ''}
             errorMessage={state.errors.acronym}
-            isInvalid={!!state.errors.acronym}
+            isInvalid={Boolean(state.errors.acronym)}
           />
         </CardBody>
       </Card>
@@ -111,7 +111,7 @@ function ConferenceForm({
             isRequired
             defaultValue={initialConferenceData?.location ?? ''}
             errorMessage={state.errors.location}
-            isInvalid={!!state.errors.location}
+            isInvalid={Boolean(state.errors.location)}
           />
           <DateRangePicker
             label="Duration"
@@ -126,14 +126,14 @@ function ConferenceForm({
             name="website"
             defaultValue={initialConferenceData?.website ?? ''}
             errorMessage={state.errors.website}
-            isInvalid={!!state.errors.website}
+            isInvalid={Boolean(state.errors.website)}
           />
           <Textarea
             label="Additional informations"
             name="additionalInfo"
             defaultValue={initialConferenceData?.additionalInfo ?? ''}
             errorMessage={state.errors.additionalInfo}
-            isInvalid={!!state.errors.additionalInfo}
+            isInvalid={Boolean(state.errors.additionalInfo)}
           />
         </CardBody>
       </Card>
@@ -147,14 +147,15 @@ function ConferenceForm({
               .filter((i) => !isRemoteFile(i) || !i._destroy)
               .map((i) => ({
                 file: i,
-                onDeleteClick: () =>
+                onDeleteClick: () => {
                   setFiles((prev) =>
                     prev
                       .filter((file) => file !== i)
                       .concat(
                         isRemoteFile(i) ? [{ ...i, _destroy: true }] : [],
                       ),
-                  ),
+                  );
+                },
               }))}
           />
           <DropZone

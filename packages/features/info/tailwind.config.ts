@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 import sharedConfig from '@repo/config/tailwind';
-import { nextui } from '@repo/libs/nextui';
+import { nextui } from '@repo/shared/nextui';
 
 const config: Config = {
   prefix: 'info-',

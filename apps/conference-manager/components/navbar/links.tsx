@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
-import { Link, NavbarItem } from '@repo/libs/nextui';
+import { Link, NavbarItem } from '@repo/shared/nextui';
 
 import { type Role } from '@/types/role';
 

@@ -1,5 +1,5 @@
 import { Header } from '@repo/components';
-import { Link } from '@repo/libs/nextui';
+import { Link } from '@repo/shared/nextui';
 
 import { LoginForm } from './login-form';
 

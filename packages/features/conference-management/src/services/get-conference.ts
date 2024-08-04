@@ -1,5 +1,5 @@
-import { graphql, type ResultOf } from '@repo/libs/graphql';
-import { getGqlClient } from '@repo/libs/graphql-client';
+import { graphql, type ResultOf } from '@repo/shared/graphql';
+import { getGqlClient } from '@repo/shared/graphql-client';
 
 export const getConferenceQuery = graphql(`
   query GetConference($id: ID!) {

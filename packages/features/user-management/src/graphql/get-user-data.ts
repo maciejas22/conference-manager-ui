@@ -1,4 +1,4 @@
-import { graphql } from '@repo/libs/graphql';
+import { graphql } from '@repo/shared/graphql';
 
 export const getUserDataQuery = graphql(`
   query GetUser {

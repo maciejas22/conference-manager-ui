@@ -1,11 +1,11 @@
 import { Icon } from '@iconify/react';
 
-import { Button, Link } from '@repo/libs/nextui';
-import { formatBytes } from '@repo/utils/bytes-formatter';
+import { Button, Link } from '@repo/shared/nextui';
+import { formatBytes } from '@repo/shared/utils/formatters';
 
-import { isRemoteFile, isStoredFile, ListFile } from '#types/file';
+import { isRemoteFile, isStoredFile, type ListFile } from '#types/file';
 
-import { FileCategory, fileTypes } from './types/fileTypes';
+import { fileTypes, type FileCategory } from './types/fileTypes';
 
 interface FileListProps {
   mode: 'view' | 'edit';
@@ -67,7 +67,7 @@ const getFormattedFileSize = (file: ListFile) => {
   return formatBytes(getFileSizeInBytes(file));
 };
 
-export const FileList = ({ mode, attachments }: FileListProps) => {
+export function FileList({ mode, attachments }: FileListProps) {
   return (
     <ul className="cm-space-y-4">
       {attachments.map((item, index) => (
@@ -85,7 +85,7 @@ export const FileList = ({ mode, attachments }: FileListProps) => {
               isIconOnly
               color="danger"
               onClick={() => {
-                if (item?.onDeleteClick) {
+                if (item.onDeleteClick) {
                   console.log(item);
                   item.onDeleteClick();
                 }
@@ -99,4 +99,4 @@ export const FileList = ({ mode, attachments }: FileListProps) => {
       ))}
     </ul>
   );
-};
+}

@@ -1,4 +1,4 @@
-import { Button, Link } from '@repo/libs/nextui';
+import { Button, Link } from '@repo/shared/nextui';
 
 import { isOrganizer as isOrganizerOfConference } from '#services/is-organizer';
 

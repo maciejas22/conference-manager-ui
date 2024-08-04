@@ -1,8 +1,8 @@
 import { Icon } from '@iconify/react';
 import { parseAbsoluteToLocal } from '@internationalized/date';
 
-import { Link, Tooltip } from '@repo/libs/nextui';
-import { getFormattedDateTime } from '@repo/utils/date-formatter';
+import { Link, Tooltip } from '@repo/shared/nextui';
+import { getFormattedDateTime } from '@repo/shared/utils/formatters';
 
 import { type GetConferencesQueryResponse } from '#services/get-conferences';
 

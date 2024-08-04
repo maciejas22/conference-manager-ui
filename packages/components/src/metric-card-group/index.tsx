@@ -1,4 +1,4 @@
-import { cn } from '@repo/libs/nextui';
+import { cn } from '@repo/shared/nextui';
 
 import { MetricCard, type MetricCardProps } from '../metric-card';
 

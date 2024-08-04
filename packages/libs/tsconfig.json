@@ -3,16 +3,16 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "src",
-    "outDir": "dist",
-    "plugins": [
-      {
-        "name": "gql.tada/ts-plugin",
-        "schema": "./src/graphql/schema.graphql",
-        "tadaOutputLocation": "./src/graphql/types/graphql-env.d.ts",
-        "tadaTurboLocation": "./src/graphql/types/graphql-turbo.d.ts",
-        "tadaPersistedLocation": "./src/graphql/types/graphql-persisted.d.ts"
-      }
-    ]
+    "outDir": "dist"
   },
+  "plugins": [
+    {
+      "name": "gql.tada/ts-plugin",
+      "schema": "./src/graphql/schema.graphql",
+      "tadaOutputLocation": "./src/graphql/types/graphql-env.d.ts",
+      "tadaTurboLocation": "./src/graphql/types/graphql-turbo.d.ts",
+      "tadaPersistedLocation": "./src/graphql/types/graphql-persisted.d.ts"
+    }
+  ],
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

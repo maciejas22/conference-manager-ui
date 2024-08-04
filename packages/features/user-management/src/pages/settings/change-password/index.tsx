@@ -6,7 +6,7 @@ import { useFormState } from 'react-dom';
 import { toast } from 'sonner';
 
 import { Header, SubmitButton } from '@repo/components';
-import { Input } from '@repo/libs/nextui';
+import { Input } from '@repo/shared/nextui';
 
 import {
   changePasswordAction,

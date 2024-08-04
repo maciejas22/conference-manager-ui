@@ -6,7 +6,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
   User,
-} from '@repo/libs/nextui';
+} from '@repo/shared/nextui';
 
 import { logout } from '@/actions/logout';
 import { navigate } from '@/actions/utils';

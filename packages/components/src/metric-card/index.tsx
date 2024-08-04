@@ -1,4 +1,4 @@
-import { Card, CardFooter, CardHeader } from '@repo/libs/nextui';
+import { Card, CardFooter, CardHeader } from '@repo/shared/nextui';
 
 export interface MetricCardProps {
   metric: string;

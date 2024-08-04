@@ -22,7 +22,7 @@ import {
   CardHeader,
   DateRangePicker,
   Input,
-} from '@repo/libs/nextui';
+} from '@repo/shared/nextui';
 
 import { type AgendaItem } from '#types/agenda';
 
@@ -112,7 +112,7 @@ export function AgendaForm({ setAgendaItems }: AgendaFormProps) {
             onChange={(e) => {
               handleAgendaChange('event', e.target.value);
             }}
-            isInvalid={!!errors.event}
+            isInvalid={Boolean(errors.event)}
             errorMessage={errors.event}
           />
           <Input
@@ -123,7 +123,7 @@ export function AgendaForm({ setAgendaItems }: AgendaFormProps) {
             onChange={(e) => {
               handleAgendaChange('speaker', e.target.value);
             }}
-            isInvalid={!!errors.speaker}
+            isInvalid={Boolean(errors.speaker)}
             errorMessage={errors.speaker}
           />
           <DateRangePicker
@@ -132,7 +132,9 @@ export function AgendaForm({ setAgendaItems }: AgendaFormProps) {
             isRequired
             granularity="minute"
             minValue={now(getLocalTimeZone())}
-            isInvalid={!!errors.startDateTime || !!errors.endDateTime}
+            isInvalid={
+              Boolean(errors.startDateTime) || Boolean(errors.endDateTime)
+            }
             errorMessage={[
               ...(errors.startDateTime ? [errors.startDateTime] : []),
               ...(errors.endDateTime ? [errors.endDateTime] : []),
