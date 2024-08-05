@@ -34,12 +34,6 @@
     "types",
     "typing"
   ],
-  "customTypes": {
-    "nodeEngine": {
-      "path": "engines.node",
-      "strategy": "version"
-    }
-  },
   "semverGroups": [
     {
       "packages": [
@@ -57,7 +51,7 @@
       "dependencies": [
         "$LOCAL"
       ],
-      "pinVersion": "workspace:*"
+      "policy": "sameRange"
     }
   ]
 }
