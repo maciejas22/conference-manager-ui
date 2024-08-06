@@ -16,7 +16,7 @@ export const requestMiddleware: RequestMiddleware = async (req) => {
 };
 
 const getGqlClient = () => {
-  return new GraphQLClient('http://localhost:8080/graphql', {
+  return new GraphQLClient(`${process.env.API_DOMAIN}/graphql`, {
     requestMiddleware,
     credentials: 'include',
   });
