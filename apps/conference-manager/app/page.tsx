@@ -1,5 +1,8 @@
 import { HomePage } from '@repo/info';
 
-export default function Home() {
+import { protectRoute } from '@/utils/protect-route';
+
+export default async function Page() {
+  await protectRoute();
   return <HomePage />;
 }

@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
+    "./components": "./src/components/index.ts",
     "./graphql": "./src/graphql/graphql.ts",
     "./graphql-client": "./src/graphql-client/index.ts",
     "./nextui": "./src/nextui/index.ts",
     "./supabase/client": "./src/supabase/client.ts",
     "./supabase/middleware": "./src/supabase/middleware.ts",
     "./styles": "./dist/index.css",
-    "./utils/formatters": "./src/utils/formatters/index.ts"
+    "./utils": "./src/utils/index.ts"
   },
   "scripts": {
     "build": "pnpm gen-tailwind",
@@ -30,6 +31,9 @@
     "prettier-check": "prettier --check \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
     "type-check": "pnpm gql-check && tsc --noEmit"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@internationalized/date": "^3.5.4",
     "@nextui-org/accordion": "^2.0.38",
@@ -64,11 +68,15 @@
     "next": "^14.2.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-dropzone": "^14.2.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.3.0",
+    "@iconify/react": "^5.0.1",
     "@repo/config": "workspace:*",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "eslint": "^8",
     "nextui-cli": "^0.3.2",
     "prettier": "^3.3.2",
@@ -77,6 +85,10 @@
     "typescript": "^5.5.4"
   },
   "imports": {
+    "#nextui": "./src/nextui/index.ts",
     "#supabase/*": "./src/supabase/*.ts"
-  }
+  },
+  "sideEffects": [
+    "**/*.css"
+  ]
 }

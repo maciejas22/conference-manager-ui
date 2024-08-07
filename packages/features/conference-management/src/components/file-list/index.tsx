@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 
 import { Button, Link } from '@repo/shared/nextui';
-import { formatBytes } from '@repo/shared/utils/formatters';
+import { formatter } from '@repo/shared/utils';
 
 import { isRemoteFile, isStoredFile, type ListFile } from '#types/file';
 
@@ -64,7 +64,7 @@ const getFileSizeInBytes = (file: ListFile) => {
 };
 
 const getFormattedFileSize = (file: ListFile) => {
-  return formatBytes(getFileSizeInBytes(file));
+  return formatter.formatBytes(getFileSizeInBytes(file));
 };
 
 export function FileList({ mode, attachments }: FileListProps) {
@@ -86,7 +86,6 @@ export function FileList({ mode, attachments }: FileListProps) {
               color="danger"
               onClick={() => {
                 if (item.onDeleteClick) {
-                  console.log(item);
                   item.onDeleteClick();
                 }
               }}

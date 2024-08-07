@@ -2,7 +2,7 @@
 
 import { useFormState } from 'react-dom';
 
-import { SubmitButton } from '@repo/components';
+import { SubmitButton } from '@repo/shared/components';
 
 import { isParticipant as isParticipantOfConference } from '#actions/is-participant';
 import { joinConferenceAction as joinConference } from '#actions/join-conference';

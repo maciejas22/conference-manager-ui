@@ -1,4 +1,4 @@
-import { Header } from '@repo/components';
+import { Header } from '@repo/shared/components';
 
 import { getAgenda } from '#services/get-agenda';
 import { getConference } from '#services/get-conference';

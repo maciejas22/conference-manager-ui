@@ -1,4 +1,4 @@
-import { Header } from '@repo/components';
+import { Header } from '@repo/shared/components';
 
 import { getUser } from '#services/get-user-data';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cn } from '@repo/shared/nextui';
+import { cn } from '#nextui';
 
 interface TextProps extends React.ComponentPropsWithoutRef<'p'> {
   children: React.ReactNode;
@@ -8,7 +8,7 @@ interface TextProps extends React.ComponentPropsWithoutRef<'p'> {
 
 function Text({ children, className, ...props }: TextProps) {
   return (
-    <p className={cn('comps-my-2', 'comps-text-lg', className)} {...props}>
+    <p className={cn('my-2', 'text-lg', className)} {...props}>
       {children}
     </p>
   );

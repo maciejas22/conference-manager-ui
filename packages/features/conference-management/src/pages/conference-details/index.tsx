@@ -1,9 +1,9 @@
 import { Icon, type IconifyIcon } from '@iconify/react';
 import { parseAbsoluteToLocal } from '@internationalized/date';
 
-import { Header } from '@repo/components';
+import { Header } from '@repo/shared/components';
 import { Link } from '@repo/shared/nextui';
-import { getFormattedDateTime } from '@repo/shared/utils/formatters';
+import { formatter } from '@repo/shared/utils';
 
 import { FileList } from '#components/file-list/index';
 import { TimeLine } from '#components/timeline/index';
@@ -32,7 +32,7 @@ const getMetrics = (conference: Conference): Metric[] => {
     {
       id: 2,
       label: 'Dates',
-      value: `${getFormattedDateTime(parseAbsoluteToLocal(conference.startDate))} - ${getFormattedDateTime(parseAbsoluteToLocal(conference.endDate))}`,
+      value: `${formatter.getFormattedDateTime(parseAbsoluteToLocal(conference.startDate))} - ${formatter.getFormattedDateTime(parseAbsoluteToLocal(conference.endDate))}`,
       icon: 'ri:time-line',
     },
     {
@@ -59,7 +59,7 @@ const getMetrics = (conference: Conference): Metric[] => {
     metrics.push({
       id: 5,
       label: 'Registration Deadline',
-      value: getFormattedDateTime(
+      value: formatter.getFormattedDateTime(
         parseAbsoluteToLocal(conference.registrationDeadline),
       ),
       icon: 'ri:time-line',

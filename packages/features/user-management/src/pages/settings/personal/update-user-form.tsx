@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useFormState } from 'react-dom';
 import { toast } from 'sonner';
 
-import { SubmitButton } from '@repo/components';
+import { SubmitButton } from '@repo/shared/components';
 import { Input } from '@repo/shared/nextui';
 
 import {

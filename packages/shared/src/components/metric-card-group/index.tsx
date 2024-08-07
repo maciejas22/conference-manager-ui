@@ -1,4 +1,4 @@
-import { cn } from '@repo/shared/nextui';
+import { cn } from '#nextui';
 
 import { MetricCard, type MetricCardProps } from '../metric-card';
 
@@ -8,14 +8,7 @@ interface MetricCardGroupProps {
 
 export const MetricCardGroup = ({ metrics }: MetricCardGroupProps) => {
   return (
-    <div
-      className={cn(
-        'comps-grid',
-        'comps-grid-flow-col',
-        'comps-auto-cols-fr',
-        'comps-gap-4',
-      )}
-    >
+    <div className={cn('grid', 'grid-flow-col', 'auto-cols-fr', 'gap-4')}>
       {metrics.map((metric) => (
         <MetricCard key={metric.metric} {...metric} />
       ))}

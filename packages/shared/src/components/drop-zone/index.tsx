@@ -25,24 +25,21 @@ export const DropZone = ({ onDrop }: DropZoneProps) => {
   return (
     <div
       {...getRootProps()}
-      className="comps-mt-2 comps-flex comps-justify-center comps-rounded-lg comps-bg-zinc-800 hover:comps-bg-zinc-700 comps-px-6 comps-py-10"
+      className="mt-2 flex justify-center rounded-lg bg-zinc-800 hover:bg-zinc-700 px-6 py-10"
     >
       <input {...getInputProps()} className="comps-sr-only" />
-      <div className="comps-text-center">
-        <Icon
-          icon="mdi:file"
-          className="comps-mx-auto comps-h-12 comps-w-12 comps-text-gray-400"
-        />
-        <div className="comps-mt-4 comps-flex comps-text-sm comps-leading-6 comps-text-gray-400">
+      <div className="text-center">
+        <Icon icon="mdi:file" className="mx-auto h-12 w-12 text-gray-400" />
+        <div className="mt-4 flex text-sm leading-6 text-gray-400">
           <label
             htmlFor="file-upload"
-            className="comps-relative comps-cursor-pointer comps-rounded-md comps-font-semibold comps-text-primary hover:comps-text-primary/80"
+            className="relative cursor-pointer rounded-md font-semibold text-primary hover:text-primary/80"
           >
             <span>Upload a file</span>
           </label>
-          <p className="comps-pl-1">or drag and drop</p>
+          <p className="pl-1">or drag and drop</p>
         </div>
-        <p className="comps-text-xs comps-leading-5 comps-text-gray-400">
+        <p className="text-xs leading-5 text-gray-400">
           PNG, JPG, GIF up to 10MB
         </p>
       </div>

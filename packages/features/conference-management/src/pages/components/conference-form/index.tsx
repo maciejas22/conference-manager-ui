@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { parseAbsoluteToLocal } from '@internationalized/date';
 import { useFormState } from 'react-dom';
 
-import { DropZone, Header, SubmitButton } from '@repo/components';
+import { DropZone, Header, SubmitButton } from '@repo/shared/components';
 import {
   Card,
   CardBody,

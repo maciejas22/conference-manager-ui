@@ -1,4 +1,4 @@
-import { Header, SubHeader } from '@repo/components';
+import { Header, SubHeader } from '@repo/shared/components';
 
 import { ConferenceForm } from '../components/conference-form';
 

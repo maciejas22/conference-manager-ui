@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import { type ZonedDateTime } from '@internationalized/date';
 
 import { Button, Chip } from '@repo/shared/nextui';
-import { getFormattedDateTime } from '@repo/shared/utils/formatters';
+import { formatter } from '@repo/shared/utils';
 
 interface Event {
   title: string;
@@ -32,7 +32,7 @@ function TimeLine({ events, mode }: TimeLineProps) {
             {/*TODO: Change to mono font*/}
             <Chip color="primary" className="cm-z-20">
               <time dateTime={event.date.toString()} className="cm-flex-none">
-                {getFormattedDateTime(event.date)}
+                {formatter.getFormattedDateTime(event.date)}
               </time>
             </Chip>
             {eventIdx !== events.length - 1 ? (

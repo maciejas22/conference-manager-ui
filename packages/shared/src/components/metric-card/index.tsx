@@ -1,4 +1,4 @@
-import { Card, CardFooter, CardHeader } from '@repo/shared/nextui';
+import { Card, CardFooter, CardHeader } from '#nextui';
 
 export interface MetricCardProps {
   metric: string;
@@ -7,9 +7,9 @@ export interface MetricCardProps {
 
 export const MetricCard = ({ metric, value }: MetricCardProps) => {
   return (
-    <Card className="comps-flex comps-justify-between">
+    <Card className="flex justify-between">
       <CardHeader>{metric}</CardHeader>
-      <CardFooter className="comps-text-2xl">{value}</CardFooter>
+      <CardFooter className="text-2xl">{value}</CardFooter>
     </Card>
   );
 };

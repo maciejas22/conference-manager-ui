@@ -1,4 +1,4 @@
-import { Header, Subtext } from '@repo/components';
+import { Header, Subtext } from '@repo/shared/components';
 
 export function Hero() {
   return (

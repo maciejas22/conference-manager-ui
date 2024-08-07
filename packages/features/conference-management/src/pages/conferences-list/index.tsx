@@ -1,4 +1,4 @@
-import { MetricCardGroup } from '@repo/components';
+import { MetricCardGroup } from '@repo/shared/components';
 import { Card, CardBody } from '@repo/shared/nextui';
 
 import { getConferences } from '#services/get-conferences';

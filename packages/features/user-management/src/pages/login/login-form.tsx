@@ -1,47 +1,75 @@
 'use client';
 
-import { useEffect } from 'react';
-
-import { useFormState } from 'react-dom';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
+import { z } from 'zod';
 
-import { SubmitButton } from '@repo/components';
-import { Input } from '@repo/shared/nextui';
+import { Button, Input } from '@repo/shared/nextui';
+import { navigate } from '@repo/shared/utils';
 
-import { login, type LoginFormState } from '#actions/login';
+import { login } from '#actions/login';
 
-const initialState: LoginFormState = {
-  errors: {},
-};
+const loginSchema = z.object({
+  email: z.string().email().min(6),
+  password: z.string().min(6),
+});
+
+type LoginSchema = z.infer<typeof loginSchema>;
 
 function LoginForm() {
-  const [state, formAction] = useFormState(login, initialState);
+  const { register, handleSubmit, formState, setError } = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
+  });
 
-  useEffect(() => {
-    if (state.message?.text) {
-      toast(state.message.text);
+  const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
+    const result = await login(data);
+
+    switch (result.status) {
+      case 'success':
+        toast.success(result.message);
+        navigate('/');
+        break;
+
+      case 'error':
+        if (result.fieldErrors) {
+          Object.entries(result.fieldErrors).forEach(([field, errors]) => {
+            errors.forEach((error) => {
+              setError(field as keyof LoginSchema, { message: error });
+            });
+          });
+        }
+        toast.error(result.message);
+        break;
     }
-  }, [state.message]);
+  };
 
   return (
-    <form className="um-mt-10 um-space-y-6" action={formAction}>
+    <form className="um-mt-10 um-space-y-6" onSubmit={handleSubmit(onSubmit)}>
       <Input
-        name="email"
         type="email"
         label="Email"
         isRequired
-        isInvalid={!!state.errors.email}
-        errorMessage={state.errors.email}
+        isInvalid={Boolean(formState.errors.email)}
+        errorMessage={formState.errors.email?.message}
+        {...register('email')}
       />
       <Input
-        name="password"
         type="password"
         label="Password"
         isRequired
-        isInvalid={!!state.errors.password}
-        errorMessage={state.errors.password}
+        isInvalid={Boolean(formState.errors.password)}
+        errorMessage={formState.errors.password?.message}
+        {...register('password')}
       />
-      <SubmitButton>Login</SubmitButton>
+      <Button
+        type="submit"
+        isLoading={formState.isSubmitting}
+        color="primary"
+        fullWidth
+      >
+        Login
+      </Button>
     </form>
   );
 }
