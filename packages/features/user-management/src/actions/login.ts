@@ -1,56 +1,26 @@
 'use server';
 
-import { z } from 'zod';
-
 import { createClient } from '@repo/shared/supabase/client';
 
-const loginSchema = z.object({
-  email: z.string().email().min(6),
-  password: z.string().min(6),
-});
+import { type FormStatus } from '#types/form-status';
 
-type LoginInput = z.infer<typeof loginSchema>;
-
-type FieldErrors = Partial<Record<keyof LoginInput, string[]>>;
-interface LoginResult {
-  fieldErrors?: FieldErrors;
-  message?: string;
-  status: 'success' | 'error';
+interface LoginResponse {
+  status: FormStatus;
+  message: string;
 }
 
-export async function login(formData: LoginInput): Promise<LoginResult> {
+export async function login(
+  email: string,
+  password: string,
+): Promise<LoginResponse> {
   const supabase = createClient();
 
-  const validatedData = loginSchema.safeParse(formData);
+  const { error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-  if (!validatedData.success) {
-    return {
-      fieldErrors: validatedData.error.flatten().fieldErrors,
-      status: 'error',
-    };
-  }
-
-  const { error } = await supabase.auth.signInWithPassword(validatedData.data);
-
-  if (error) {
-    if (error.message === 'Invalid login credentials')
-      return {
-        fieldErrors: {
-          email: ['Invalid email or password'],
-          password: ['Invalid email or password'],
-        },
-        message: error.message,
-        status: 'error',
-      };
-
-    return {
-      message: error.message,
-      status: 'error',
-    };
-  }
-
-  return {
-    message: 'Login successful',
-    status: 'success',
-  };
+  return error
+    ? { status: 'error', message: error.message }
+    : { status: 'success', message: 'Login successful' };
 }

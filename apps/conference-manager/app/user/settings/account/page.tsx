@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { ModifyUserPage } from '@repo/user-management';
 
 import { protectRoute } from '@/utils/protect-route';

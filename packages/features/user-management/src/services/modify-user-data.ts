@@ -1,7 +1,14 @@
-import { type VariablesOf } from '@repo/shared/graphql';
+import { graphql, type VariablesOf } from '@repo/shared/graphql';
 import { getGqlClient } from '@repo/shared/graphql-client';
 
-import { modifyUserDataMutation } from '../graphql/modify-user-data';
+export const modifyUserDataMutation = graphql(`
+  mutation UpdateUser($updateUserInput: UpdateUserInput!) {
+    updateUser(updateUserInput: $updateUserInput) {
+      id
+      username
+    }
+  }
+`);
 
 type ModifyUserDataVariables = VariablesOf<
   typeof modifyUserDataMutation

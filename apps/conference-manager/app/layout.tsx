@@ -14,11 +14,7 @@ export const metadata: Metadata = {
   description: 'App to manage conferences',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
@@ -29,7 +25,7 @@ export default function RootLayout({
         <Providers>
           <main className="main-min-h-screen main-flex main-flex-col">
             <Navbar />
-            {children}
+            <div className="main-mt-10">{children}</div>
           </main>
         </Providers>
       </body>

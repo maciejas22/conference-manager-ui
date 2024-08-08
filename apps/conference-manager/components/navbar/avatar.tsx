@@ -37,7 +37,7 @@ const items: Item[] = [
     label: 'Settings',
     color: 'default',
     action: async () => {
-      await navigate('/user/settings/personal');
+      await navigate('/user/settings/account');
     },
   },
   {

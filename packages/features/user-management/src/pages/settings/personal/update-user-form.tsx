@@ -1,77 +1,96 @@
 'use client';
 
-import { useEffect } from 'react';
-
-import { useFormState } from 'react-dom';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
+import { z } from 'zod';
 
-import { SubmitButton } from '@repo/shared/components';
-import { Input } from '@repo/shared/nextui';
+import { Button, Input } from '@repo/shared/nextui';
 
-import {
-  modifyUserDataAction,
-  type ModifyUserDataFormState,
-} from '#actions/modify-user-data';
+import { modifyUserDataAction } from '#actions/modify-user-data';
 
-const initialState: ModifyUserDataFormState = {
-  errors: {},
-};
+import { Footer } from '../components/footer';
 
-interface UpdateUserFormProps {
-  name: string;
-  surname: string;
-  username: string;
-  email: string;
-}
+const updateUserDataSchema = z.object({
+  name: z.string().optional(),
+  surname: z.string().optional(),
+  username: z.string().min(6),
+  email: z.string().email(),
+});
+
+type UpdateUserDataSchema = z.infer<typeof updateUserDataSchema>;
 
 export function UpdateUserForm({
   name,
   surname,
   username,
   email,
-}: UpdateUserFormProps) {
-  const [state, formAction] = useFormState(modifyUserDataAction, initialState);
+}: UpdateUserDataSchema) {
+  const { register, handleSubmit, formState } = useForm<UpdateUserDataSchema>({
+    resolver: zodResolver(updateUserDataSchema),
+  });
 
-  useEffect(() => {
-    if (state.message?.text) {
-      toast(state.message.text);
+  const onSubmit: SubmitHandler<UpdateUserDataSchema> = async (data) => {
+    const result = await modifyUserDataAction(
+      data.name ?? '',
+      data.surname ?? '',
+      data.username,
+      data.email,
+    );
+
+    switch (result.status) {
+      case 'success':
+        toast.success(result.message);
+        break;
+
+      case 'error':
+        toast.error(result.message);
+        break;
     }
-  }, [state.message]);
+  };
 
   return (
-    <form className="um-mt-6 um-space-y-6" action={formAction}>
+    <form className="um-space-y-6" onSubmit={handleSubmit(onSubmit)}>
       <Input
-        name="name"
         label="Name"
         defaultValue={name}
-        isInvalid={!!state.errors.name}
-        errorMessage={state.errors.name}
+        isInvalid={Boolean(formState.errors.name)}
+        errorMessage={formState.errors.name?.message}
+        {...register('name')}
       />
       <Input
-        name="surname"
         label="Surname"
         defaultValue={surname}
-        isInvalid={!!state.errors.surname}
-        errorMessage={state.errors.surname}
+        isInvalid={Boolean(formState.errors.surname)}
+        errorMessage={formState.errors.surname?.message}
+        {...register('surname')}
       />
       <Input
-        name="username"
         label="Username"
         isRequired
         defaultValue={username}
-        isInvalid={!!state.errors.username}
-        errorMessage={state.errors.username}
+        isInvalid={Boolean(formState.errors.username)}
+        errorMessage={formState.errors.username?.message}
+        {...register('username')}
       />
       <Input
-        name="email"
         label="Email"
         isRequired
         defaultValue={email}
         type="email"
-        isInvalid={!!state.errors.email}
-        errorMessage={state.errors.email}
+        isInvalid={Boolean(formState.errors.email)}
+        errorMessage={formState.errors.email?.message}
+        {...register('email')}
       />
-      <SubmitButton>Save</SubmitButton>
+      <Footer>
+        <Button
+          type="submit"
+          color="primary"
+          isLoading={formState.isSubmitting}
+        >
+          Save
+        </Button>
+      </Footer>
     </form>
   );
 }

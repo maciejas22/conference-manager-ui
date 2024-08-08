@@ -8,7 +8,7 @@ function Providers({ children }: { children: ReactNode }) {
   return (
     <NextUIProvider>
       {children}
-      <Toaster theme="dark" />
+      <Toaster theme="dark" position="bottom-left" />
     </NextUIProvider>
   );
 }

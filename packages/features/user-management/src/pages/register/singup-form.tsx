@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
-
-import { useFormState } from 'react-dom';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
+import { z } from 'zod';
 
-import { SubmitButton } from '@repo/shared/components';
-import { Input, Radio, RadioGroup } from '@repo/shared/nextui';
+import { Button, Input, Radio, RadioGroup } from '@repo/shared/nextui';
+import { navigate } from '@repo/shared/utils';
 
-import { signup, type SignupFormState } from '#actions/signup';
+import { signup } from '#actions/signup';
 import { type Role } from '#types/role';
 
 interface RoleOption {
@@ -30,52 +30,83 @@ const roles: RoleOption[] = [
   },
 ];
 
-const initialState: SignupFormState = {
-  errors: {},
-};
+const registerSchema = z
+  .object({
+    email: z.string().email().min(6),
+    password: z.string().min(6),
+    confirmPassword: z.string().min(6),
+    role: z.enum(['Participant', 'Organizer']),
+  })
+  .superRefine((data, ctx) => {
+    if (data.password !== data.confirmPassword) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Passwords do not match',
+        path: ['password'],
+      });
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Passwords do not match',
+        path: ['confirmPassword'],
+      });
+    }
+  });
+
+type RegisterSchema = z.infer<typeof registerSchema>;
 
 function RegisterForm() {
-  const [state, formAction] = useFormState(signup, initialState);
+  const { register, handleSubmit, formState } = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
+  });
 
-  useEffect(() => {
-    if (state.message?.text) {
-      toast(state.message.text);
+  const onSubmit: SubmitHandler<RegisterSchema> = async (data) => {
+    const result = await signup(data.email, data.password, data.role);
+
+    switch (result.status) {
+      case 'success':
+        toast.success(result.message);
+        navigate('/auth/login');
+        break;
+
+      case 'error':
+        toast.error(result.message);
+        break;
     }
-  }, [state.message]);
+  };
 
   return (
-    <form className="um-mt-10 um-space-y-6" action={formAction}>
+    <form className="um-mt-10 um-space-y-6" onSubmit={handleSubmit(onSubmit)}>
       <Input
-        name="email"
         type="email"
         label="Email"
         isRequired
-        isInvalid={!!state.errors.email}
-        errorMessage={state.errors.email}
+        isInvalid={Boolean(formState.errors.email)}
+        errorMessage={formState.errors.email?.message}
+        {...register('email')}
       />
       <Input
-        name="password"
         type="password"
         label="Password"
         isRequired
-        isInvalid={!!state.errors.password}
-        errorMessage={state.errors.password}
+        isInvalid={Boolean(formState.errors.password)}
+        errorMessage={formState.errors.password?.message}
+        {...register('password')}
       />
       <Input
-        name="confirmPassword"
         type="password"
         label="Confirm Password"
         isRequired
-        isInvalid={!!state.errors.confirmPassword}
-        errorMessage={state.errors.confirmPassword}
+        isInvalid={Boolean(formState.errors.confirmPassword)}
+        errorMessage={formState.errors.confirmPassword?.message}
+        {...register('confirmPassword')}
       />
       <RadioGroup
-        name="role"
         label="Role"
         color="primary"
         isRequired
-        isInvalid={!!state.errors.role}
-        errorMessage={state.errors.role}
+        isInvalid={Boolean(formState.errors.role)}
+        errorMessage={formState.errors.role?.message}
+        {...register('role')}
       >
         {roles.map((role) => (
           <Radio
@@ -88,7 +119,14 @@ function RegisterForm() {
         ))}
       </RadioGroup>
 
-      <SubmitButton>Sign in</SubmitButton>
+      <Button
+        type="submit"
+        isLoading={formState.isSubmitting}
+        color="primary"
+        fullWidth
+      >
+        Login
+      </Button>
     </form>
   );
 }

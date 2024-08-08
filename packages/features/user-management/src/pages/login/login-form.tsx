@@ -18,12 +18,12 @@ const loginSchema = z.object({
 type LoginSchema = z.infer<typeof loginSchema>;
 
 function LoginForm() {
-  const { register, handleSubmit, formState, setError } = useForm<LoginSchema>({
+  const { register, handleSubmit, formState } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
   });
 
   const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
-    const result = await login(data);
+    const result = await login(data.email, data.password);
 
     switch (result.status) {
       case 'success':
@@ -32,13 +32,6 @@ function LoginForm() {
         break;
 
       case 'error':
-        if (result.fieldErrors) {
-          Object.entries(result.fieldErrors).forEach(([field, errors]) => {
-            errors.forEach((error) => {
-              setError(field as keyof LoginSchema, { message: error });
-            });
-          });
-        }
         toast.error(result.message);
         break;
     }
@@ -62,6 +55,7 @@ function LoginForm() {
         errorMessage={formState.errors.password?.message}
         {...register('password')}
       />
+
       <Button
         type="submit"
         isLoading={formState.isSubmitting}

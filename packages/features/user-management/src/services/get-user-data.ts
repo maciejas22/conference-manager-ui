@@ -1,7 +1,18 @@
+import { graphql } from '@repo/shared/graphql';
 import { getGqlClient } from '@repo/shared/graphql-client';
 
-import { getUserDataQuery } from '../graphql/get-user-data';
-
+export const getUserDataQuery = graphql(`
+  query GetUser {
+    user {
+      id
+      name
+      surname
+      username
+      email
+      role
+    }
+  }
+`);
 function getUser() {
   const gqlClient = getGqlClient();
   return gqlClient.request(getUserDataQuery);
