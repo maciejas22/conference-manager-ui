@@ -13,9 +13,11 @@ import { navigate } from '@/actions/utils';
 
 interface UserAvatarProps {
   username?: string;
+  role?: string;
 }
 
-const usernameFallback = 'User';
+const usernameFallback = 'Anonymous';
+const roleFallback = 'User';
 
 interface Item {
   key: string;
@@ -28,7 +30,7 @@ interface Item {
     | 'success'
     | 'warning';
   className?: string;
-  action?: () => Promise<void> | void;
+  action: () => Promise<void>;
 }
 
 const items: Item[] = [
@@ -38,22 +40,6 @@ const items: Item[] = [
     color: 'default',
     action: async () => {
       await navigate('/user/settings/account');
-    },
-  },
-  {
-    key: 'news',
-    label: 'News',
-    color: 'default',
-    action: async () => {
-      await navigate('/info/news');
-    },
-  },
-  {
-    key: 'terms',
-    label: 'Terms of Service',
-    color: 'default',
-    action: async () => {
-      await navigate('/info/terms');
     },
   },
   {
@@ -67,19 +53,20 @@ const items: Item[] = [
   },
 ];
 
-function UserAvatar({ username }: UserAvatarProps) {
+function UserAvatar({ username, role }: UserAvatarProps) {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <button className="focus:outline-none" type="button">
+        <button className="main-focus:outline-none" type="button">
           <User
             name={username ?? usernameFallback}
+            description={role ?? roleFallback}
             avatarProps={{
               size: 'sm',
               color: 'primary',
               isBordered: true,
             }}
-            className="cursor-pointer flex-row-reverse"
+            className="main-cursor-pointer main-flex-row-reverse main-gap-4"
           />
         </button>
       </DropdownTrigger>
@@ -91,8 +78,8 @@ function UserAvatar({ username }: UserAvatarProps) {
           <DropdownItem
             key={item.label}
             color={item.color}
-            onClick={async () => {
-              await item.action?.();
+            onClick={() => {
+              void item.action();
             }}
             className={item.className}
           >

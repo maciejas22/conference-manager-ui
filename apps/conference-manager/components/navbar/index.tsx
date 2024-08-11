@@ -3,7 +3,6 @@ import { Navbar, NavbarContent, NavbarItem } from '@repo/shared/nextui';
 import { getUser } from '@/services/get-user';
 
 import { Avatar } from './avatar';
-import { HomeLink, NavigationLinks } from './links';
 
 async function Nav() {
   const userData = await getUser().catch(() => {
@@ -14,19 +13,27 @@ async function Nav() {
     return null;
   }
 
+  const getUserIdentifier = () => {
+    if (userData.user?.name && userData.user.surname) {
+      return `${userData.user.name} ${userData.user.surname}`;
+    } else if (userData.user?.username) {
+      return userData.user.username;
+    }
+
+    return userData.user?.email;
+  };
+
   return (
-    <Navbar isBordered>
-      <NavbarContent justify="start">
-        <HomeLink />
-      </NavbarContent>
-
-      <NavbarContent justify="center">
-        <NavigationLinks userRole={userData.user.role} />
-      </NavbarContent>
-
+    <Navbar
+      isBordered
+      isBlurred={false}
+      maxWidth="full"
+      position="sticky"
+      className="main-left-auto main-right-0 main-w-navbar main-fixed"
+    >
       <NavbarContent justify="end">
         <NavbarItem>
-          <Avatar username={userData.user.username ?? userData.user.email} />
+          <Avatar username={getUserIdentifier()} role={userData.user.role} />
         </NavbarItem>
       </NavbarContent>
     </Navbar>
