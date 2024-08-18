@@ -1,10 +1,9 @@
 'use server';
 
-import { getGqlClient } from '@repo/shared/graphql-client';
+import { cache } from 'react';
+
+import { serverFetcher } from '@repo/shared/server-fetcher';
 
 import { getNewsQuery } from '#graphql/get-news';
 
-export const getNews = () => {
-  const gqlClient = getGqlClient();
-  return gqlClient.request(getNewsQuery);
-};
+export const getNews = cache(() => serverFetcher({ document: getNewsQuery }));

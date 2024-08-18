@@ -34,11 +34,11 @@ const features = [
   },
 ];
 
-interface FeatureCardProps {
+type FeatureCardProps = {
   title: string;
   description: string;
   icon: string;
-}
+};
 
 function FeatureCard({ title, description, icon }: FeatureCardProps) {
   return (

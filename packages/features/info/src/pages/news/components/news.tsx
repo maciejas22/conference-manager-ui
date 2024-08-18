@@ -4,11 +4,11 @@ import { Subtext, Text } from '@repo/shared/components';
 import { Card, CardBody, CardHeader, Divider } from '@repo/shared/nextui';
 import { formatter } from '@repo/shared/utils';
 
-interface NewsProps {
+type NewsProps = {
   title: string;
   date: string;
   content: string;
-}
+};
 
 function News({ title, date, content }: NewsProps) {
   const formattedDate = formatter.getFormattedDateTime(
