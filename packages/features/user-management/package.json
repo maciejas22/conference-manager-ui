@@ -43,7 +43,6 @@
   "imports": {
     "#actions/*": "./src/actions/*.ts",
     "#graphql/*": "./src/graphql/*.ts",
-    "#services/*": "./src/services/*.ts",
     "#types/*": "./src/types/*.ts"
   },
   "sideEffects": [

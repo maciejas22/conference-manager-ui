@@ -1,13 +1,13 @@
 'use server';
 
-import { createClient } from '@repo/shared/supabase/client';
+import { createClient } from '@repo/shared/supabase/server-client';
 
 import { type FormStatus } from '#types/form-status';
 
-interface ChangePasswordResponse {
+type ChangePasswordResponse = {
   status: FormStatus;
   message: string;
-}
+};
 
 export const changePasswordAction = async (
   newPassword: string,

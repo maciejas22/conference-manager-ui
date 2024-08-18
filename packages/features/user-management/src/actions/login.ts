@@ -1,13 +1,13 @@
 'use server';
 
-import { createClient } from '@repo/shared/supabase/client';
+import { createClient } from '@repo/shared/supabase/server-client';
 
 import { type FormStatus } from '#types/form-status';
 
-interface LoginResponse {
+type LoginResponse = {
   status: FormStatus;
   message: string;
-}
+};
 
 export async function login(
   email: string,

@@ -11,11 +11,11 @@ import { navigate } from '@repo/shared/utils';
 import { signup } from '#actions/signup';
 import { type Role } from '#types/role';
 
-interface RoleOption {
+type RoleOption = {
   value: Role;
   label: string;
   description: string;
-}
+};
 
 const roles: RoleOption[] = [
   {
@@ -75,7 +75,10 @@ function RegisterForm() {
   };
 
   return (
-    <form className="um-mt-10 um-space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="um-mt-10 um-space-y-6"
+      onSubmit={(e) => void handleSubmit(onSubmit)(e)}
+    >
       <Input
         type="email"
         label="Email"

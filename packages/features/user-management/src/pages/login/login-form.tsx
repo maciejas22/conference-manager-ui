@@ -38,7 +38,10 @@ function LoginForm() {
   };
 
   return (
-    <form className="um-mt-10 um-space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="um-mt-10 um-space-y-6"
+      onSubmit={(e) => void handleSubmit(onSubmit)(e)}
+    >
       <Input
         type="email"
         label="Email"

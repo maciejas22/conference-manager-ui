@@ -1,12 +1,14 @@
 'use server';
 
-import { modifyUserData } from '#services/modify-user-data';
+import { serverFetcher } from '@repo/shared/server-fetcher';
+
+import { modifyUserDataMutation } from '#graphql/edit-user';
 import { type FormStatus } from '#types/form-status';
 
-interface ModifyUserDataResponse {
+type ModifyUserDataResponse = {
   status: FormStatus;
   message: string;
-}
+};
 
 export const modifyUserDataAction = async (
   name: string,
@@ -15,11 +17,16 @@ export const modifyUserDataAction = async (
   email: string,
 ): Promise<ModifyUserDataResponse> => {
   try {
-    await modifyUserData({
-      name,
-      surname,
-      username,
-      email,
+    await serverFetcher({
+      document: modifyUserDataMutation,
+      variables: {
+        updateUserInput: {
+          name,
+          surname,
+          username,
+          email,
+        },
+      },
     });
   } catch (error) {
     return {

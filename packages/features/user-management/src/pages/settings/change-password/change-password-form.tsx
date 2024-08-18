@@ -5,11 +5,11 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
+import { Card } from '@repo/shared/components';
+import { FormLayout } from '@repo/shared/layouts';
 import { Button, Input } from '@repo/shared/nextui';
 
 import { changePasswordAction } from '#actions/change-password';
-
-import { Footer } from '../components/footer';
 
 const changePasswordSchema = z
   .object({
@@ -53,32 +53,37 @@ export function ChangePasswordForm() {
   };
 
   return (
-    <form className=" um-space-y-6" onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        label="New Password"
-        isRequired
-        type="password"
-        isInvalid={Boolean(formState.errors.newPassword)}
-        errorMessage={formState.errors.newPassword?.message}
-        {...register('newPassword')}
-      />
-      <Input
-        label="Confirm Password"
-        isRequired
-        type="password"
-        isInvalid={Boolean(formState.errors.confirmPassword)}
-        errorMessage={formState.errors.confirmPassword?.message}
-        {...register('confirmPassword')}
-      />
-      <Footer>
-        <Button
-          color="primary"
-          type="submit"
-          isLoading={formState.isSubmitting}
-        >
-          Save
-        </Button>
-      </Footer>
+    <form onSubmit={(e) => void handleSubmit(onSubmit)(e)}>
+      <FormLayout
+        footerChildren={
+          <Button
+            color="primary"
+            type="submit"
+            isLoading={formState.isSubmitting}
+          >
+            Save
+          </Button>
+        }
+      >
+        <Card header="Change password">
+          <Input
+            label="New Password"
+            isRequired
+            type="password"
+            isInvalid={Boolean(formState.errors.newPassword)}
+            errorMessage={formState.errors.newPassword?.message}
+            {...register('newPassword')}
+          />
+          <Input
+            label="Confirm Password"
+            isRequired
+            type="password"
+            isInvalid={Boolean(formState.errors.confirmPassword)}
+            errorMessage={formState.errors.confirmPassword?.message}
+            {...register('confirmPassword')}
+          />
+        </Card>
+      </FormLayout>
     </form>
   );
 }
