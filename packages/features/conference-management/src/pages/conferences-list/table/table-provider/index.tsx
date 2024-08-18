@@ -19,7 +19,7 @@ import {
 import { useDebounce } from '#hooks/use-debounce/index';
 
 import { type ColumnKey } from '../columns';
-import { defaultTableConfig, TableConfig } from '../config/table-config';
+import { defaultTableConfig, type TableConfig } from '../config/table-config';
 import { columnKeyToFieldMap } from '../utils/field-maps';
 
 type TableContextProps = {
