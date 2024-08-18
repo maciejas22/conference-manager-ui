@@ -92,6 +92,7 @@
   },
   "imports": {
     "#assets/*": "./src/assets/*",
+    "#components/*": "./src/components/*",
     "#libs/*": "./src/libs/*",
     "#utils/*": "./src/utils/*"
   },

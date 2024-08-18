@@ -94,9 +94,9 @@ function ConferenceForm({
   };
 
   return (
-    <FormLayout>
-      <FormProvider {...methods}>
-        <form className="cm-space-y-4">
+    <FormProvider {...methods}>
+      <form className="cm-space-y-4">
+        <FormLayout>
           {operation === 'create' ? (
             <>
               <Header>Create conference</Header>
@@ -127,9 +127,9 @@ function ConferenceForm({
               Submit
             </Button>
           </Footer>
-        </form>
-      </FormProvider>
-    </FormLayout>
+        </FormLayout>
+      </form>
+    </FormProvider>
   );
 }
 

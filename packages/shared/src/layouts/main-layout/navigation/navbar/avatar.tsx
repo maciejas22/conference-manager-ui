@@ -1,7 +1,5 @@
 'use client';
 
-import { navigate } from 'src/utils';
-
 import {
   Dropdown,
   DropdownItem,
@@ -10,6 +8,7 @@ import {
   User,
 } from '#libs/nextui/index.ts';
 import { logout } from '#libs/supabase/actions.ts';
+import { navigate } from '#utils/navigate.ts';
 
 type UserAvatarProps = {
   username?: string;
