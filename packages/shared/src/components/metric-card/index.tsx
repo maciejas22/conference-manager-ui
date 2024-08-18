@@ -1,9 +1,9 @@
-import { Card, CardFooter, CardHeader } from '#nextui';
+import { Card, CardFooter, CardHeader } from '#libs/nextui/index.ts';
 
-export interface MetricCardProps {
+export type MetricCardProps = {
   metric: string;
   value: string;
-}
+};
 
 export const MetricCard = ({ metric, value }: MetricCardProps) => {
   return (

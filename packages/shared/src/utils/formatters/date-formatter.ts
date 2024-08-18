@@ -5,7 +5,7 @@ function padWithZero(value: number): string {
 }
 
 function getFormattedDate(date: ZonedDateTime): string {
-  return `${date.year}-${padWithZero(date.month)}-${padWithZero(date.day)}`;
+  return `${date.year.toString()}-${padWithZero(date.month)}-${padWithZero(date.day)}`;
 }
 
 function getFormattedTime(date: ZonedDateTime): string {

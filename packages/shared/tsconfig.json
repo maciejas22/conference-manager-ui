@@ -7,10 +7,10 @@
     "plugins": [
       {
         "name": "gql.tada/ts-plugin",
-        "schema": "./src/graphql/schema.graphql",
-        "tadaOutputLocation": "./src/graphql/types/graphql-env.d.ts",
-        "tadaTurboLocation": "./src/graphql/types/graphql-turbo.d.ts",
-        "tadaPersistedLocation": "./src/graphql/types/graphql-persisted.d.ts"
+        "schema": "./src/libs/graphql/schema.graphql",
+        "tadaOutputLocation": "./src/libs/graphql/types/graphql-env.d.ts",
+        "tadaTurboLocation": "./src/libs/graphql/types/graphql-turbo.d.ts",
+        "tadaPersistedLocation": "./src/libs/graphql/types/graphql-persisted.d.ts"
       }
     ]
   },

@@ -1,10 +1,10 @@
-import { cn } from '#nextui';
+import { cn } from '#libs/nextui/index.ts';
 
 import { MetricCard, type MetricCardProps } from '../metric-card';
 
-interface MetricCardGroupProps {
+type MetricCardGroupProps = {
   metrics: MetricCardProps[];
-}
+};
 
 export const MetricCardGroup = ({ metrics }: MetricCardGroupProps) => {
   return (

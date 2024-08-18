@@ -1,10 +1,10 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
-import { cn } from '#nextui';
+import { cn } from '#libs/nextui/index.ts';
 
-interface SubtextProps extends ComponentPropsWithoutRef<'p'> {
+type SubtextProps = ComponentPropsWithoutRef<'p'> & {
   children: React.ReactNode;
-}
+};
 
 function Subtext({ children, className, ...props }: SubtextProps) {
   return (

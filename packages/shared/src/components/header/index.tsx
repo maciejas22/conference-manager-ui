@@ -1,10 +1,10 @@
 import React, { type ComponentPropsWithoutRef } from 'react';
 
-import { cn } from '#nextui';
+import { cn } from '#libs/nextui/index.ts';
 
-interface HeaderProps extends ComponentPropsWithoutRef<'h2'> {
+type HeaderProps = ComponentPropsWithoutRef<'h2'> & {
   children: React.ReactNode;
-}
+};
 
 function Header({ children, className, ...props }: HeaderProps) {
   return (

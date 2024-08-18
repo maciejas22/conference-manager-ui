@@ -45,6 +45,13 @@ type ConferencePage {
   meta: ConferenceMeta!
 }
 
+type ConferencesMetrics {
+  runningConferences: Int!
+  startingInLessThan24Hours: Int!
+  totalConducted: Int!
+  participantsToday: Int!
+}
+
 input CreateAgendaItemInput {
   startTime: Time!
   endTime: Time!
@@ -111,10 +118,10 @@ input ModifyConferenceInputFile {
 }
 
 type Mutation {
-  createConference(createConferenceInput: CreateConferenceInput!): Conference
-  modifyConference(input: ModifyConferenceInput!): Conference
-  addUserToConference(conferenceId: String!): Conference
-  removeUserFromConference(conferenceId: String!): Conference
+  createConference(createConferenceInput: CreateConferenceInput!): Conference!
+  modifyConference(input: ModifyConferenceInput!): Conference!
+  addUserToConference(conferenceId: String!): Conference!
+  removeUserFromConference(conferenceId: String!): Conference!
   updateUser(updateUserInput: UpdateUserInput!): User
 }
 
@@ -144,6 +151,7 @@ type PageInfo {
 
 type Query {
   conferences(page: Page, sort: Sort, filters: ConferenceFilter): ConferencePage
+  conferencesMetrics: ConferencesMetrics
   conference(id: ID!): Conference
   isParticipant(conferenceId: ID!): Boolean
   isOrganizer(conferenceId: ID!): Boolean

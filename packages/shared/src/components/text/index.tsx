@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { cn } from '#nextui';
+import { cn } from '#libs/nextui/index.ts';
 
-interface TextProps extends React.ComponentPropsWithoutRef<'p'> {
+type TextProps = React.ComponentPropsWithoutRef<'p'> & {
   children: React.ReactNode;
-}
+};
 
 function Text({ children, className, ...props }: TextProps) {
   return (

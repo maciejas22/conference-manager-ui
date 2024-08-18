@@ -5,9 +5,9 @@ import { useCallback } from 'react';
 import { Icon } from '@iconify/react';
 import { useDropzone } from 'react-dropzone';
 
-interface DropZoneProps {
+type DropZoneProps = {
   onDrop: (files: File[]) => void;
-}
+};
 
 export const DropZone = ({ onDrop }: DropZoneProps) => {
   const onFilesRead = useCallback(
