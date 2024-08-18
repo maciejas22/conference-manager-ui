@@ -1,7 +1,6 @@
 import { graphql, type VariablesOf } from '@repo/shared/graphql';
-import { getGqlClient } from '@repo/shared/graphql-client';
 
-export const createConferenceQuery = graphql(`
+export const createConferenceMutation = graphql(`
   mutation CreateConference($createConferenceInput: CreateConferenceInput!) {
     createConference(createConferenceInput: $createConferenceInput) {
       id
@@ -10,20 +9,13 @@ export const createConferenceQuery = graphql(`
 `);
 
 export type CreateConferenceInput = VariablesOf<
-  typeof createConferenceQuery
+  typeof createConferenceMutation
 >['createConferenceInput'];
 
-export type CreateConferenceAgendaItem = NonNullable<
+export type CreateConferenceInputAgenda = NonNullable<
   CreateConferenceInput['agenda']
 >[number];
 
 export type CreateConferenceInputFile = NonNullable<
   CreateConferenceInput['files']
 >[number];
-
-export const createConference = async (vars: CreateConferenceInput) => {
-  const gqlClient = getGqlClient();
-  return gqlClient.request(createConferenceQuery, {
-    createConferenceInput: vars,
-  });
-};

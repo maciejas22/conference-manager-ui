@@ -1,11 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-
 import { Icon } from '@iconify/react';
 
+import { Paper } from '@repo/shared/components';
 import {
   Button,
   Dropdown,
@@ -19,98 +16,87 @@ import {
   Switch,
 } from '@repo/shared/nextui';
 
-import { useDebounce } from '#hooks/use-debounce/index';
-
-import { createQueryString } from '../utils/search-params';
 import { columns, type ColumnKey } from './columns';
+import { useTableContext } from './table-provider';
 
-interface TopContentProps {
-  visibleColumns: ColumnKey[];
-}
-
-function TopContent({ visibleColumns }: TopContentProps) {
-  const searchParamsCtx = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-  const [title, setTitle] = useState(searchParamsCtx.get('title') ?? '');
-  const debouncedTitle = useDebounce(title, 500);
-  const selectedVisibleColumns = new Set(visibleColumns);
-
-  useEffect(() => {
-    const params = createQueryString(searchParamsCtx, {
-      title: debouncedTitle,
-    });
-    router.push(`${pathname}?${params}`);
-  }, [debouncedTitle, searchParamsCtx, router, pathname]);
+function TopContent() {
+  const { tableConfig, updateTableConfig } = useTableContext();
+  const visibleColumns = new Set(tableConfig.visibleColumns);
 
   return (
-    <div className="cm-flex gap-4 cm-w-full">
-      <Input
-        isClearable
-        label="Search by title"
-        placeholder="Type to search..."
-        startContent={
-          <Icon icon="radix-icons:magnifying-glass" className="cm-h-4" />
-        }
-        value={title}
-        onValueChange={setTitle}
-      />
-      <Dropdown backdrop="blur">
-        <DropdownTrigger>
-          <Button className="cm-h-14">Columns</Button>
-        </DropdownTrigger>
-        <DropdownMenu
-          variant="faded"
-          aria-label="Visible columns select"
-          selectionMode="multiple"
-          closeOnSelect={false}
-          items={columns}
-          selectedKeys={selectedVisibleColumns}
-          onSelectionChange={(selection) => {
-            const selectedKeys = Array.from(selection);
-            const params = createQueryString(searchParamsCtx, {
-              visibleColumns: selectedKeys as ColumnKey[],
+    <Paper>
+      <div className="cm-flex gap-4 cm-w-full">
+        <Input
+          isClearable
+          label="Search by title"
+          placeholder="Type to search..."
+          startContent={
+            <Icon icon="radix-icons:magnifying-glass" className="cm-h-4" />
+          }
+          value={tableConfig.filters.title ?? ''}
+          onValueChange={(newValue) => {
+            updateTableConfig('filters', {
+              ...tableConfig.filters,
+              title: newValue,
             });
-            router.push(`${pathname}?${params}`);
           }}
-        >
-          {(column) => (
-            <DropdownItem key={column.key}>{column.label}</DropdownItem>
-          )}
-        </DropdownMenu>
-      </Dropdown>
-      <Popover placement="bottom" showArrow backdrop="blur">
-        <PopoverTrigger>
-          <Button className="cm-h-14">Filters</Button>
-        </PopoverTrigger>
-        <PopoverContent className="">
-          {(titleProps) => (
-            <div className="cm-px-1 cm-py-2 cm-w-full">
-              <p
-                className="cm-text-small cm-font-bold cm-text-foreground"
-                {...titleProps}
-              >
-                Filters
-              </p>
-              <div className="cm-mt-2 cm-flex cm-flex-col cm-gap-2 cm-w-full cm-whitespace-nowrap">
-                <Switch
-                  size="sm"
-                  isSelected={searchParamsCtx.get('associatedOnly') === 'true'}
-                  onValueChange={(isSelected) => {
-                    const params = createQueryString(searchParamsCtx, {
-                      associatedOnly: isSelected,
-                    });
-                    router.push(`${pathname}?${params}`);
-                  }}
+        />
+        <Dropdown backdrop="blur">
+          <DropdownTrigger>
+            <Button className="cm-h-14">Columns</Button>
+          </DropdownTrigger>
+          <DropdownMenu
+            variant="faded"
+            aria-label="Visible columns select"
+            selectionMode="multiple"
+            closeOnSelect={false}
+            items={columns}
+            selectedKeys={visibleColumns}
+            onSelectionChange={(selection) => {
+              updateTableConfig(
+                'visibleColumns',
+                Array.from(selection) as ColumnKey[],
+              );
+            }}
+          >
+            {(column) => (
+              <DropdownItem key={column.key}>{column.label}</DropdownItem>
+            )}
+          </DropdownMenu>
+        </Dropdown>
+        <Popover placement="bottom" showArrow backdrop="blur">
+          <PopoverTrigger>
+            <Button className="cm-h-14">Filters</Button>
+          </PopoverTrigger>
+          <PopoverContent className="">
+            {(titleProps) => (
+              <div className="cm-px-1 cm-py-2 cm-w-full">
+                <p
+                  className="cm-text-small cm-font-bold cm-text-foreground"
+                  {...titleProps}
                 >
-                  Show associated only?
-                </Switch>
+                  Filters
+                </p>
+                <div className="cm-mt-2 cm-flex cm-flex-col cm-gap-2 cm-w-full cm-whitespace-nowrap">
+                  <Switch
+                    size="sm"
+                    isSelected={Boolean(tableConfig.filters.associatedOnly)}
+                    onValueChange={(isSelected) => {
+                      updateTableConfig('filters', {
+                        ...tableConfig.filters,
+                        associatedOnly: isSelected,
+                      });
+                    }}
+                  >
+                    Show associated only?
+                  </Switch>
+                </div>
               </div>
-            </div>
-          )}
-        </PopoverContent>
-      </Popover>
-    </div>
+            )}
+          </PopoverContent>
+        </Popover>
+      </div>
+    </Paper>
   );
 }
 

@@ -1,7 +1,5 @@
-import { Header } from '@repo/shared/components';
-
-import { getAgenda } from '#services/get-agenda';
-import { getConference } from '#services/get-conference';
+import { getAgenda } from '#actions/get-agenda';
+import { getConference } from '#actions/get-conference';
 
 import { ConferenceForm } from '../components/conference-form';
 
@@ -14,14 +12,11 @@ export async function ConferenceEditPage({
   const agenda = await getAgenda(params.id);
 
   return (
-    <>
-      <Header>Edit conference</Header>
-      <ConferenceForm
-        operation="edit"
-        initialConferenceData={conference.conference}
-        initialAgendaData={agenda.conference?.agenda}
-        initialFiles={conference.conference?.files}
-      />
-    </>
+    <ConferenceForm
+      operation="edit"
+      initialConferenceData={conference.conference}
+      initialAgendaData={agenda.conference?.agenda}
+      initialFiles={conference.conference?.files}
+    />
   );
 }

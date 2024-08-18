@@ -9,3 +9,15 @@ export enum Column {
   RegistrationDeadline = 'registration_deadline',
   Actions = 'actions',
 }
+
+export enum ColumnKey {
+  Id = 'id',
+  Title = 'title',
+  Acronym = 'acronym',
+  StartDate = 'startDate',
+  EndDate = 'endDate',
+  Location = 'location',
+  ParticipantsCount = 'participantsCount',
+  RegistrationDeadline = 'registrationDeadline',
+  Actions = 'actions',
+}

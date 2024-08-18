@@ -1,5 +1,4 @@
 import { graphql, type ResultOf, type VariablesOf } from '@repo/shared/graphql';
-import { getGqlClient } from '@repo/shared/graphql-client';
 
 export const getConferencesQuery = graphql(`
   query GetConferences($filters: ConferenceFilter, $page: Page, $sort: Sort) {
@@ -30,8 +29,3 @@ export type GetConferencesQueryVariables = VariablesOf<
 export type GetConferencesQueryResponse = NonNullable<
   ResultOf<typeof getConferencesQuery>['conferences']
 >;
-
-export const getConferences = (vars: GetConferencesQueryVariables) => {
-  const gqlClient = getGqlClient();
-  return gqlClient.request(getConferencesQuery, vars);
-};

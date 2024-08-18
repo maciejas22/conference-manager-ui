@@ -1,5 +1,4 @@
 import { graphql, type ResultOf } from '@repo/shared/graphql';
-import { getGqlClient } from '@repo/shared/graphql-client';
 
 export const getConferenceQuery = graphql(`
   query GetConference($id: ID!) {
@@ -32,8 +31,3 @@ export type Conference = NonNullable<
 export type RemoteFile = NonNullable<
   ResultOf<typeof getConferenceQuery>['conference']
 >['files'][number] & { _destroy?: boolean };
-
-export const getConference = (id: string) => {
-  const gqlClient = getGqlClient();
-  return gqlClient.request(getConferenceQuery, { id });
-};

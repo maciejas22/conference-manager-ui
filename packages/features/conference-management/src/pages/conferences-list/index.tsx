@@ -1,86 +1,13 @@
 import { MetricCardGroup } from '@repo/shared/components';
-import { Card, CardBody } from '@repo/shared/nextui';
 
-import { getConferences } from '#services/get-conferences';
+import { getConferencesMetrics } from '#actions/get-conferences-metrics';
 
 import { ConferencesTable } from './table';
-import { BottomContent } from './table/bottom-content';
-import { TopContent } from './table/top-content';
-import { columnKeyToFieldMap } from './table/utils/field-maps';
-import { searchParamsSchema } from './utils/search-params';
 
-interface ConferenceListPageProps {
-  searchParams: Record<string, string | string[] | undefined>;
-}
+export async function ConferenceListPage() {
+  const metrics = await getConferencesMetrics();
 
-const parseSearchParams = (
-  params: Record<string, string | string[] | undefined>,
-) => {
-  const getStringParam = (param: string | string[] | undefined) => {
-    return Array.isArray(param) ? param[0] : param;
-  };
-
-  const getNumberParam = (param: string | string[] | undefined) => {
-    const value = Array.isArray(param) ? param[0] : param;
-    return value ? parseInt(value, 10) : undefined;
-  };
-
-  const getArrayParam = (param: string | string[] | undefined) => {
-    if (Array.isArray(param)) {
-      return param.flatMap((p) => p.split(',')).map((p) => p.trim());
-    } else if (param) {
-      return param.split(',').map((p) => p.trim());
-    }
-
-    return [];
-  };
-
-  const {
-    page,
-    pageSize,
-    sort,
-    sortDirection,
-    associatedOnly,
-    title,
-    visibleColumns,
-  } = params;
-
-  const parsedParams = {
-    page: getNumberParam(page),
-    pageSize: getNumberParam(pageSize),
-    sort: getStringParam(sort),
-    sortDirection: getStringParam(sortDirection),
-    associatedOnly: getStringParam(associatedOnly) === 'true',
-    title: getStringParam(title),
-    visibleColumns: getArrayParam(visibleColumns),
-  };
-
-  const validatedParams = searchParamsSchema.parse(parsedParams);
-
-  return validatedParams;
-};
-
-export async function ConferenceListPage({
-  searchParams,
-}: ConferenceListPageProps) {
-  const prasedSearchParams = parseSearchParams(searchParams);
-
-  const conferencesData = await getConferences({
-    page: {
-      size: prasedSearchParams.pageSize,
-      number: prasedSearchParams.page,
-    },
-    sort: {
-      column: columnKeyToFieldMap[prasedSearchParams.sort],
-      order: prasedSearchParams.sortDirection,
-    },
-    filters: {
-      title: prasedSearchParams.title,
-      associatedOnly: prasedSearchParams.associatedOnly,
-    },
-  });
-
-  if (!conferencesData.conferences) {
+  if (!metrics.conferencesMetrics) {
     return null;
   }
 
@@ -90,41 +17,25 @@ export async function ConferenceListPage({
         metrics={[
           {
             metric: 'Running',
-            value: '12',
+            value: metrics.conferencesMetrics.runningConferences.toString(),
           },
           {
             metric: 'Starting in less than 24h',
-            value: '3',
+            value:
+              metrics.conferencesMetrics.startingInLessThan24Hours.toString(),
           },
           {
             metric: 'Total conducted',
-            value: '12.3K',
+            value: metrics.conferencesMetrics.totalConducted.toString(),
           },
           {
             metric: 'Total participants today',
-            value: '1.2K',
+            value: metrics.conferencesMetrics.participantsToday.toString(),
           },
         ]}
       />
 
-      <Card>
-        <CardBody>
-          <TopContent visibleColumns={prasedSearchParams.visibleColumns} />
-        </CardBody>
-      </Card>
-      <Card>
-        <CardBody className="p-0">
-          <ConferencesTable
-            conferenceData={conferencesData.conferences.data}
-            visibleColumns={prasedSearchParams.visibleColumns}
-          />
-        </CardBody>
-      </Card>
-      <Card>
-        <CardBody>
-          <BottomContent meta={conferencesData.conferences.meta} />
-        </CardBody>
-      </Card>
+      <ConferencesTable />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import { graphql, type VariablesOf } from '@repo/shared/graphql';
-import { getGqlClient } from '@repo/shared/graphql-client';
 
 export const modifyConferenceQuery = graphql(`
   mutation ModifyConference($input: ModifyConferenceInput!) {
@@ -12,15 +11,10 @@ export const modifyConferenceQuery = graphql(`
 export type ModifyConferenceInput = VariablesOf<
   typeof modifyConferenceQuery
 >['input'];
-export type ModifyConferenceAgendaItem = NonNullable<
+export type ModifyConferenceInputAgendaItem = NonNullable<
   ModifyConferenceInput['agenda']
 >[number];
 
 export type ModifyConferenceInputFile = NonNullable<
   ModifyConferenceInput['files']
 >[number];
-
-export const modifyConference = (vars: ModifyConferenceInput) => {
-  const gqlClient = getGqlClient();
-  return gqlClient.request(modifyConferenceQuery, { input: vars });
-};

@@ -4,14 +4,14 @@ import { parseAbsoluteToLocal } from '@internationalized/date';
 import { Link, Tooltip } from '@repo/shared/nextui';
 import { formatter } from '@repo/shared/utils';
 
-import { type GetConferencesQueryResponse } from '#services/get-conferences';
+import { type GetConferencesQueryResponse } from '#graphql/get-conferences';
 
-import { ColumnKey } from './columns';
+import { ColumnKey } from './types/column';
 
-interface CellProps {
+type CellProps = {
   item: GetConferencesQueryResponse['data'][number];
   columnKey: ColumnKey;
-}
+};
 
 function DefaultCell({ children }: { children: React.ReactNode }) {
   return (

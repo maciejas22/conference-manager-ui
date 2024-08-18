@@ -1,5 +1,4 @@
 import { graphql } from '@repo/shared/graphql';
-import { getGqlClient } from '@repo/shared/graphql-client';
 
 export const getAgendaQuery = graphql(`
   query GetAgenda($id: ID!) {
@@ -15,8 +14,3 @@ export const getAgendaQuery = graphql(`
     }
   }
 `);
-
-export const getAgenda = (id: string) => {
-  const gqlClient = getGqlClient();
-  return gqlClient.request(getAgendaQuery, { id });
-};

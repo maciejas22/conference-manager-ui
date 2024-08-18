@@ -1,5 +1,5 @@
-import { Column } from '../../../types/column';
 import { ColumnKey } from '../../columns';
+import { Column } from '../../types/column';
 
 export const columnKeyToFieldMap: Record<ColumnKey, Column> = {
   [ColumnKey.Id]: Column.Id,

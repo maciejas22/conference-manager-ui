@@ -4,17 +4,17 @@ import { type ZonedDateTime } from '@internationalized/date';
 import { Button, Chip } from '@repo/shared/nextui';
 import { formatter } from '@repo/shared/utils';
 
-interface Event {
+type Event = {
   title: string;
   description: string;
   date: ZonedDateTime;
   onDeleteClick?: () => void;
-}
+};
 
-interface TimeLineProps {
+type TimeLineProps = {
   events: Event[];
   mode: 'display' | 'edit';
-}
+};
 
 function TimeLine({ events, mode }: TimeLineProps) {
   const sortedEvents = events.sort((a, b) => a.date.compare(b.date));
@@ -46,7 +46,7 @@ function TimeLine({ events, mode }: TimeLineProps) {
             ) : null}
           </div>
           <div className="cm-flex-auto cm-py-0.5">
-            <p>{event.title}: </p>
+            <p>{event.title}</p>
             <p className="cm-text-gray-400">{event.description}</p>
           </div>
           {mode === 'edit' && (

@@ -1,5 +1,10 @@
-import { type ColumnConfig } from './config/column-config';
-import { ColumnKey } from './types/column';
+import { ColumnKey } from '../../types/column';
+
+export type ColumnConfig = {
+  key: ColumnKey;
+  label: string;
+  sortable: boolean;
+};
 
 const columns: ColumnConfig[] = [
   { key: ColumnKey.Id, label: 'ID', sortable: true },

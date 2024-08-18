@@ -1,38 +1,22 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
+import { serverFetcher } from '@repo/shared/server-fetcher';
 
-import { nanoid } from 'nanoid';
+import { addUserToConferenceMutation } from '#graphql/add-user-to-conference';
+import { ResponseStatus, type ServerResponse } from '#types/response';
 
-import { addUserToConference } from '#services/add-user-to-conference';
-
-interface JoinConferenceFormState {
-  message?: {
-    id: string;
-    text: string;
-  };
-}
-
-export const joinConferenceAction = async (
+export const joinConferenceAction = (
   conferenceId: string,
-  _formState: JoinConferenceFormState,
-  _formData: FormData,
-): Promise<JoinConferenceFormState> => {
-  await addUserToConference(conferenceId).catch((error) => {
-    console.error(error);
-    return {
-      message: {
-        id: nanoid(),
-        text: 'Failed to join conference',
-      },
-    };
-  });
-
-  revalidatePath(`/conference/${conferenceId}`);
-  return {
-    message: {
-      id: nanoid(),
-      text: 'Successfully joined conference',
-    },
-  };
-};
+): Promise<ServerResponse> =>
+  serverFetcher({
+    document: addUserToConferenceMutation,
+    variables: { conferenceId },
+  })
+    .then(() => ({
+      status: ResponseStatus.Success,
+      message: 'Successfully joined conference',
+    }))
+    .catch(() => ({
+      status: ResponseStatus.Error,
+      message: 'Failed to join conference',
+    }));

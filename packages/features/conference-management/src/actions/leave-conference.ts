@@ -1,38 +1,22 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
+import { serverFetcher } from '@repo/shared/server-fetcher';
 
-import { nanoid } from 'nanoid';
+import { removeUserFromConferenceMutation } from '#graphql/remove-user-from-conference';
+import { ResponseStatus, type ServerResponse } from '#types/response';
 
-import { removeUserFromConference } from '#services/remove-user-from-conference';
-
-interface LeaveConferenceFormState {
-  message?: {
-    id: string;
-    text: string;
-  };
-}
-
-export const leaveConferenceAction = async (
+export const leaveConferenceAction = (
   conferenceId: string,
-  _formState: LeaveConferenceFormState,
-  _formData: FormData,
-): Promise<LeaveConferenceFormState> => {
-  await removeUserFromConference(conferenceId).catch((error) => {
-    console.error(error);
-    return {
-      message: {
-        id: nanoid(),
-        text: 'Failed to leave conference',
-      },
-    };
-  });
-
-  revalidatePath(`/conference/${conferenceId}`);
-  return {
-    message: {
-      id: nanoid(),
-      text: 'Successfully left conference',
-    },
-  };
-};
+): Promise<ServerResponse> =>
+  serverFetcher({
+    document: removeUserFromConferenceMutation,
+    variables: { conferenceId },
+  })
+    .then(() => ({
+      status: ResponseStatus.Success,
+      message: 'Successfully left conference',
+    }))
+    .catch(() => ({
+      status: ResponseStatus.Error,
+      message: 'Failed to leave conference',
+    }));
