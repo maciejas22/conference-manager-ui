@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "globalEnv": ["SUPABASE_URL", "SUPABASE_ANON_KEY"],
+  "globalEnv": ["SUPABASE_URL", "SUPABASE_ANON_KEY", "ANALYZE", "API_DOMAIN"],
   "tasks": {
     "build": {
       "dependsOn": ["^gen-types", "^build"],

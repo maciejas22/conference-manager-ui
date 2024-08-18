@@ -1,5 +1,5 @@
 import { graphql } from '@repo/shared/graphql';
-import { getGqlClient } from '@repo/shared/graphql-client';
+import { getGqlClient } from '@repo/shared/graphql-client/server';
 
 export const getUserDataQuery = graphql(`
   query GetUser {

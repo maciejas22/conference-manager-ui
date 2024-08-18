@@ -29,15 +29,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           selectedKey={pathname}
           color="primary"
           aria-label="User setting options"
+          items={tabs}
         >
-          {tabs.map((tab) => (
-            <Tab key={tab.id} title={tab.title} href={tab.href} />
-          ))}
+          {(tab) => <Tab key={tab.id} title={tab.title} href={tab.href} />}
         </Tabs>
       </div>
-      <div className="sm:main-mx-auto sm:main-w-full sm:main-max-w-5xl">
-        {children}
-      </div>
+      <div>{children}</div>
     </div>
   );
 }
