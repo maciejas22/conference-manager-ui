@@ -1,33 +1,47 @@
 'use client';
 
-import { useFormState } from 'react-dom';
+import { useState } from 'react';
 
-import { SubmitButton } from '@repo/components';
+import { toast } from 'sonner';
 
-import { isParticipant as isParticipantOfConference } from '#actions/is-participant';
+import { Button } from '@repo/shared/nextui';
+
 import { joinConferenceAction as joinConference } from '#actions/join-conference';
 import { leaveConferenceAction as leaveConference } from '#actions/leave-conference';
+import { ResponseStatus } from '#types/response';
 
-interface ParticipantActionsProps {
+type ParticipantActionsProps = {
   conferenceId: string;
-}
+  isParticipant: boolean;
+};
 
-export async function ParticipantActions({
+export function ParticipantActions({
   conferenceId,
+  isParticipant,
 }: ParticipantActionsProps) {
-  const data = await isParticipantOfConference(conferenceId);
-  const joinConferenceAction = joinConference.bind(null, conferenceId);
-  const leaveConferenceAction = leaveConference.bind(null, conferenceId);
-  const action = data.isParticipant
-    ? leaveConferenceAction
-    : joinConferenceAction;
-  const [_state, formAction] = useFormState(action, {});
+  const [pending, setPending] = useState(false);
+  const action = isParticipant ? leaveConference : joinConference;
+
+  const handleAction = async () => {
+    setPending(true);
+    await action(conferenceId)
+      .then((res) => {
+        res.status === ResponseStatus.Success
+          ? toast.success(res.message)
+          : toast.error(res.message);
+      })
+      .finally(() => {
+        setPending(false);
+      });
+  };
 
   return (
-    <form action={formAction}>
-      <SubmitButton>
-        {data.isParticipant ? 'Leave conference' : 'Join conference'}
-      </SubmitButton>
-    </form>
+    <Button
+      color="primary"
+      isLoading={pending}
+      onClick={() => void handleAction()}
+    >
+      {isParticipant ? 'Leave conference' : 'Join conference'}
+    </Button>
   );
 }

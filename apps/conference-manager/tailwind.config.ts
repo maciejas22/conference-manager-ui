@@ -5,10 +5,7 @@ import sharedConfig from '@repo/config/tailwind';
 const config: Config = {
   presets: [sharedConfig],
   prefix: 'main-',
-  content: [
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
   darkMode: 'class',
 };
 export default config;

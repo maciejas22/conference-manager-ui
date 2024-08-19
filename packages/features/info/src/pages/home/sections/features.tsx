@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 
-import { Header, Subtext } from '@repo/components';
+import { Header, Subtext } from '@repo/shared/components';
 import { Card, CardBody, CardHeader } from '@repo/shared/nextui';
 
 const features = [
@@ -34,11 +34,11 @@ const features = [
   },
 ];
 
-interface FeatureCardProps {
+type FeatureCardProps = {
   title: string;
   description: string;
   icon: string;
-}
+};
 
 function FeatureCard({ title, description, icon }: FeatureCardProps) {
   return (

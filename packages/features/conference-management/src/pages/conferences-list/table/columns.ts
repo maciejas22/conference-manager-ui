@@ -1,22 +1,7 @@
-enum ColumnKey {
-  Id = 'id',
-  Title = 'title',
-  Acronym = 'acronym',
-  StartDate = 'startDate',
-  EndDate = 'endDate',
-  Location = 'location',
-  ParticipantsCount = 'participantsCount',
-  RegistrationDeadline = 'registrationDeadline',
-  Actions = 'actions',
-}
+import { type ColumnConfig } from './config/column-config';
+import { ColumnKey } from './types/column';
 
-interface Column {
-  key: ColumnKey;
-  label: string;
-  sortable: boolean;
-}
-
-const columns: Column[] = [
+const columns: ColumnConfig[] = [
   { key: ColumnKey.Id, label: 'ID', sortable: true },
   { key: ColumnKey.Title, label: 'Title', sortable: true },
   { key: ColumnKey.Acronym, label: 'Acronym', sortable: true },
@@ -36,4 +21,4 @@ const columns: Column[] = [
   { key: ColumnKey.Actions, label: 'Actions', sortable: false },
 ];
 
-export { ColumnKey, columns, type Column };
+export { ColumnKey, columns };

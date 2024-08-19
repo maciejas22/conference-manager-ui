@@ -1,26 +1,19 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-
+import { Paper } from '@repo/shared/components';
 import { Pagination, Select, SelectItem } from '@repo/shared/nextui';
 
-import { type GetConferencesQueryResponse } from '#services/get-conferences';
+import { pageSizeOptions } from './config/table-config';
+import { useTableContext } from './table-provider';
 
-import { createQueryString, pageSizeOptions } from '../utils/search-params';
+function BottomContent() {
+  const { tableConfig, updateTableConfig, conferencesMetaData } =
+    useTableContext();
 
-interface BottomContentProps {
-  meta: GetConferencesQueryResponse['meta'];
-}
-
-function BottomContent({ meta }: BottomContentProps) {
-  const searchParamsCtx = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const totalItems = meta.page.totalItems;
-  const totalPages = meta.page.totalPages;
-  const currentPage = Number(searchParamsCtx.get('page')) || 1;
-  const pageSize = Number(searchParamsCtx.get('pageSize')) || 10;
+  const totalItems = conferencesMetaData.page.totalItems;
+  const totalPages = conferencesMetaData.page.totalPages;
+  const currentPage = tableConfig.page.current;
+  const pageSize = tableConfig.page.size;
 
   const itemsPointer = (currentPage - 1) * pageSize + 1;
   const lastItemPointer = Math.min(
@@ -28,41 +21,41 @@ function BottomContent({ meta }: BottomContentProps) {
     totalItems,
   );
   return (
-    <div className="cm-w-full cm-grid cm-grid-cols-3 cm-items-center">
-      <span className="cm-justify-self-start">
-        Showing {itemsPointer} - {lastItemPointer} of {totalItems} results
-      </span>
-      <Pagination
-        color="primary"
-        className="cm-justify-self-center"
-        total={totalPages}
-        page={currentPage}
-        onChange={(page) => {
-          const params = createQueryString(searchParamsCtx, { page });
-          router.push(`${pathname}?${params}`);
-        }}
-        disableAnimation={false}
-        disableCursorAnimation={false}
-      />
-      <Select
-        className="cm-max-w-28 cm-justify-self-end"
-        label="Page Size"
-        selectedKeys={[pageSize.toString()]}
-        onChange={(value) => {
-          const params = createQueryString(searchParamsCtx, {
-            pageSize: parseInt(value.target.value),
-            page: 1,
-          });
-          router.push(`${pathname}?${params}`);
-        }}
-      >
-        {pageSizeOptions.map((option) => (
-          <SelectItem key={option} value={option}>
-            {option.toString()}
-          </SelectItem>
-        ))}
-      </Select>
-    </div>
+    <Paper>
+      <div className="cm-w-full cm-grid cm-grid-cols-3 cm-items-center">
+        <span className="cm-justify-self-start">
+          Showing {itemsPointer} - {lastItemPointer} of {totalItems} results
+        </span>
+        <Pagination
+          color="primary"
+          className="cm-justify-self-center"
+          total={totalPages}
+          page={currentPage}
+          onChange={(page) => {
+            updateTableConfig('page', { current: page, size: pageSize });
+          }}
+          disableAnimation={false}
+          disableCursorAnimation={false}
+        />
+        <Select
+          className="cm-max-w-28 cm-justify-self-end"
+          label="Page Size"
+          selectedKeys={[pageSize.toString()]}
+          onChange={(value) => {
+            updateTableConfig('page', {
+              size: parseInt(value.target.value),
+              current: 1,
+            });
+          }}
+        >
+          {pageSizeOptions.map((option) => (
+            <SelectItem key={option} value={option}>
+              {option.toString()}
+            </SelectItem>
+          ))}
+        </Select>
+      </div>
+    </Paper>
   );
 }
 

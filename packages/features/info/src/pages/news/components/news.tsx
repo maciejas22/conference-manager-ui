@@ -1,17 +1,19 @@
 import { parseAbsoluteToLocal } from '@internationalized/date';
 
-import { Subtext, Text } from '@repo/components';
+import { Subtext, Text } from '@repo/shared/components';
 import { Card, CardBody, CardHeader, Divider } from '@repo/shared/nextui';
-import { getFormattedDateTime } from '@repo/shared/utils/formatters';
+import { formatter } from '@repo/shared/utils';
 
-interface NewsProps {
+type NewsProps = {
   title: string;
   date: string;
   content: string;
-}
+};
 
 function News({ title, date, content }: NewsProps) {
-  const formattedDate = getFormattedDateTime(parseAbsoluteToLocal(date));
+  const formattedDate = formatter.getFormattedDateTime(
+    parseAbsoluteToLocal(date),
+  );
 
   return (
     <Card>

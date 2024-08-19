@@ -1,10 +1,11 @@
 'use server';
 
-import { getGqlClient } from '@repo/shared/graphql-client';
+import { cache } from 'react';
+
+import { serverFetcher } from '@repo/shared/server-fetcher';
 
 import { getTermsOfServiceQuery } from '#graphql/get-terms-of-service';
 
-export const getTermsOfService = () => {
-  const gqlClient = getGqlClient();
-  return gqlClient.request(getTermsOfServiceQuery);
-};
+export const getTermsOfService = cache(() =>
+  serverFetcher({ document: getTermsOfServiceQuery }),
+);

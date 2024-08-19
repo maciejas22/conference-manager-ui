@@ -2,16 +2,16 @@ import { Icon } from '@iconify/react';
 import { parseAbsoluteToLocal } from '@internationalized/date';
 
 import { Link, Tooltip } from '@repo/shared/nextui';
-import { getFormattedDateTime } from '@repo/shared/utils/formatters';
+import { formatter } from '@repo/shared/utils';
 
-import { type GetConferencesQueryResponse } from '#services/get-conferences';
+import { type GetConferencesQueryResponse } from '#graphql/get-conferences';
 
-import { ColumnKey } from './columns';
+import { ColumnKey } from './types/column';
 
-interface CellProps {
+type CellProps = {
   item: GetConferencesQueryResponse['data'][number];
   columnKey: ColumnKey;
-}
+};
 
 function DefaultCell({ children }: { children: React.ReactNode }) {
   return (
@@ -29,7 +29,9 @@ function Cell({ item, columnKey }: CellProps) {
       return (
         <DefaultCell>
           {item[columnKey]
-            ? getFormattedDateTime(parseAbsoluteToLocal(item[columnKey]))
+            ? formatter.getFormattedDateTime(
+                parseAbsoluteToLocal(item[columnKey]),
+              )
             : 'N/A'}
         </DefaultCell>
       );

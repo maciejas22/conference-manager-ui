@@ -18,6 +18,7 @@
     "syncpack:format": "syncpack format",
     "syncpack:lint": "syncpack lint",
     "syncpack:list": "syncpack list",
+    "test": "turbo test",
     "type-check": "turbo run type-check"
   },
   "devDependencies": {

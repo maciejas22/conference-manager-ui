@@ -2,19 +2,19 @@ import { Icon } from '@iconify/react';
 import { type ZonedDateTime } from '@internationalized/date';
 
 import { Button, Chip } from '@repo/shared/nextui';
-import { getFormattedDateTime } from '@repo/shared/utils/formatters';
+import { formatter } from '@repo/shared/utils';
 
-interface Event {
+type Event = {
   title: string;
   description: string;
   date: ZonedDateTime;
   onDeleteClick?: () => void;
-}
+};
 
-interface TimeLineProps {
+type TimeLineProps = {
   events: Event[];
   mode: 'display' | 'edit';
-}
+};
 
 function TimeLine({ events, mode }: TimeLineProps) {
   const sortedEvents = events.sort((a, b) => a.date.compare(b.date));
@@ -32,7 +32,7 @@ function TimeLine({ events, mode }: TimeLineProps) {
             {/*TODO: Change to mono font*/}
             <Chip color="primary" className="cm-z-20">
               <time dateTime={event.date.toString()} className="cm-flex-none">
-                {getFormattedDateTime(event.date)}
+                {formatter.getFormattedDateTime(event.date)}
               </time>
             </Chip>
             {eventIdx !== events.length - 1 ? (
@@ -46,7 +46,7 @@ function TimeLine({ events, mode }: TimeLineProps) {
             ) : null}
           </div>
           <div className="cm-flex-auto cm-py-0.5">
-            <p>{event.title}: </p>
+            <p>{event.title}</p>
             <p className="cm-text-gray-400">{event.description}</p>
           </div>
           {mode === 'edit' && (

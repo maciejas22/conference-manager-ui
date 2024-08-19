@@ -1,85 +1,24 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
+import { createClient } from '@repo/shared/supabase/server-client';
 
-import { nanoid } from 'nanoid';
-import { z } from 'zod';
+import { type FormStatus } from '#types/form-status';
 
-import { createClient } from '@repo/shared/supabase/client';
-
-export interface ChangePasswordFormState {
-  errors: {
-    currentPassword?: string[];
-    newPassword?: string[];
-    confirmPassword?: string[];
-  };
-  message?: {
-    id: string;
-    text: string;
-  };
-}
-
-const changePasswordSchema = z
-  .object({
-    currentPassword: z
-      .string()
-      .min(6, 'Password must be at least 6 characters'),
-    newPassword: z.string().min(6, 'Password must be at least 6 characters'),
-    confirmPassword: z
-      .string()
-      .min(6, 'Password must be at least 6 characters'),
-  })
-  .refine((data) => data.newPassword === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['newPassword'],
-  })
-  .refine((data) => data.newPassword === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  });
+type ChangePasswordResponse = {
+  status: FormStatus;
+  message: string;
+};
 
 export const changePasswordAction = async (
-  _formState: ChangePasswordFormState,
-  formData: FormData,
-): Promise<ChangePasswordFormState> => {
+  newPassword: string,
+): Promise<ChangePasswordResponse> => {
   const supabase = createClient();
 
-  const validatedFields = changePasswordSchema.safeParse({
-    currentPassword: formData.get('currentPassword'),
-    newPassword: formData.get('newPassword'),
-    confirmPassword: formData.get('confirmPassword'),
-  });
-
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: {
-        id: nanoid(),
-        text: 'Validation failed',
-      },
-    };
-  }
-
   const { error } = await supabase.auth.updateUser({
-    password: validatedFields.data.newPassword,
+    password: newPassword,
   });
 
-  if (error) {
-    return {
-      errors: {},
-      message: {
-        id: nanoid(),
-        text: 'Update failed',
-      },
-    };
-  }
-
-  revalidatePath('/user/settings');
-  return {
-    errors: {},
-    message: {
-      id: nanoid(),
-      text: 'Password changed successfully',
-    },
-  };
+  return error
+    ? { status: 'error', message: error.message }
+    : { status: 'success', message: 'Password changed successfully' };
 };

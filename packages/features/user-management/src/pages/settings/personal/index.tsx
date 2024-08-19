@@ -1,11 +1,11 @@
-import { Header } from '@repo/components';
+import { serverFetcher } from '@repo/shared/server-fetcher';
 
-import { getUser } from '#services/get-user-data';
+import { getUserQuery } from '#graphql/get-user';
 
 import { UpdateUserForm } from './update-user-form';
 
 export async function ModifyUserPage() {
-  const user = await getUser();
+  const user = await serverFetcher({ document: getUserQuery });
 
   const userData = user.user;
   if (!userData) {
@@ -13,14 +13,11 @@ export async function ModifyUserPage() {
   }
 
   return (
-    <div>
-      <Header>Update User</Header>
-      <UpdateUserForm
-        name={userData.name ?? ''}
-        surname={userData.surname ?? ''}
-        username={userData.username ?? ''}
-        email={userData.email}
-      />
-    </div>
+    <UpdateUserForm
+      name={userData.name ?? ''}
+      surname={userData.surname ?? ''}
+      username={userData.username ?? ''}
+      email={userData.email}
+    />
   );
 }

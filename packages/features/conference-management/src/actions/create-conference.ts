@@ -1,88 +1,38 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-
-import { parseAbsolute } from '@internationalized/date';
-import { nanoid } from 'nanoid';
-import { z } from 'zod';
+import { serverFetcher } from '@repo/shared/server-fetcher';
 
 import {
-  createConference,
+  createConferenceMutation,
   type CreateConferenceInput,
-} from '#services/create-conference';
-import { type AgendaItem } from '#types/agenda';
+} from '#graphql/create-conference';
+import { ResponseStatus, type ServerResponse } from '#types/response';
 
-const createConferenceSchema = z.object({
-  title: z.string().min(1),
-  acronym: z.string().optional(),
-  location: z.string().min(1),
-  website: z.string().optional(),
-  additionalInfo: z.string().optional(),
-  startDateTime: z.string().datetime({ offset: true }),
-  endDateTime: z.string().datetime({ offset: true }),
-});
+type SuccessResponse = ServerResponse & {
+  status: ResponseStatus.Success;
+  conferenceId: string;
+};
 
-type CreateConferenceSchemaType = z.infer<typeof createConferenceSchema>;
+type ErrorResponse = ServerResponse & {
+  status: ResponseStatus.Error;
+};
 
-export interface CreateConferenceFormState {
-  errors: Partial<
-    Record<keyof CreateConferenceSchemaType, string[] | undefined>
-  >;
-  message?: {
-    id: string;
-    text: string;
-  };
-}
-
-interface AdditionalFormData {
-  agendaItems: AgendaItem[];
-  dateRange: {
-    start: string;
-    end: string;
-  } | null;
-}
+type CreateConferenceResponse = SuccessResponse | ErrorResponse;
 
 export const createConferenceAction = async (
-  additionalFormData: AdditionalFormData,
-  _formState: CreateConferenceFormState,
-  formData: FormData,
-): Promise<CreateConferenceFormState> => {
-  const startDateTime =
-    additionalFormData.dateRange &&
-    parseAbsolute(additionalFormData.dateRange.start, 'UTC').toAbsoluteString();
-  const endDateTime =
-    additionalFormData.dateRange &&
-    parseAbsolute(additionalFormData.dateRange.end, 'UTC').toAbsoluteString();
-  const validatedFields = createConferenceSchema.safeParse({
-    title: formData.get('title'),
-    acronym: formData.get('acronym'),
-    location: formData.get('location'),
-    website: formData.get('website'),
-    additionalInfo: formData.get('additionalInfo'),
-    startDateTime,
-    endDateTime,
-  });
-
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: {
-        id: nanoid(),
-        text: 'Validation failed',
-      },
-    };
-  }
+  createConferenceInput: CreateConferenceInput,
+): Promise<CreateConferenceResponse> => {
+  const agenda = createConferenceInput.agenda ?? [];
 
   const input: CreateConferenceInput = {
-    title: validatedFields.data.title,
-    acronym: validatedFields.data.acronym,
-    location: validatedFields.data.location,
-    startDate: validatedFields.data.startDateTime,
-    endDate: validatedFields.data.endDateTime,
-    website: validatedFields.data.website,
-    additionalInfo: validatedFields.data.additionalInfo,
-    agenda: additionalFormData.agendaItems.map((item) => ({
+    title: createConferenceInput.title,
+    acronym: createConferenceInput.acronym,
+    location: createConferenceInput.location,
+    startDate: createConferenceInput.startDate,
+    endDate: createConferenceInput.endDate,
+    website: createConferenceInput.website,
+    additionalInfo: createConferenceInput.additionalInfo,
+    agenda: agenda.map((item) => ({
       event: item.event,
       speaker: item.speaker,
       startTime: item.startTime,
@@ -90,22 +40,21 @@ export const createConferenceAction = async (
     })),
   };
 
-  let newConferenceData;
-  try {
-    newConferenceData = await createConference(input);
-    if (!newConferenceData.createConference?.id) {
-      throw new Error('Could not create conference');
-    }
-  } catch (error) {
-    return {
-      errors: {},
-      message: {
-        id: nanoid(),
-        text: 'Could not create conference',
-      },
-    };
-  }
-
-  revalidatePath('/conferences');
-  redirect(`/conference/${newConferenceData.createConference.id}`);
+  return serverFetcher({
+    document: createConferenceMutation,
+    variables: { createConferenceInput: input },
+  })
+    .then((responseData) => {
+      return {
+        conferenceId: responseData.createConference.id,
+        status: ResponseStatus.Success,
+        message: 'Conference created successfully',
+      };
+    })
+    .catch(() => {
+      return {
+        status: ResponseStatus.Error,
+        message: 'Failed to create conference',
+      };
+    });
 };

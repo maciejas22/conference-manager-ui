@@ -1,37 +1,33 @@
+import { type ReactNode } from 'react';
+
 import type { Metadata } from 'next';
 
-import { Navbar } from '@/components/navbar';
-
-import './globals.css';
-
-import { type ReactNode } from 'react';
+import { MainLayout } from '@repo/shared/layouts';
+import { cn } from '@repo/shared/nextui';
 
 import { Providers } from '@/providers';
 import { inter } from '@/public/fonts';
+import { Trackers } from '@/trackers';
+
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Conference Manager',
   description: 'App to manage conferences',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${inter.className} bg-background text-foreground dark`}
+      className={cn(inter.className, 'bg-background text-foreground dark')}
       data-theme="dark"
     >
-      <body className="main-container main-mx-auto main-px-4 main-sm:px-6 main-lg:px-8">
+      <body>
         <Providers>
-          <main className="main-min-h-screen main-flex main-flex-col">
-            <Navbar />
-            {children}
-          </main>
+          <MainLayout>{children}</MainLayout>
         </Providers>
+        <Trackers />
       </body>
     </html>
   );

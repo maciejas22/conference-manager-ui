@@ -1,5 +1,5 @@
-import { type CreateConferenceInput } from '#services/create-conference';
-import { type ModifyConferenceInput } from '#services/modify-conference';
+import { type CreateConferenceInput } from '#graphql/create-conference';
+import { type ModifyConferenceInput } from '#graphql/modify-conference';
 import { type MergeTypes } from '#utils/merge-types';
 
 export type ConferenceInput = Omit<

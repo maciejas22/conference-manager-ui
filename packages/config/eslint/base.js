@@ -15,6 +15,7 @@ module.exports = {
     ].map(require.resolve),
   ],
   rules: {
+    '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/explicit-function-return-type': 'off',
     'import/order': 'off',
   },

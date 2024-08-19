@@ -1,4 +1,4 @@
-import { Header } from '@repo/components';
+import { Header } from '@repo/shared/components';
 import { Link } from '@repo/shared/nextui';
 
 import { RegisterForm } from './singup-form';

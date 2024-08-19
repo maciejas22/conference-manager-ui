@@ -1,7 +1,11 @@
 'use server';
 
-import { isParticipant as isParticipantQuery } from '#services/is-participant';
+import { serverFetcher } from '@repo/shared/server-fetcher';
 
-export const isParticipant = (id: string) => {
-  return isParticipantQuery(id);
-};
+import { isParticipantQuery } from '#graphql/is-participant';
+
+export const isParticipant = (id: string) =>
+  serverFetcher({
+    document: isParticipantQuery,
+    variables: { conferenceID: id },
+  });

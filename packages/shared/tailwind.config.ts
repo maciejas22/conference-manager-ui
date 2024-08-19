@@ -4,16 +4,13 @@ import type { Config } from 'tailwindcss';
 import sharedConfig from '@repo/config/tailwind';
 
 const config: Config = {
-  ...sharedConfig,
+  presets: [sharedConfig],
   content: [
-    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
-    "../../node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
+    './src/**/*.tsx',
+    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
+    '../../node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
-  safelist: [
-    'dark',
-    'bg-background', 
-    'text-foreground'
-  ],
+  safelist: ['dark', 'bg-background', 'text-foreground'],
   darkMode: 'class',
   plugins: [nextui()],
 };

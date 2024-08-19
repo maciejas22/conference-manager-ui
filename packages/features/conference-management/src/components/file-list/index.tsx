@@ -1,19 +1,19 @@
 import { Icon } from '@iconify/react';
 
 import { Button, Link } from '@repo/shared/nextui';
-import { formatBytes } from '@repo/shared/utils/formatters';
+import { formatter } from '@repo/shared/utils';
 
 import { isRemoteFile, isStoredFile, type ListFile } from '#types/file';
 
-import { fileTypes, type FileCategory } from './types/fileTypes';
+import { fileTypes, type FileCategory } from './types/file-types';
 
-interface FileListProps {
+type FileListProps = {
   mode: 'view' | 'edit';
   attachments: {
     file: ListFile;
     onDeleteClick?: () => void;
   }[];
-}
+};
 
 const getFileExtension = (file: ListFile) => {
   switch (true) {
@@ -21,9 +21,9 @@ const getFileExtension = (file: ListFile) => {
       return file.name.split('.').pop();
     case isStoredFile(file):
       return file.name.split('.').pop();
+    default:
+      return '';
   }
-
-  return '';
 };
 
 const getExtensionIcon = (file: ListFile) => {
@@ -49,6 +49,8 @@ const getFileName = (file: ListFile) => {
       return file.name.split('/').pop();
     case isStoredFile(file):
       return file.name;
+    default:
+      return 'Unknown file';
   }
 };
 
@@ -58,26 +60,26 @@ const getFileSizeInBytes = (file: ListFile) => {
       return file.size;
     case isStoredFile(file):
       return file.size;
+    default:
+      return 0;
   }
-
-  return 0;
 };
 
 const getFormattedFileSize = (file: ListFile) => {
-  return formatBytes(getFileSizeInBytes(file));
+  return formatter.formatBytes(getFileSizeInBytes(file));
 };
 
 export function FileList({ mode, attachments }: FileListProps) {
   return (
     <ul className="cm-space-y-4">
-      {attachments.map((item, index) => (
+      {attachments.map((item) => (
         <li
-          key={index}
+          key={isRemoteFile(item.file) ? item.file.id : item.file.name}
           className="cm-flex cm-flex-row cm-items-center cm-justify-between"
         >
           <div className="cm-flex cm-flex-row cm-items-center cm-gap-2">
             <Icon icon={getExtensionIcon(item.file)} className="cm-text-2xl" />
-            <Link>{getFileName(item.file)}</Link>
+            <Link isExternal>{getFileName(item.file)}</Link>
             <span>{getFormattedFileSize(item.file)}</span>
           </div>
           {mode === 'edit' && (
@@ -86,7 +88,6 @@ export function FileList({ mode, attachments }: FileListProps) {
               color="danger"
               onClick={() => {
                 if (item.onDeleteClick) {
-                  console.log(item);
                   item.onDeleteClick();
                 }
               }}

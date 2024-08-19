@@ -2,7 +2,7 @@
 
 import { Accordion, AccordionItem } from '@repo/shared/nextui';
 
-interface Section {
+type Section = {
   id: string;
   title: string | null;
   content: string | null;
@@ -11,14 +11,14 @@ interface Section {
     title: string | null;
     content: string | null;
   }[];
-}
+};
 
-interface TermsAccordionProps {
+type TermsAccordionProps = {
   termsConent: Section[];
-}
+};
 
-function formatContent(content: string) {
-  return content.split('\\n').map((line) => (
+function formatContent(content: string | null) {
+  return content?.split('\\n').map((line) => (
     <span key={line}>
       {line}
       <br />
@@ -36,13 +36,13 @@ function TermsAccordion({ termsConent }: TermsAccordionProps) {
             section.title ? `${String(sectionId + 1)}. ${section.title}` : null
           }
         >
-          {!!section.content && <p>{formatContent(section.content)}</p>}
+          {Boolean(section.content) && <p>{formatContent(section.content)}</p>}
           {section.subsections.map((subsection, subsectionId) => (
             <div key={subsection.id} className="info-my-2">
               {subsection.title ? (
                 <h3 className="info-my-2 info-text-lg">{`${String(sectionId + 1)}.${String(subsectionId + 1)}. ${subsection.title}`}</h3>
               ) : null}
-              {!!subsection.content && (
+              {Boolean(subsection.content) && (
                 <p>{formatContent(subsection.content)}</p>
               )}
             </div>

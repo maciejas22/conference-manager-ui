@@ -19,12 +19,13 @@
     "dist"
   ],
   "dependencies": {
-    "@repo/components": "workspace:*",
+    "@hookform/resolvers": "^3.9.0",
     "@repo/shared": "workspace:*",
     "nanoid": "^5.0.7",
     "next": "^14.2.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.52.2",
     "sonner": "^1.5.0",
     "zod": "^3.23.8"
   },
@@ -42,7 +43,6 @@
   "imports": {
     "#actions/*": "./src/actions/*.ts",
     "#graphql/*": "./src/graphql/*.ts",
-    "#services/*": "./src/services/*.ts",
     "#types/*": "./src/types/*.ts"
   },
   "sideEffects": [

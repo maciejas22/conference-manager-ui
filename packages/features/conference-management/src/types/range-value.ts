@@ -1,4 +1,4 @@
-export interface RangeValue<T> {
+export type RangeValue<T> = {
   start: T;
   end: T;
-}
+};
