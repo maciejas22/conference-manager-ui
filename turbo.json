@@ -1,7 +1,13 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "globalEnv": ["SUPABASE_URL", "SUPABASE_ANON_KEY", "ANALYZE", "API_DOMAIN"],
+  "globalEnv": [
+    "SUPABASE_URL",
+    "SUPABASE_ANON_KEY",
+    "ANALYZE",
+    "NEXT_PUBLIC_API_URL",
+    "NEXT_PUBLIC_UI_URL"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^gen-types", "^build"],
@@ -30,6 +36,11 @@
     "prettier-check": {},
     "type-check": {
       "dependsOn": ["^gen-types"]
+    },
+    "test": {},
+    "test:watch": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

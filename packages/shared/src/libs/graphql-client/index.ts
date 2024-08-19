@@ -4,7 +4,11 @@ import {
   type Variables,
 } from 'graphql-request';
 
+import { env } from '@repo/config/env/public';
+
 import { getSupabaseSession } from '#libs/supabase/actions.ts';
+
+const apiUrl = new URL('/api/graphql', env.UI_URL);
 
 export const requestMiddleware = async <V extends Variables = Variables>(
   req: RequestInitExtended<V>,
@@ -19,7 +23,7 @@ export const requestMiddleware = async <V extends Variables = Variables>(
 };
 
 const getGqlClient = () =>
-  new GraphQLClient('http://localhost:3000/api/graphql/', {
+  new GraphQLClient(apiUrl.toString(), {
     requestMiddleware: (req) => requestMiddleware(req),
     fetch,
   });

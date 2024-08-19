@@ -34,7 +34,9 @@
     "lint": "eslint src",
     "prepare-gql-directories": "mkdir -p ./src/libs/graphql/types",
     "prettier-check": "prettier --check \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
-    "type-check": "pnpm gql-check && tsc --noEmit"
+    "type-check": "pnpm gql-check && tsc --noEmit",
+    "test": "vitest",
+    "test:watch": "vitest --watch"
   },
   "files": [
     "dist"
@@ -88,7 +90,8 @@
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.4.4",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   },
   "imports": {
     "#assets/*": "./src/assets/*",
