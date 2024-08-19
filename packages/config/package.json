@@ -7,12 +7,16 @@
     "./prettier/*": "./prettier/*",
     "./tailwind": "./tailwind/tailwind.config.ts",
     "./typescript/*": "./typescript/*",
-    "./vitest/*": "./vitest/base.ts",
+    "./vitest/*": "./vitest/*",
     "./env/server": "./env/server.ts",
     "./env/public": "./env/public.ts"
   },
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/node": "^22.4.1",
     "@vercel/style-guide": "^6.0.0",
     "eslint": "^8",
     "eslint-config-next": "^14.2.4",
@@ -24,8 +28,5 @@
     "tailwindcss": "^3.4.4",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
-  },
-  "dependencies": {
-    "zod": "^3.23.8"
   }
 }

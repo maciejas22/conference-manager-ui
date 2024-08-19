@@ -9,7 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "composite": false,
     "isolatedModules": true,
-    "lib": ["es2022", "DOM", "DOM.Iterable"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleDetection": "force",
     "moduleResolution": "Bundler",
@@ -18,7 +18,7 @@
     "skipLibCheck": true,
     "strict": true,
     "jsx": "react-jsx",
-    "target": "ES2022",
+    "target": "ESNext",
     "strictNullChecks": true,
     "noEmit": true
   },

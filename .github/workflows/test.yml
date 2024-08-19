@@ -1,0 +1,13 @@
+name: test
+on: [push]
+jobs:
+  prettier:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: pnpm i
+      - name: Run Unit Tests
+        run: pnpm test

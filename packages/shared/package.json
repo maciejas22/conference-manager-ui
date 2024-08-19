@@ -34,9 +34,9 @@
     "lint": "eslint src",
     "prepare-gql-directories": "mkdir -p ./src/libs/graphql/types",
     "prettier-check": "prettier --check \"src/**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
-    "type-check": "pnpm gql-check && tsc --noEmit",
     "test": "vitest",
-    "test:watch": "vitest --watch"
+    "test:watch": "vitest --watch",
+    "type-check": "pnpm gql-check && tsc --noEmit"
   },
   "files": [
     "dist"
