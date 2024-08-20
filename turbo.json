@@ -6,7 +6,7 @@
     "SUPABASE_ANON_KEY",
     "ANALYZE",
     "NEXT_PUBLIC_API_URL",
-    "NEXT_PUBLIC_UI_URL"
+    "NEXT_PUBLIC_UI_GQL_PROXY_URL"
   ],
   "tasks": {
     "build": {

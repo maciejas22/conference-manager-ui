@@ -9,7 +9,7 @@
     "./typescript/*": "./typescript/*",
     "./vitest/*": "./vitest/*",
     "./env/server": "./env/server.ts",
-    "./env/public": "./env/public.ts"
+    "./env/client": "./env/client.ts"
   },
   "dependencies": {
     "zod": "^3.23.8"

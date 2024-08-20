@@ -6,7 +6,7 @@ const nextConfig = {
   rewrites: async () => {
     return [
       {
-        source: '/api/graphql',
+        source: process.env.NEXT_PUBLIC_UI_GQL_PROXY_URL,
         destination: process.env.NEXT_PUBLIC_API_URL,
       },
     ];
