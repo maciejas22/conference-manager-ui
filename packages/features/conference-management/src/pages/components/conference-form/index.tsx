@@ -6,7 +6,7 @@ import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { Footer, Header, SubHeader } from '@repo/shared/components';
-import { FormLayout } from '@repo/shared/layouts';
+import { FormLayout } from '@repo/shared/layouts/form-layout/index.tsx';
 import { Button } from '@repo/shared/nextui';
 import { navigate } from '@repo/shared/utils';
 

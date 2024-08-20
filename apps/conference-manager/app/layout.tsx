@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 
 import type { Metadata } from 'next';
 
-import { MainLayout } from '@repo/shared/layouts';
+import { MainLayout } from '@repo/shared/layouts/main-layout/index.tsx';
 import { cn } from '@repo/shared/nextui';
 
 import { Providers } from '@/providers';

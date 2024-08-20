@@ -5,7 +5,7 @@
   "exports": {
     "./browser-fetcher": "./src/utils/fetchers/browser-fetcher.ts",
     "./components": "./src/components/index.ts",
-    "./layouts": "./src/layouts/index.ts",
+    "./layouts/*": "./src/layouts/*",
     "./graphql": "./src/libs/graphql/graphql.ts",
     "./graphql-client": "./src/libs/graphql-client/index.ts",
     "./nextui": "./src/libs/nextui/index.ts",

@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { Card } from '@repo/shared/components';
-import { FormLayout } from '@repo/shared/layouts';
+import { FormLayout } from '@repo/shared/layouts/form-layout/index.tsx';
 import { Button, Input } from '@repo/shared/nextui';
 
 import { modifyUserDataAction } from '#actions/modify-user-data';
