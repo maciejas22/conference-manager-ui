@@ -6,7 +6,11 @@ import { getGqlClient } from '#libs/graphql-client/index.ts';
 
 const fetcher = async <T, V extends Variables = Variables>(
   options: RequestOptions<V, T>,
-) => getGqlClient().request<T, V>(options);
+) => {
+  const apiUrl = new URL('/api/graphql', window.location.origin);
+
+  return getGqlClient(apiUrl.toString()).request<T, V>(options);
+};
 
 export const useQuery = <T, V extends Variables = Variables>(
   options: RequestOptions<V, T>,

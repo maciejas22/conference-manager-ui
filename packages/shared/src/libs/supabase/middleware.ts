@@ -4,11 +4,10 @@ import { createServerClient } from '@supabase/ssr';
 
 import { env } from '@repo/config/env/server';
 
-export async function updateSession(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({
-    request,
-  });
-
+export async function updateSession(
+  request: NextRequest,
+  supabaseResponse: NextResponse,
+) {
   const supabase = createServerClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
     cookies: {
       getAll() {
@@ -34,7 +33,6 @@ export async function updateSession(request: NextRequest) {
 
   if (
     !user &&
-    !request.nextUrl.pathname.startsWith('/login') &&
     !request.nextUrl.pathname.startsWith('/auth') &&
     !request.nextUrl.pathname.startsWith('/api')
   ) {
