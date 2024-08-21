@@ -11,23 +11,14 @@ const nextConfig = {
       },
     ];
   },
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
-
-    return config;
-  },
   experimental: {
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
+    optimizePackageImports: [
+      '@repo/conference-management',
+      '@repo/config',
+      '@repo/info',
+      '@repo/shared',
+      '@repo/user-management',
+    ],
   },
 };
 

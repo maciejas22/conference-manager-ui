@@ -1,7 +1,7 @@
 import { parseAbsoluteToLocal } from '@internationalized/date';
 
 import { Header, Subtext } from '@repo/shared/components';
-import { formatter } from '@repo/shared/utils';
+import { getFormattedDateTime } from '@repo/shared/utils/formatters/date-formatter/index';
 
 import { getTermsOfService } from '#actions/get-terms-of-service';
 
@@ -10,7 +10,7 @@ import { TermsAccordion } from './components/terms-accordion';
 export async function TermsPage() {
   const data = await getTermsOfService();
   const terms = data.termsAndConditions;
-  const formattedDate = formatter.getFormattedDateTime(
+  const formattedDate = getFormattedDateTime(
     parseAbsoluteToLocal(terms.updatedAt),
   );
 

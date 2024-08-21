@@ -3,7 +3,7 @@ import { parseAbsoluteToLocal } from '@internationalized/date';
 
 import { Header } from '@repo/shared/components';
 import { Link } from '@repo/shared/nextui';
-import { formatter } from '@repo/shared/utils';
+import { getFormattedDateTime } from '@repo/shared/utils/formatters/date-formatter/index';
 
 import { getAgenda } from '#actions/get-agenda';
 import { getConference } from '#actions/get-conference';
@@ -33,7 +33,7 @@ const getMetrics = (conference: Conference): Metric[] => {
     {
       id: 2,
       label: 'Dates',
-      value: `${formatter.getFormattedDateTime(parseAbsoluteToLocal(conference.startDate))} - ${formatter.getFormattedDateTime(parseAbsoluteToLocal(conference.endDate))}`,
+      value: `${getFormattedDateTime(parseAbsoluteToLocal(conference.startDate))} - ${getFormattedDateTime(parseAbsoluteToLocal(conference.endDate))}`,
       icon: 'ri:time-line',
     },
     {
@@ -60,7 +60,7 @@ const getMetrics = (conference: Conference): Metric[] => {
     metrics.push({
       id: 5,
       label: 'Registration Deadline',
-      value: formatter.getFormattedDateTime(
+      value: getFormattedDateTime(
         parseAbsoluteToLocal(conference.registrationDeadline),
       ),
       icon: 'ri:time-line',

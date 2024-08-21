@@ -1,6 +1,6 @@
 'use server';
 
-import { serverFetcher } from '@repo/shared/server-fetcher';
+import { serverFetcher } from '@repo/shared/utils/fetchers/server-fetcher';
 
 import { modifyUserDataMutation } from '#graphql/edit-user';
 import { type FormStatus } from '#types/form-status';

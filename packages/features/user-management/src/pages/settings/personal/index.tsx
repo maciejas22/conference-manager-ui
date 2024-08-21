@@ -1,4 +1,4 @@
-import { serverFetcher } from '@repo/shared/server-fetcher';
+import { serverFetcher } from '@repo/shared/utils/fetchers/server-fetcher';
 
 import { getUserQuery } from '#graphql/get-user';
 

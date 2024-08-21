@@ -21,41 +21,43 @@ function BottomContent() {
     totalItems,
   );
   return (
-    <Paper>
-      <div className="cm-w-full cm-grid cm-grid-cols-3 cm-items-center">
-        <span className="cm-justify-self-start">
-          Showing {itemsPointer} - {lastItemPointer} of {totalItems} results
-        </span>
-        <Pagination
-          color="primary"
-          className="cm-justify-self-center"
-          total={totalPages}
-          page={currentPage}
-          onChange={(page) => {
-            updateTableConfig('page', { current: page, size: pageSize });
-          }}
-          disableAnimation={false}
-          disableCursorAnimation={false}
-        />
-        <Select
-          className="cm-max-w-28 cm-justify-self-end"
-          label="Page Size"
-          selectedKeys={[pageSize.toString()]}
-          onChange={(value) => {
-            updateTableConfig('page', {
-              size: parseInt(value.target.value),
-              current: 1,
-            });
-          }}
-        >
-          {pageSizeOptions.map((option) => (
-            <SelectItem key={option} value={option}>
-              {option.toString()}
-            </SelectItem>
-          ))}
-        </Select>
-      </div>
-    </Paper>
+    !!totalPages && (
+      <Paper>
+        <div className="cm-w-full cm-grid cm-grid-cols-3 cm-items-center">
+          <span className="cm-justify-self-start">
+            Showing {itemsPointer} - {lastItemPointer} of {totalItems} results
+          </span>
+          <Pagination
+            color="primary"
+            className="cm-justify-self-center"
+            total={totalPages}
+            page={currentPage}
+            onChange={(page) => {
+              updateTableConfig('page', { current: page, size: pageSize });
+            }}
+            disableAnimation={false}
+            disableCursorAnimation={false}
+          />
+          <Select
+            className="cm-max-w-28 cm-justify-self-end"
+            label="Page Size"
+            selectedKeys={[pageSize.toString()]}
+            onChange={(value) => {
+              updateTableConfig('page', {
+                size: parseInt(value.target.value),
+                current: 1,
+              });
+            }}
+          >
+            {pageSizeOptions.map((option) => (
+              <SelectItem key={option} value={option}>
+                {option.toString()}
+              </SelectItem>
+            ))}
+          </Select>
+        </div>
+      </Paper>
+    )
   );
 }
 

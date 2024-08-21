@@ -2,7 +2,7 @@
 
 import { cache } from 'react';
 
-import { serverFetcher } from '@repo/shared/server-fetcher';
+import { serverFetcher } from '@repo/shared/utils/fetchers/server-fetcher';
 
 import { getNewsQuery } from '#graphql/get-news';
 

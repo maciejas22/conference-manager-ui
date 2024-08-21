@@ -3,19 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./browser-fetcher": "./src/utils/fetchers/browser-fetcher.ts",
     "./components": "./src/components/index.ts",
     "./layouts/*": "./src/layouts/*",
     "./graphql": "./src/libs/graphql/graphql.ts",
     "./graphql-client": "./src/libs/graphql-client/index.ts",
     "./nextui": "./src/libs/nextui/index.ts",
-    "./server-fetcher": "./src/utils/fetchers/server-fetcher.ts",
-    "./supabase/actions": "./src/libs/supabase/actions.ts",
-    "./supabase/browser-client": "./src/libs/supabase/browser-client.ts",
-    "./supabase/middleware": "./src/libs/supabase/middleware.ts",
-    "./supabase/server-client": "./src/libs/supabase/server-client.ts",
+    "./supabase/*": "./src/libs/supabase/*.ts",
     "./styles": "./dist/index.css",
-    "./utils": "./src/utils/index.ts"
+    "./utils/*": "./src/utils/*.ts"
   },
   "scripts": {
     "build": "pnpm gen-tailwind",
@@ -94,7 +89,6 @@
     "vitest": "^2.0.5"
   },
   "imports": {
-    "#assets/*": "./src/assets/*",
     "#components/*": "./src/components/*",
     "#libs/*": "./src/libs/*",
     "#utils/*": "./src/utils/*"

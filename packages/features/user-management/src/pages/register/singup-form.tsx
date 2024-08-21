@@ -6,7 +6,7 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { Button, Input, Radio, RadioGroup } from '@repo/shared/nextui';
-import { navigate } from '@repo/shared/utils';
+import { navigate } from '@repo/shared/utils/navigate';
 
 import { signup } from '#actions/signup';
 import { type Role } from '#types/role';

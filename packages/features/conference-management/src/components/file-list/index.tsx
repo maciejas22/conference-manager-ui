@@ -1,7 +1,7 @@
 import { Icon } from '@iconify/react';
 
 import { Button, Link } from '@repo/shared/nextui';
-import { formatter } from '@repo/shared/utils';
+import { formatBytes } from '@repo/shared/utils/formatters/bytes-formatter/index';
 
 import { isRemoteFile, isStoredFile, type ListFile } from '#types/file';
 
@@ -66,7 +66,7 @@ const getFileSizeInBytes = (file: ListFile) => {
 };
 
 const getFormattedFileSize = (file: ListFile) => {
-  return formatter.formatBytes(getFileSizeInBytes(file));
+  return formatBytes(getFileSizeInBytes(file));
 };
 
 export function FileList({ mode, attachments }: FileListProps) {

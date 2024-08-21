@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import { Footer, Header, SubHeader } from '@repo/shared/components';
 import { FormLayout } from '@repo/shared/layouts/form-layout/index.tsx';
 import { Button } from '@repo/shared/nextui';
-import { navigate } from '@repo/shared/utils';
+import { navigate } from '@repo/shared/utils/navigate';
 
 import { createConferenceAction } from '#actions/create-conference';
 import { modifyConferenceAction } from '#actions/modify-conference';
@@ -95,7 +95,7 @@ function ConferenceForm({
 
   return (
     <FormProvider {...methods}>
-      <form className="cm-space-y-4">
+      <form>
         <FormLayout>
           {operation === 'create' ? (
             <>

@@ -9,8 +9,8 @@ import {
   type ReactNode,
 } from 'react';
 
-import { useQuery } from '@repo/shared/browser-fetcher';
 import { type SortDescriptor } from '@repo/shared/nextui';
+import { useQuery } from '@repo/shared/utils/fetchers/browser-fetcher';
 
 import {
   getConferencesQuery,

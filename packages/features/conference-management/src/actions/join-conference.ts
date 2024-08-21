@@ -1,6 +1,6 @@
 'use server';
 
-import { serverFetcher } from '@repo/shared/server-fetcher';
+import { serverFetcher } from '@repo/shared/utils/fetchers/server-fetcher';
 
 import { addUserToConferenceMutation } from '#graphql/add-user-to-conference';
 import { ResponseStatus, type ServerResponse } from '#types/response';

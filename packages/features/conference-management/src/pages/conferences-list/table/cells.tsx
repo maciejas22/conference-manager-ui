@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import { parseAbsoluteToLocal } from '@internationalized/date';
 
 import { Link, Tooltip } from '@repo/shared/nextui';
-import { formatter } from '@repo/shared/utils';
+import { getFormattedDateTime } from '@repo/shared/utils/formatters/date-formatter/index';
 
 import { type GetConferencesQueryResponse } from '#graphql/get-conferences';
 
@@ -29,9 +29,7 @@ function Cell({ item, columnKey }: CellProps) {
       return (
         <DefaultCell>
           {item[columnKey]
-            ? formatter.getFormattedDateTime(
-                parseAbsoluteToLocal(item[columnKey]),
-              )
+            ? getFormattedDateTime(parseAbsoluteToLocal(item[columnKey]))
             : 'N/A'}
         </DefaultCell>
       );

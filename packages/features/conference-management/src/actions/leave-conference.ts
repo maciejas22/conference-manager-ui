@@ -1,6 +1,6 @@
 'use server';
 
-import { serverFetcher } from '@repo/shared/server-fetcher';
+import { serverFetcher } from '@repo/shared/utils/fetchers/server-fetcher';
 
 import { removeUserFromConferenceMutation } from '#graphql/remove-user-from-conference';
 import { ResponseStatus, type ServerResponse } from '#types/response';
