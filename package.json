@@ -6,6 +6,7 @@
     "node": "^20"
   },
   "scripts": {
+    "start": "turbo start",
     "build": "turbo build",
     "clean": "turbo clean && rm -rf node_modules",
     "dev": "turbo dev",

@@ -1,3 +1,5 @@
+'use server';
+
 import { headers } from 'next/headers';
 
 import { type RequestOptions, type Variables } from 'graphql-request';

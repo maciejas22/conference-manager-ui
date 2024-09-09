@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Icon } from '@iconify/react';
@@ -9,15 +8,21 @@ import { cn } from '#libs/nextui/index.ts';
 
 type SidebarLinkProps = {
   href: string;
+  localHref?: string;
   label: string;
   icon: string;
 };
 
-export function SidebarLink({ href, label, icon }: SidebarLinkProps) {
+export function SidebarLink({
+  href,
+  localHref,
+  label,
+  icon,
+}: SidebarLinkProps) {
   const pathname = usePathname();
 
   return (
-    <Link
+    <a
       key={href}
       href={href}
       className={cn(
@@ -27,12 +32,12 @@ export function SidebarLink({ href, label, icon }: SidebarLinkProps) {
         'flex',
         'gap-2',
         'hover:bg-zinc-900',
-        pathname === href ? 'text-gray-200' : 'text-gray-400',
-        { 'main-bg-zinc-800': pathname === href },
+        pathname === (localHref ?? href) ? 'text-gray-200' : 'text-gray-400',
+        { 'main-bg-zinc-800': pathname === (localHref ?? href) },
       )}
     >
       <Icon icon={icon} className="text-2xl" />
       {label}
-    </Link>
+    </a>
   );
 }

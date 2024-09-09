@@ -24,7 +24,9 @@ function Nav({ user }: NavProps) {
       isBlurred={false}
       maxWidth="full"
       position="sticky"
-      className="left-auto right-0 w-navbar fixed"
+      classNames={{
+        base: 'left-auto right-0 !w-navbar fixed',
+      }}
     >
       <NavbarContent justify="end">
         <NavbarItem>

@@ -6,7 +6,13 @@
     "SUPABASE_ANON_KEY",
     "ANALYZE",
     "NEXT_PUBLIC_API_URL",
-    "NEXT_PUBLIC_UI_GQL_PROXY_URL"
+    "NEXT_PUBLIC_UI_GQL_PROXY_URL",
+    "NEXT_PUBLIC_MAIN_ZONE_DOMAIN",
+    "NEXT_PUBLIC_MAIN_ZONE_BASE_PATH",
+    "NEXT_PUBLIC_USER_MANAGEMENT_ZONE_DOMAIN",
+    "NEXT_PUBLIC_USER_MANAGEMENT_ZONE_BASE_PATH",
+    "NEXT_PUBLIC_CONFERENCE_MANAGEMENT_ZONE_DOMAIN",
+    "NEXT_PUBLIC_CONFERENCE_MANAGEMENT_ZONE_BASE_PATH"
   ],
   "tasks": {
     "build": {
@@ -34,6 +40,10 @@
       "dependsOn": ["^lint"]
     },
     "prettier-check": {},
+    "start": {
+      "dependsOn": ["^gen-types", "^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env", ".env.*"]
+    },
     "type-check": {
       "dependsOn": ["^gen-types"]
     },

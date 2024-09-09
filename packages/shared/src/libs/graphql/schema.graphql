@@ -203,7 +203,8 @@ input UpdateUserInput {
 scalar Upload
 
 input UploadFile {
-  file: Upload
+  fileName: String!
+  base64Content: String!
 }
 
 type User {

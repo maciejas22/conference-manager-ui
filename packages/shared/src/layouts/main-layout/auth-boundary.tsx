@@ -11,7 +11,7 @@ type AuthBoundaryProps = {
 
 export function AuthBoundary({ children, fallback }: AuthBoundaryProps) {
   const pathname = usePathname();
-  if (pathname.startsWith('/auth')) {
+  if (pathname.startsWith('/login') || pathname.startsWith('/sign-up')) {
     return <>{fallback}</>;
   }
 

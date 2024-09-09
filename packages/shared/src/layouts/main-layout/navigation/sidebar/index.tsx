@@ -12,6 +12,7 @@ export function Sidebar() {
 
       <div className="flex-grow py-24 flex flex-col justify-between">
         <div>
+<<<<<<< Updated upstream
           {topLinks.map(({ href, label, icon }) => (
             <SidebarLink key={href} href={href} label={label} icon={icon} />
           ))}
@@ -20,6 +21,32 @@ export function Sidebar() {
           {bottomLinks.map(({ href, label, icon }) => (
             <SidebarLink key={href} href={href} label={label} icon={icon} />
           ))}
+=======
+          {topLinks
+            .filter((link) => !link.role || link.role === userRole)
+            .map(({ href, localHref, label, icon }) => (
+              <SidebarLink
+                key={href}
+                href={href}
+                localHref={localHref}
+                label={label}
+                icon={icon}
+              />
+            ))}
+        </div>
+        <div>
+          {bottomLinks
+            .filter((link) => !link.role || link.role === userRole)
+            .map(({ href, localHref, label, icon }) => (
+              <SidebarLink
+                key={href}
+                href={href}
+                localHref={localHref}
+                label={label}
+                icon={icon}
+              />
+            ))}
+>>>>>>> Stashed changes
         </div>
       </div>
     </nav>
