@@ -1,9 +1,14 @@
 import Image from 'next/image';
 
+import { type User } from '../../get-user';
 import { SidebarLink } from './link';
 import { bottomLinks, topLinks } from './navigation-config';
 
-export function Sidebar() {
+type SidebarProps = {
+  userRole: NonNullable<User>['role'];
+};
+
+export function Sidebar({ userRole }: SidebarProps) {
   return (
     <nav className="z-40 fixed top-0 left-0 flex flex-col h-full w-sidebar border-r border-zinc-900 px-6">
       <div className="w-full h-16 flex items-center justify-center relative">
@@ -12,16 +17,6 @@ export function Sidebar() {
 
       <div className="flex-grow py-24 flex flex-col justify-between">
         <div>
-<<<<<<< Updated upstream
-          {topLinks.map(({ href, label, icon }) => (
-            <SidebarLink key={href} href={href} label={label} icon={icon} />
-          ))}
-        </div>
-        <div>
-          {bottomLinks.map(({ href, label, icon }) => (
-            <SidebarLink key={href} href={href} label={label} icon={icon} />
-          ))}
-=======
           {topLinks
             .filter((link) => !link.role || link.role === userRole)
             .map(({ href, localHref, label, icon }) => (
@@ -46,7 +41,6 @@ export function Sidebar() {
                 icon={icon}
               />
             ))}
->>>>>>> Stashed changes
         </div>
       </div>
     </nav>

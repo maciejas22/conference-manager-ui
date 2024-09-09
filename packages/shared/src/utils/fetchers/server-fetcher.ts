@@ -19,5 +19,9 @@ export const serverFetcher = async <T, V extends Variables = Variables>(
     `${protocol}://${host}`,
   );
 
-  return getGqlClient(apiUrl.toString()).request<T, V>(options);
+  try {
+    return await getGqlClient(apiUrl.toString()).request<T, V>(options);
+  } catch (error) {
+    throw new Error('Unexpected error');
+  }
 };

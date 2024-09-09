@@ -4,14 +4,14 @@ import { createServerClient } from '@supabase/ssr';
 
 import { env } from '@repo/config/env/server';
 
+const isPathWhitelisted = (path: string, whiteList: string[]) =>
+  whiteList.some((item) => path.startsWith(item));
+
 export async function updateSession(
   request: NextRequest,
   supabaseResponse: NextResponse,
-<<<<<<< Updated upstream
-=======
   whitelist: string[],
   loginPath?: string,
->>>>>>> Stashed changes
 ) {
   const supabase = createServerClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY, {
     cookies: {
@@ -36,17 +36,9 @@ export async function updateSession(
     data: { user },
   } = await supabase.auth.getUser();
 
-<<<<<<< Updated upstream
-  if (
-    !user &&
-    !request.nextUrl.pathname.startsWith('/auth') &&
-    !request.nextUrl.pathname.startsWith('/api')
-  ) {
-=======
   if (!user && !isPathWhitelisted(request.nextUrl.pathname, whitelist)) {
->>>>>>> Stashed changes
     const url = request.nextUrl.clone();
-    url.pathname = '/auth/login';
+    url.pathname = loginPath ?? '/login';
     return NextResponse.redirect(url);
   }
 

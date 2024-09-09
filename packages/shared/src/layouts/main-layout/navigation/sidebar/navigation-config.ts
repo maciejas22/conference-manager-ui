@@ -28,6 +28,7 @@ export const topLinks: NavLink[] = [
     localHref: '/report',
     label: 'Reporting',
     icon: 'solar:chart-outline',
+    role: 'Organizer',
   },
 ];
 

@@ -8,7 +8,6 @@ import {
   User,
 } from '#libs/nextui/index.ts';
 import { logout } from '#libs/supabase/actions.ts';
-import { navigate } from '#utils/navigate.ts';
 
 type UserAvatarProps = {
   username?: string;
@@ -29,7 +28,8 @@ type Item = {
     | 'success'
     | 'warning';
   className?: string;
-  action: () => Promise<void> | void;
+  action?: () => Promise<void> | void;
+  redirectUrl?: string;
 };
 
 const items: Item[] = [
@@ -37,13 +37,7 @@ const items: Item[] = [
     key: 'settings',
     label: 'Settings',
     color: 'default',
-<<<<<<< Updated upstream
-    action: () => {
-      navigate('/user/settings/account');
-    },
-=======
     redirectUrl: '/user/settings',
->>>>>>> Stashed changes
   },
   {
     key: 'logout',
@@ -53,10 +47,7 @@ const items: Item[] = [
     action: async () => {
       await logout();
     },
-<<<<<<< Updated upstream
-=======
     redirectUrl: '/user/login',
->>>>>>> Stashed changes
   },
 ];
 
@@ -86,12 +77,8 @@ function UserAvatar({ username, role }: UserAvatarProps) {
             key={item.label}
             color={item.color}
             onClick={() => {
-<<<<<<< Updated upstream
-              void item.action();
-=======
               void item.action?.();
               item.redirectUrl && (window.location.href = item.redirectUrl);
->>>>>>> Stashed changes
             }}
             className={item.className}
           >

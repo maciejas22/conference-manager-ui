@@ -15,6 +15,11 @@ type AgendaItem {
   speaker: String!
 }
 
+type ChartTrend {
+  date: Time!
+  count: Int!
+}
+
 type Conference {
   id: ID!
   title: String!
@@ -29,6 +34,7 @@ type Conference {
   participantsLimit: Int
   registrationDeadline: Time
   files: [File!]!
+  eventsCount: Int!
 }
 
 input ConferenceFilter {
@@ -88,6 +94,12 @@ type File {
   size: Int!
 }
 
+enum Granularity {
+  Daily
+  Weekly
+  Monthly
+}
+
 input ModifyAgendaItemInput {
   id: ID
   startTime: Time!
@@ -137,6 +149,13 @@ enum Order {
   DESC
 }
 
+type OrganizerMetrics {
+  runningConferences: Int!
+  participantsCount: Int!
+  averageParticipantsCount: Float!
+  totalOrganizedConferences: Int!
+}
+
 input Page {
   number: Int!
   size: Int!
@@ -149,8 +168,15 @@ type PageInfo {
   size: Int!
 }
 
+type ParticipantsJoiningTrend {
+  trend: [ChartTrend!]!
+  granularity: Granularity!
+}
+
 type Query {
   conferences(page: Page, sort: Sort, filters: ConferenceFilter): ConferencePage
+  organizerMetrics: OrganizerMetrics
+  participantsJoiningTrend: ParticipantsJoiningTrend
   conferencesMetrics: ConferencesMetrics
   conference(id: ID!): Conference
   isParticipant(conferenceId: ID!): Boolean

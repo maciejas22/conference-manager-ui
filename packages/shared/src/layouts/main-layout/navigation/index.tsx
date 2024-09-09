@@ -12,7 +12,7 @@ export async function Navigation() {
   return (
     <>
       <Navbar user={userData.user} />
-      <Sidebar />
+      <Sidebar userRole={userData.user.role} />
     </>
   );
 }
