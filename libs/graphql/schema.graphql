@@ -1,0 +1,245 @@
+directive @authenticated on FIELD_DEFINITION
+
+"""
+The @defer directive may be specified on a fragment spread to imply de-prioritization, that causes the fragment to be omitted in the initial response, and delivered as a subsequent response afterward. A query with @defer directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred delivered in a subsequent response. @include and @skip take precedence over @defer.
+"""
+directive @defer(if: Boolean = true, label: String) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+directive @hasRole(role: Role!) on FIELD_DEFINITION
+
+type AgendaItem {
+  id: ID!
+  startTime: Time!
+  endTime: Time!
+  event: String!
+  speaker: String!
+}
+
+input AgendaItemInput {
+  startTime: Time!
+  endTime: Time!
+  event: String!
+  speaker: String!
+}
+
+type Conference {
+  id: ID!
+  title: String!
+  startDate: Time!
+  endDate: Time!
+  location: String!
+  website: String
+  acronym: String
+  additionalInfo: String
+  agenda: [AgendaItem!]!
+  participantsCount: Int!
+  participantsLimit: Int
+  registrationDeadline: Time
+  files: [File!]!
+  eventsCount: Int!
+}
+
+type ConferenceMeta {
+  page: PageInfo!
+}
+
+input ConferencesFilters {
+  associatedOnly: Boolean
+  title: String
+}
+
+type ConferencesMetrics {
+  runningConferences: Int!
+  startingInLessThan24Hours: Int!
+  totalConducted: Int!
+  participantsToday: Int!
+}
+
+type ConferencesPage {
+  data: [Conference!]!
+  meta: ConferenceMeta!
+  metrics: ConferencesMetrics!
+}
+
+input CreateAgendaItemInput {
+  createItem: AgendaItemInput
+}
+
+input CreateConferenceInput {
+  title: String!
+  startDate: Time!
+  endDate: Time!
+  location: String!
+  website: String
+  acronym: String
+  additionalInfo: String
+  participantsLimit: Int
+  registrationDeadline: Time
+  agenda: [CreateAgendaItemInput!]
+  files: [CreateConferenceInputFile!]
+}
+
+input CreateConferenceInputFile {
+  uploadFile: UploadFile
+}
+
+input DeleteFile {
+  key: String!
+}
+
+type File {
+  key: String!
+  url: String!
+  size: Int!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input ModifyAgendaItemInput {
+  createItem: AgendaItemInput
+  deleteItem: ID
+}
+
+input ModifyConferenceInput {
+  id: ID!
+  title: String
+  startDate: Time
+  endDate: Time
+  location: String
+  website: String
+  acronym: String
+  additionalInfo: String
+  participantsLimit: Int
+  registrationDeadline: Time
+  agenda: [ModifyAgendaItemInput!]
+  files: [ModifyConferenceInputFile!]
+}
+
+input ModifyConferenceInputFile {
+  uploadFile: UploadFile
+  deleteFile: DeleteFile
+}
+
+type Mutation {
+  createConference(createConferenceInput: CreateConferenceInput!): ID!
+  modifyConference(input: ModifyConferenceInput!): ID!
+  addUserToConference(conferenceId: ID!): ID!
+  removeUserFromConference(conferenceId: ID!): ID!
+  updateSession: String!
+  loginUser(loginUserInput: LoginUserInput!): String!
+  registerUser(registerUserInput: RegisterUserInput!): String!
+  updateUser(updateUserInput: UpdateUserInput!): ID!
+  editPassword(password: String!): Boolean
+}
+
+type NewParticipantsTrend {
+  date: Time!
+  newParticipants: Int!
+}
+
+type News {
+  id: ID!
+  title: String!
+  content: String!
+  date: Time!
+}
+
+enum Order {
+  ASC
+  DESC
+}
+
+type OrganizerMetrics {
+  runningConferences: Int!
+  participantsCount: Int!
+  averageParticipantsCount: Float!
+  totalOrganizedConferences: Int!
+  newParticipantsTrend: [NewParticipantsTrend!]!
+}
+
+input Page {
+  number: Int!
+  size: Int!
+}
+
+type PageInfo {
+  totalItems: Int!
+  totalPages: Int!
+  number: Int!
+  size: Int!
+}
+
+type Query {
+  conference(id: ID!): Conference!
+  conferences(page: Page, sort: Sort, filters: ConferencesFilters): ConferencesPage!
+  news: [News!]!
+  termsAndConditions: TermsOfService!
+  user: User
+  isUserAssociatedWithConference(conferenceId: ID!): Boolean!
+}
+
+input RegisterUserInput {
+  email: String!
+  password: String!
+  role: Role!
+}
+
+enum Role {
+  Organizer
+  Participant
+}
+
+type Section {
+  id: ID!
+  title: String
+  content: String
+  subsections: [SubSection!]!
+}
+
+input Sort {
+  column: String!
+  order: Order!
+}
+
+type SubSection {
+  id: ID!
+  title: String!
+  content: String!
+}
+
+type TermsOfService {
+  id: ID!
+  updatedAt: Time!
+  introduction: String!
+  acknowledgement: String!
+  sections: [Section!]!
+}
+
+scalar Time
+
+input UpdateUserInput {
+  name: String!
+  surname: String!
+  username: String!
+  email: String!
+}
+
+scalar Upload
+
+input UploadFile {
+  fileName: String!
+  base64Content: String!
+}
+
+type User {
+  id: ID!
+  name: String
+  surname: String
+  username: String
+  email: String!
+  role: Role!
+  metrics: OrganizerMetrics
+}

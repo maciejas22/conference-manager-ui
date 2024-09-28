@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "target": "ESNext",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      },
+      {
+        "name": "gql.tada/ts-plugin",
+        "schema": "./libs/graphql/schema.graphql",
+        "tadaOutputLocation": "./libs/graphql/types/graphql-env.d.ts",
+        "tadaTurboLocation": "./libs/graphql/types/graphql-turbo.d.ts",
+        "tadaPersistedLocation": "./libs/graphql/types/graphql-persisted.d.ts",
+        "shouldCheckForColocatedFragments": true
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
