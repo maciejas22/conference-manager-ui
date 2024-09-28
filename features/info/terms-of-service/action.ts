@@ -25,8 +25,4 @@ const getTermsOfServiceQuery = graphql(`
 `);
 
 export const getTermsOfService = () =>
-  serverFetcher({
-    document: getTermsOfServiceQuery,
-  }).catch(() => {
-    throw new Error('Failed to fetch terms of service');
-  });
+  serverFetcher({ document: getTermsOfServiceQuery });

@@ -14,9 +14,4 @@ const getNewsQuery = graphql(`
   }
 `);
 
-export const getNews = () =>
-  serverFetcher({
-    document: getNewsQuery,
-  }).catch(() => {
-    throw new Error('Failed to fetch news');
-  });
+export const getNews = () => serverFetcher({ document: getNewsQuery });
