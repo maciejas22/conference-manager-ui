@@ -1,0 +1,13 @@
+name: type-check
+on: [push]
+jobs:
+  prettier:
+    name: Run Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: pnpm i
+      - name: Run Type Check
+        run: pnpm run type-check

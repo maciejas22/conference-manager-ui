@@ -1,0 +1,13 @@
+name: eslint
+on: [push]
+jobs:
+  prettier:
+    name: Run Eslint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: pnpm i
+      - name: Run Eslint
+        run: pnpm lint

@@ -1,0 +1,15 @@
+name: prettier
+on: [push]
+jobs:
+  prettier:
+    name: Run Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Install dependencies
+        run: pnpm i
+      - name: Run Syncpack
+        run: pnpm syncpack:lint
+      - name: Run Prettier
+        run: pnpm prettier-check
