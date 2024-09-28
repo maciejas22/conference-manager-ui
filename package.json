@@ -20,7 +20,9 @@
     "gen-tailwind": "tailwindcss -i ./styles.css -o ./dist/index.css",
     "gen-types": "pnpm prepare-gql-directories && pnpm gen-gql-output && pnpm gen-gql-turbo && pnpm gen-gql-persisted",
     "gql-check": "gql.tada check",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest --watch"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

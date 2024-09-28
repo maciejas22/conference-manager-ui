@@ -1,4 +1,4 @@
-import { VariablesOf, graphql } from '@/libs/graphql';
+import { graphql, VariablesOf } from '@/libs/graphql';
 import { FormStatus, ServerResponse } from '@/types/response';
 
 export const createConferenceMutation = graphql(`
@@ -21,7 +21,6 @@ export type CreateConferenceResponse = SuccessResponse | ErrorResponse;
 export type CreateConferenceInput = VariablesOf<
   typeof createConferenceMutation
 >['createConferenceInput'];
-
 
 export type CreateConferenceInputAgenda = NonNullable<
   CreateConferenceInput['agenda']

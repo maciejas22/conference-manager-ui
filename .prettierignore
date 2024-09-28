@@ -1,1 +1,3 @@
 .next
+/libs/graphql/types
+/libs/graphql/schema.graphql
