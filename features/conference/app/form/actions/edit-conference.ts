@@ -23,8 +23,7 @@ export const modifyConferenceAction = async (
         message: 'Conference modified successfully',
       };
     })
-    .catch((err) => {
-      console.error(err);
+    .catch(() => {
       return {
         status: FormStatus.Error,
         message: 'Failed to modify conference',
