@@ -1,1 +1,1 @@
-export const publicRoutes = ['/api', '/user/login', '/user/sign-up'];
+export const publicRoutes = ['/user/login', '/user/sign-up'];

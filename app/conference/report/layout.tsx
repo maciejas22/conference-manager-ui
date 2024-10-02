@@ -20,7 +20,7 @@ export default function Layout({
   return (
     <>
       {metrics}
-      {chart}
+      <div className="py-6">{chart}</div>
       {conferencesList}
     </>
   );

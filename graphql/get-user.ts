@@ -14,4 +14,4 @@ export const getUserQuery = graphql(`
 `);
 
 export type User = ResultOf<typeof getUserQuery>['user'];
-export type UserRole = NonNullable<User>['role'];
+export type UserRole = ReturnType<typeof graphql.scalar<'Role'>>;

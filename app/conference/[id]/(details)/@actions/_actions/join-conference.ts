@@ -23,10 +23,12 @@ export const joinConferenceAction = (
       status: FormStatus.Success,
       message: 'Successfully joined conference',
     }))
-    .catch(() => ({
-      status: FormStatus.Error,
-      message: 'Failed to join conference',
-    }))
+    .catch((err) => {
+      return {
+        status: FormStatus.Error,
+        message: err.response.errors.map((e: any) => e.message).toString(),
+      };
+    })
     .finally(() => {
       revalidatePath(`/${conferenceId.toString()}`);
     });

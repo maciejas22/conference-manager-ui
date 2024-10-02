@@ -1,4 +1,3 @@
-import { Header } from '@/components';
 import {
   AgendaTimeline,
   conferenceAgendaFragment,
@@ -23,10 +22,5 @@ export default async function Agenda({ params }: { params: { id: string } }) {
     variables: { id: Number(params.id) },
   });
 
-  return (
-    <div className="space-y-8">
-      <Header className="text-3xl">Agenda</Header>
-      <AgendaTimeline data={agendaData.conference} />
-    </div>
-  );
+  return <AgendaTimeline data={agendaData.conference} />;
 }

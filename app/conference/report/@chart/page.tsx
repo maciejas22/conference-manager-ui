@@ -28,9 +28,5 @@ export default async function Chart() {
     return null;
   }
 
-  return (
-    <div className="py-6">
-      <ParticipantsChart data={metrics} />
-    </div>
-  );
+  return <ParticipantsChart data={metrics} />;
 }

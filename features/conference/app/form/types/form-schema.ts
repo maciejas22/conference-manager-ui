@@ -25,6 +25,9 @@ export const conferenceFormSchema = z.object({
   title: z.string().min(1),
   acronym: z.string().optional(),
 
+  participantsLimit: z.number().optional(),
+  registrationDeadline: z.string().datetime().optional(),
+
   location: z.string().min(1),
   dateRange: z.object({
     startDate: z.string().datetime(),

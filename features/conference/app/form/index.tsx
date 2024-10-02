@@ -21,6 +21,7 @@ import { AttachmentsForm } from './attachments';
 import { DetailsForm } from './details';
 import { conferenceFormInitialDataFragment } from './initial-data-fragment';
 import { KeyInformationsForm } from './key-informations';
+import { LimitsForm } from './limits';
 import { Timeline } from './timeline';
 import {
   conferenceFormSchema,
@@ -149,6 +150,7 @@ function ConferenceForm({ operation, initialData }: ConferenceFormProps) {
           )}
           <KeyInformationsForm />
           <DetailsForm />
+          <LimitsForm />
           <AttachmentsForm />
 
           <Header>Agenda</Header>
