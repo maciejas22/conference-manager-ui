@@ -1,7 +1,9 @@
 import { parseAbsoluteToLocal } from '@internationalized/date';
 import { Divider } from '@nextui-org/divider';
 
-import { Card, Subtext, Text } from '@/components';
+import { Card } from '@/components/card';
+import { Subtext } from '@/components/subtext';
+import { Text } from '@/components/text';
 import { getFormattedDateTime } from '@/utils/formatters/date-formatter';
 
 type NewsProps = {

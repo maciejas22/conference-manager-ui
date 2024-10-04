@@ -1,7 +1,8 @@
 import { Icon } from '@iconify/react';
 
-import { Header, Subtext } from '@/components';
 import { Card } from '@/components/card';
+import { Header } from '@/components/header';
+import { Subtext } from '@/components/subtext';
 
 const features = [
   {

@@ -1,4 +1,5 @@
-import { Header, Subtext } from '@/components';
+import { Header } from '@/components/header';
+import { Subtext } from '@/components/subtext';
 
 export function Hero() {
   return (

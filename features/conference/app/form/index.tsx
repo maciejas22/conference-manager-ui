@@ -9,7 +9,8 @@ import omitBy from 'lodash.omitby';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
 
-import { Header, SubHeader } from '@/components';
+import { Header } from '@/components/header';
+import { SubHeader } from '@/components/sub-header';
 import { FormLayout } from '@/layouts/form-layout';
 import { FormStatus } from '@/types/response';
 import { fileToBase64 } from '@/utils/file-encoder';

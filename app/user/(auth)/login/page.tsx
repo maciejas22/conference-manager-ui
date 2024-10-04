@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { Link } from '@nextui-org/link';
 
-import { Header } from '@/components';
+import { Header } from '@/components/header';
 import { LoginForm } from '@/features/user-management/login';
 
 export const metadata: Metadata = {

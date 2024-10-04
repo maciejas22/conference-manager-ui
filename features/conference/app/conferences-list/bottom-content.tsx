@@ -3,7 +3,7 @@
 import { Pagination } from '@nextui-org/pagination';
 import { Select, SelectItem } from '@nextui-org/select';
 
-import { Paper } from '@/components';
+import { Paper } from '@/components/paper';
 
 import { pageSizeOptions } from './config/table-config';
 import { useTableContext } from './table-provider';

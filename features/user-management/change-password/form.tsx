@@ -7,7 +7,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { Card } from '@/components';
+import { Card } from '@/components/card';
 import { FormLayout } from '@/layouts';
 import { FormStatus } from '@/types/response';
 

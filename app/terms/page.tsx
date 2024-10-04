@@ -1,4 +1,4 @@
-import { Header } from '@/components';
+import { Header } from '@/components/header';
 import TermsOfService from '@/features/info/terms-of-service';
 
 export default function TermsPage() {

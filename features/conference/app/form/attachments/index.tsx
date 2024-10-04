@@ -2,7 +2,8 @@
 
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { Card, DropZone } from '@/components';
+import { Card } from '@/components/card';
+import { DropZone } from '@/components/drop-zone';
 
 import { FileList } from '../../../components/file-list';
 import { type ConferenceFormSchema } from '../types/form-schema';

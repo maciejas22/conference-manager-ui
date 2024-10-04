@@ -9,7 +9,7 @@ import { DateRangePicker } from '@nextui-org/date-picker';
 import { Input, Textarea } from '@nextui-org/input';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { Card } from '@/components';
+import { Card } from '@/components/card';
 
 import { type ConferenceFormSchema } from '../types/form-schema';
 
