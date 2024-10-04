@@ -23,7 +23,7 @@ async function OrganizerMetrics({ data }: OrganizerMetricsProps) {
         },
         {
           metric: 'Avg. Participants/Conference',
-          value: metrics.averageParticipantsCount.toString(),
+          value: metrics.averageParticipantsCount.toFixed(2).toString(),
         },
         {
           metric: 'Total Conferences',
