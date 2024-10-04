@@ -3,7 +3,7 @@
 import { parseAbsoluteToLocal } from '@internationalized/date';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { Card } from '@/components';
+import { Card } from '@/components/card';
 
 import { TimeLine } from '../../../components/timeline';
 import { type ConferenceFormSchema } from '../types/form-schema';

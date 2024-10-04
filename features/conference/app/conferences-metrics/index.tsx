@@ -1,6 +1,6 @@
 import { FragmentOf, readFragment } from 'gql.tada';
 
-import { MetricCardGroup } from '@/components';
+import { MetricCardGroup } from '@/components/metric-card-group';
 
 import { getConferencesMetricsFragment } from './get-conferences-metrics';
 

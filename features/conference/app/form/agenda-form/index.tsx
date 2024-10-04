@@ -14,7 +14,7 @@ import { Input } from '@nextui-org/input';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { type z } from 'zod';
 
-import { Card } from '@/components';
+import { Card } from '@/components/card';
 
 import {
   agendaItemSchema,

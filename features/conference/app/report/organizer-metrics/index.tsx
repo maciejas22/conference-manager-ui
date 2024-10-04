@@ -1,4 +1,4 @@
-import { MetricCardGroup } from '@/components';
+import { MetricCardGroup } from '@/components/metric-card-group';
 import { FragmentOf, readFragment } from '@/libs/graphql';
 
 import { organizerMetricsFragment } from './get-organizer-metrics';

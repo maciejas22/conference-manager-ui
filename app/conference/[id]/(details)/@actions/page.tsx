@@ -1,5 +1,5 @@
 import { getUser } from '@/actions/get-user';
-import { Footer } from '@/components';
+import { Footer } from '@/components/footer';
 import { serverFetcher } from '@/utils/server-fetcher';
 
 import { isUserAssociatedWithConferenceQuery } from './_graphql/is-associated-with-conference';

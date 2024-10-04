@@ -1,6 +1,6 @@
 'use client';
 
-import { Paper } from '@/components';
+import { Paper } from '@/components/paper';
 
 import { Filters } from './filters';
 import { SearchBar } from './search-bar';

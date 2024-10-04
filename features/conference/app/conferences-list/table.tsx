@@ -10,7 +10,7 @@ import {
   TableRow,
 } from '@nextui-org/table';
 
-import { Pagination } from '@/components';
+import { Pagination } from '@/components/pagination';
 
 import { Cell } from './cells';
 import { columns } from './config/column-config';
