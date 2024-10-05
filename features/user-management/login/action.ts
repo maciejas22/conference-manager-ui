@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers';
 
+import { sessionIdCookie } from '@/config/session';
 import { graphql, VariablesOf } from '@/libs/graphql';
 import { FormStatus } from '@/types/response';
 import { serverFetcher } from '@/utils/server-fetcher';
@@ -25,7 +26,7 @@ export async function login(
       document: loginQuery,
       variables: { loginUserInput },
     });
-    cookies().set('session', res.loginUser ?? '');
+    cookies().set(sessionIdCookie, res.loginUser ?? '');
   } catch (err) {
     return {
       status: FormStatus.Error,

@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
-import { publicRoutes } from '@/config/public-routes';
+import { sessionIdCookie } from '@/config/session';
 import { graphql } from '@/libs/graphql';
 import { serverFetcher } from '@/utils/server-fetcher';
 
@@ -15,18 +15,13 @@ const updateSessionMutation = graphql(`
 const updateSessionAction = () =>
   serverFetcher({ document: updateSessionMutation });
 
-const isPathWhitelisted = (path: string, whiteList: string[]) =>
-  whiteList.some((item) => path.startsWith(item));
-
 export async function updateSession(req: NextRequest, res: NextResponse) {
-  const pathname = req.nextUrl.pathname;
-
   const sessionId = await updateSessionAction()
     .then((data) => data.updateSession)
     .catch(() => '');
-  res.cookies.set('session', sessionId);
+  res.cookies.set(sessionIdCookie, sessionId);
 
-  if (!sessionId && !isPathWhitelisted(pathname, publicRoutes)) {
+  if (!sessionId) {
     const url = req.nextUrl.clone();
     url.pathname = loginPath;
     return NextResponse.redirect(url);

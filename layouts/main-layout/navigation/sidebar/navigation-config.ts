@@ -1,4 +1,4 @@
-import { User } from '@/graphql/get-user';
+import { type User } from '@/actions/get-user';
 
 type NavLink = {
   href: string;

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { User } from '@/graphql/get-user';
+import { type User } from '@/actions/get-user';
 
 import { SidebarLink } from './link';
 import { bottomLinks, topLinks } from './navigation-config';
@@ -20,14 +20,14 @@ export function Sidebar({ userRole }: SidebarProps) {
         <div>
           {topLinks
             .filter((link) => !link.role || link.role === userRole)
-            .map(({ href, localHref, label, icon }) => (
+            .map(({ href, label, icon }) => (
               <SidebarLink key={href} href={href} label={label} icon={icon} />
             ))}
         </div>
         <div>
           {bottomLinks
             .filter((link) => !link.role || link.role === userRole)
-            .map(({ href, localHref, label, icon }) => (
+            .map(({ href, label, icon }) => (
               <SidebarLink key={href} href={href} label={label} icon={icon} />
             ))}
         </div>

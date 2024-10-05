@@ -1,4 +1,4 @@
-import { type User } from '@/graphql/get-user';
+import { type User } from '@/actions/get-user';
 
 import { Navbar } from './navbar';
 import { Sidebar } from './sidebar';

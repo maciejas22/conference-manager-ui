@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { type User } from '@/graphql/get-user';
+import { type User } from '@/actions/get-user';
 
 import { AuthBoundary } from './auth-boundary';
 import { Navigation } from './navigation';
