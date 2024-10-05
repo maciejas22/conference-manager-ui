@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, type ReactNode } from 'react';
+import { type ComponentPropsWithoutRef, type ReactNode } from 'react';
 
 import { cn } from '@nextui-org/theme';
 
