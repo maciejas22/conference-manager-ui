@@ -1,17 +1,22 @@
-import { getNews } from './action';
-import { News } from './components/news-card';
+import { FragmentOf, readFragment } from '@/libs/graphql';
 
-export const NewsList = async () => {
-  const newsData = await getNews();
-  if (!newsData) {
-    return null;
-  }
+import { News } from './components/news-card';
+import { getNewsFragment } from './get-news-fragment';
+
+type News = {
+  data: FragmentOf<typeof getNewsFragment>[];
+};
+
+export const NewsList = async ({ data }: News) => {
+  const newsData = readFragment(getNewsFragment, data);
 
   return (
     <>
-      {newsData.news.map((news) => (
+      {newsData.map((news) => (
         <News key={news.title} {...news} />
       ))}
     </>
   );
 };
+
+export { getNewsFragment };

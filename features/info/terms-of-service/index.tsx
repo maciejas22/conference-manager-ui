@@ -1,9 +1,14 @@
-import { getTermsOfService } from './action';
-import { TermsAccordion } from './components/accordion';
+import { FragmentOf, readFragment } from '@/libs/graphql';
 
-export default async function TermsOfService() {
-  const termsData = await getTermsOfService();
-  const terms = termsData?.termsAndConditions;
+import { TermsAccordion } from './components/accordion';
+import { getTermsOfServiceFragment } from './get-terms-of-service-fragment';
+
+type TermsOfServiceProps = {
+  data: FragmentOf<typeof getTermsOfServiceFragment>;
+};
+
+export function TermsOfService({ data }: TermsOfServiceProps) {
+  const terms = readFragment(getTermsOfServiceFragment, data);
 
   return (
     <>
@@ -13,3 +18,5 @@ export default async function TermsOfService() {
     </>
   );
 }
+
+export { getTermsOfServiceFragment };
