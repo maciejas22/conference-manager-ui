@@ -147,6 +147,15 @@ type News {
   date: Time!
 }
 
+type NewsMeta {
+  page: PageInfo!
+}
+
+type NewsPage {
+  data: [News!]!
+  meta: NewsMeta!
+}
+
 enum Order {
   ASC
   DESC
@@ -175,7 +184,7 @@ type PageInfo {
 type Query {
   conference(id: ID!): Conference!
   conferences(page: Page, sort: Sort, filters: ConferencesFilters): ConferencesPage!
-  news: [News!]!
+  news(page: Page): NewsPage!
   termsAndConditions: TermsOfService!
   user: User
   isUserAssociatedWithConference(conferenceId: ID!): Boolean!

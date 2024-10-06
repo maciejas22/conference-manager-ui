@@ -1,6 +1,8 @@
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-
-import { getQueryClient } from '@/libs/tanstack-query';
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query';
 
 import { getConferences } from './actions';
 import { Table } from './table';
@@ -16,7 +18,7 @@ type ConferencesTableProps = {
 };
 
 export async function ConferencesTable(props: ConferencesTableProps) {
-  const queryClient = getQueryClient();
+  const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: ['conferences', queryVars(props.defaultTableConfig)],

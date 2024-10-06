@@ -34,10 +34,10 @@ declare module 'gql.tada' {
       TadaDocumentNode<{ participantsCount: number; averageParticipantsCount: number; runningConferences: number; totalOrganizedConferences: number; }, {}, { fragment: "OrganizerMetrics"; on: "OrganizerMetrics"; masked: true; }>;
     "\n  fragment ParticipantsJoiningTrend on OrganizerMetrics {\n    newParticipantsTrend {\n      date\n      newParticipants\n    }\n  }\n":
       TadaDocumentNode<{ newParticipantsTrend: { date: string; newParticipants: number; }[]; }, {}, { fragment: "ParticipantsJoiningTrend"; on: "OrganizerMetrics"; masked: true; }>;
-    "\n  query GetNews {\n    news {\n      id\n      title\n      content\n      date\n    }\n  }\n":
-      TadaDocumentNode<{ news: { id: number; title: string; content: string; date: string; }[]; }, {}, void>;
-    "\n  query GetTermsOfService {\n    termsAndConditions {\n      id\n      introduction\n      acknowledgement\n      updatedAt\n      sections {\n        id\n        title\n        content\n        subsections {\n          id\n          title\n          content\n        }\n      }\n    }\n  }\n":
-      TadaDocumentNode<{ termsAndConditions: { id: number; introduction: string; acknowledgement: string; updatedAt: string; sections: { id: number; title: string | null; content: string | null; subsections: { id: number; title: string; content: string; }[]; }[]; }; }, {}, void>;
+    "\n  fragment NewsFragment on News {\n    id\n    title\n    content\n    date\n  }\n":
+      TadaDocumentNode<{ id: number; title: string; content: string; date: string; }, {}, { fragment: "NewsFragment"; on: "News"; masked: true; }>;
+    "\n  fragment TermsOfServiceFragment on TermsOfService {\n    introduction\n    acknowledgement\n    updatedAt\n    sections {\n      id\n      title\n      content\n      subsections {\n        id\n        title\n        content\n      }\n    }\n  }\n":
+      TadaDocumentNode<{ introduction: string; acknowledgement: string; updatedAt: string; sections: { id: number; title: string | null; content: string | null; subsections: { id: number; title: string; content: string; }[]; }[]; }, {}, { fragment: "TermsOfServiceFragment"; on: "TermsOfService"; masked: true; }>;
     "\n  mutation EditPassword($password: String!) {\n    editPassword(password: $password)\n  }\n":
       TadaDocumentNode<{ editPassword: boolean | null; }, { password: string; }, void>;
     "\n  mutation Login($loginUserInput: LoginUserInput!) {\n    loginUser(loginUserInput: $loginUserInput)\n  }\n":
@@ -60,5 +60,9 @@ declare module 'gql.tada' {
       TadaDocumentNode<{ user: { metrics: { [$tada.fragmentRefs]: { ParticipantsJoiningTrend: "OrganizerMetrics"; }; } | null; } | null; }, {}, void>;
     "\n    query GetOrganizerMetrics {\n      user {\n        metrics {\n          ...OrganizerMetrics\n        }\n      }\n    }\n  ":
       TadaDocumentNode<{ user: { metrics: { [$tada.fragmentRefs]: { OrganizerMetrics: "OrganizerMetrics"; }; } | null; } | null; }, {}, void>;
+    "\n    query GetNews {\n      news {\n        ...NewsFragment\n      }\n    }\n  ":
+      TadaDocumentNode<{ news: {}; }, {}, void>;
+    "\n    query GetTermsOfService {\n      termsAndConditions {\n        ...TermsOfServiceFragment\n      }\n    }\n  ":
+      TadaDocumentNode<{ termsAndConditions: { [$tada.fragmentRefs]: { TermsOfServiceFragment: "TermsOfService"; }; }; }, {}, void>;
   }
 }

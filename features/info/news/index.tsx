@@ -1,22 +1,4 @@
-import { FragmentOf, readFragment } from '@/libs/graphql';
+import { getNewsQueryOptions, newsConfig } from './get-news-query';
+import { NewsList } from './news-list';
 
-import { News } from './components/news-card';
-import { getNewsFragment } from './get-news-fragment';
-
-type News = {
-  data: FragmentOf<typeof getNewsFragment>[];
-};
-
-export const NewsList = async ({ data }: News) => {
-  const newsData = readFragment(getNewsFragment, data);
-
-  return (
-    <>
-      {newsData.map((news) => (
-        <News key={news.title} {...news} />
-      ))}
-    </>
-  );
-};
-
-export { getNewsFragment };
+export { getNewsQueryOptions, newsConfig, NewsList };
