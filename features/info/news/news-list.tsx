@@ -1,44 +1,48 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
-import { Spinner } from '@nextui-org/spinner';
-import { useQuery } from '@tanstack/react-query';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Pagination } from '@/components/pagination';
+import { FragmentOf, readFragment } from '@/libs/graphql';
 
 import { NewsCardGroup } from './components/news-card-group';
-import { getNewsQueryOptions, newsConfig } from './get-news-query';
+import { getNewsFragment } from './get-news-fragment';
 
-export function NewsList() {
-  const [page, setPage] = useState({
-    pageNumber: newsConfig.initialPageNumber,
-    pageSize: newsConfig.initialPageSize,
-  });
-  const [totalItems, setTotalItems] = useState(0);
-  const { data, isPending } = useQuery(
-    getNewsQueryOptions(page.pageNumber, page.pageSize),
-  );
+type NewsListProps = {
+  data: FragmentOf<typeof getNewsFragment>;
+};
 
-  useEffect(() => {
-    if (data) {
-      setTotalItems(data.news.meta.page.totalItems);
-    }
-  }, [data]);
+const getPaginationQueryString = ({
+  pageNumber,
+  pageSize,
+}: {
+  pageNumber: number;
+  pageSize: number;
+}) => {
+  const searchParams = new URLSearchParams();
+  searchParams.set('page', pageNumber.toString());
+  searchParams.set('pageSize', pageSize.toString());
+  return searchParams.toString();
+};
+
+export function NewsList({ data }: NewsListProps) {
+  const newsData = readFragment(getNewsFragment, data);
+  const pathname = usePathname();
+  const router = useRouter();
 
   return (
     <div className="space-y-12">
-      {isPending ? (
-        <Spinner color="primary" label="Loading..." className="w-full" />
-      ) : (
-        <NewsCardGroup news={data?.news.data ?? []} />
-      )}
+      <NewsCardGroup news={newsData.data} />
       <Pagination
-        totalItems={totalItems}
-        currentPage={page.pageNumber}
-        pageSize={page.pageSize}
+        totalItems={newsData.meta.page.totalItems}
+        currentPage={newsData.meta.page.number}
+        pageSize={newsData.meta.page.size}
         onPageUpdate={({ page, pageSize }) => {
-          setPage({ pageNumber: page, pageSize });
+          router.push(
+            pathname +
+              '?' +
+              getPaginationQueryString({ pageNumber: page, pageSize }),
+          );
         }}
       />
     </div>
