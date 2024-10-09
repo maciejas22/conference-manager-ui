@@ -15,10 +15,10 @@ type ConferencesTableProps = {
   topContentSettings?: React.ComponentProps<typeof TopContent>;
 };
 
-export function ConferencesTable(props: ConferencesTableProps) {
+export async function ConferencesTable(props: ConferencesTableProps) {
   const queryClient = getQueryClient();
 
-  queryClient.prefetchQuery({
+  await queryClient.prefetchQuery({
     queryKey: ['conferences', queryVars(props.defaultTableConfig)],
     queryFn: () => getConferences(queryVars(props.defaultTableConfig)),
   });
