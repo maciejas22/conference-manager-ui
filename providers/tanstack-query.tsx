@@ -5,7 +5,7 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-function makeQueryClient() {
+const makeQueryClient = () => {
   return new QueryClient({
     defaultOptions: {
       queries: {
@@ -13,18 +13,18 @@ function makeQueryClient() {
       },
     },
   });
-}
+};
 
 let browserQueryClient: QueryClient | undefined;
 
-function getQueryClient() {
+const getQueryClient = () => {
   if (isServer) {
     return makeQueryClient();
   }
 
   if (!browserQueryClient) browserQueryClient = makeQueryClient();
   return browserQueryClient;
-}
+};
 
 type TanstackQueryProviderProps = {
   children: React.ReactNode;

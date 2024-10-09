@@ -15,11 +15,10 @@ const updateSessionMutation = graphql(`
 const updateSessionAction = () =>
   serverFetcher({ document: updateSessionMutation });
 
-export async function updateSession(req: NextRequest, res: NextResponse) {
+export async function updateSession(req: NextRequest) {
   const sessionId = await updateSessionAction()
     .then((data) => data.updateSession)
     .catch(() => '');
-  res.cookies.set(sessionIdCookie, sessionId);
 
   if (!sessionId) {
     const url = req.nextUrl.clone();
@@ -27,5 +26,6 @@ export async function updateSession(req: NextRequest, res: NextResponse) {
     return NextResponse.redirect(url);
   }
 
-  return res;
+  req.cookies.set(sessionIdCookie, sessionId);
+  return req;
 }
