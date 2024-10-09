@@ -34,7 +34,9 @@ const paginationSchema = z.object({
 
 export default async function NewsPage({
   searchParams,
-}: Record<string, string | string[] | undefined>) {
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
   const { page, pageSize } = paginationSchema.parse(searchParams);
   const newsData = await serverFetcher({
     document: getNewsQuery,
