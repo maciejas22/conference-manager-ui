@@ -3,14 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3001",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
     "clean": "rm -rf .next node_modules",
+    "dev": "next dev",
     "format": "prettier --write \"**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
-    "prepare-gql-directories": "mkdir -p ./libs/graphql/types",
-    "prettier-check": "prettier --check \"**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
     "gen": "pnpm gen-gql && pnpm gen-tailwind",
     "gen-gql": "pnpm gen-schema && pnpm gen-types",
     "gen-gql-output": "gql.tada generate output",
@@ -20,9 +16,13 @@
     "gen-tailwind": "tailwindcss -i ./styles.css -o ./dist/index.css",
     "gen-types": "pnpm prepare-gql-directories && pnpm gen-gql-output && pnpm gen-gql-turbo && pnpm gen-gql-persisted",
     "gql-check": "gql.tada check",
-    "type-check": "tsc --noEmit",
+    "lint": "next lint",
+    "prepare-gql-directories": "mkdir -p ./libs/graphql/types",
+    "prettier-check": "prettier --check \"**/*.{ts,tsx,js,cjs,mjs,json,md}\"",
+    "start": "next start",
     "test": "vitest run",
-    "test:watch": "vitest --watch"
+    "test:watch": "vitest --watch",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -89,13 +89,14 @@
     "nextui-cli": "^0.3.4",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
+    "prettier-plugin-packagejson": "^2.5.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.6.3",
     "vitest": "^2.1.2"
   },
+  "packageManager": "pnpm@9.6.0",
   "engines": {
     "node": "^20"
-  },
-  "packageManager": "pnpm@9.6.0"
+  }
 }
