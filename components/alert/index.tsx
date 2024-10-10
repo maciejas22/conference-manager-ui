@@ -10,7 +10,7 @@ type AlertProps = {
 export function Alert({ type, title, message }: AlertProps) {
   return (
     <div
-      className={cn('rounded-md  p-4 text-left', {
+      className={cn('rounded-md p-4 text-left', {
         'bg-danger-50': type === 'error',
         'bg-warning-50': type === 'warning',
         'bg-success-50': type === 'success',
@@ -28,7 +28,7 @@ export function Alert({ type, title, message }: AlertProps) {
         </div>
         <div className="ml-3">
           <h3 className="text-sm font-medium">{title}</h3>
-          <div className="mt-2 text-sm ">
+          <div className="mt-2 text-sm">
             <p>{message}</p>
           </div>
         </div>

@@ -25,7 +25,7 @@ export function DropZone({ onDrop }: DropZoneProps) {
   return (
     <div
       {...getRootProps()}
-      className="mt-2 flex justify-center rounded-lg bg-zinc-800 hover:bg-zinc-700 px-6 py-10"
+      className="mt-2 flex justify-center rounded-lg bg-zinc-800 px-6 py-10 hover:bg-zinc-700"
     >
       <input {...getInputProps()} className="comps-sr-only" />
       <div className="text-center">

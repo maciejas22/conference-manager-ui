@@ -18,7 +18,7 @@ export function News({ title, date, content }: NewsProps) {
   return (
     <Card
       header={
-        <div className="flex justify-between w-full ">
+        <div className="flex w-full justify-between">
           <Text className="my-auto">{title}</Text>
           <Subtext>{formattedDate}</Subtext>
         </div>

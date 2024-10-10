@@ -15,7 +15,7 @@ type CellProps = {
 
 function DefaultCell({ children }: { children: React.ReactNode }) {
   return (
-    <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+    <span className="overflow-hidden text-ellipsis whitespace-nowrap">
       {children}
     </span>
   );

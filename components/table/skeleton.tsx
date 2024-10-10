@@ -31,7 +31,7 @@ export function TableSkeletonLoader({
           <TableRow key={index}>
             {Array.from({ length: columns }).map((_, index) => (
               <TableCell key={index}>
-                <Skeleton className="w-full h-6 rounded-xl" />
+                <Skeleton className="h-6 w-full rounded-xl" />
               </TableCell>
             ))}
           </TableRow>

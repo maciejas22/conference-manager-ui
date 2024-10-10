@@ -11,7 +11,7 @@ export function Paper({ children, className, ...props }: PaperProps) {
     <div
       {...props}
       className={cn(
-        'rounded-large h-auto overflow-hidden relative flex flex-col text-foreground box-border bg-content1 outline-none p-2',
+        'relative box-border flex h-auto flex-col overflow-hidden rounded-large bg-content1 p-2 text-foreground outline-none',
         className,
       )}
     >

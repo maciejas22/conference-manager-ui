@@ -5,9 +5,9 @@
 const config = {
   singleQuote: true,
   plugins: [
-    'prettier-plugin-tailwindcss',
     '@ianvs/prettier-plugin-sort-imports',
     'prettier-plugin-packagejson',
+    'prettier-plugin-tailwindcss',
   ],
   importOrder: [
     '^react$',

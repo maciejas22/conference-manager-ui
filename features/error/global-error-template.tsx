@@ -25,9 +25,9 @@ export function ErrorPage({
 }: ErrorPageProps) {
   return (
     <section>
-      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+      <div className="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
         <div className="mx-auto max-w-screen-sm text-center">
-          <h1 className="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl">
+          <h1 className="mb-4 text-7xl font-extrabold tracking-tight lg:text-9xl">
             {status}
           </h1>
           <Header>{header}</Header>

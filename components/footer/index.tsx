@@ -6,7 +6,7 @@ type FooterProps = {
 
 export function Footer({ children }: FooterProps) {
   return (
-    <footer className="z-40 w-navbar h-16 bg-black flex justify-end px-7 items-center fixed bottom-0 right-0 border-t border-zinc-900">
+    <footer className="fixed bottom-0 right-0 z-40 flex h-16 w-navbar items-center justify-end border-t border-zinc-900 bg-black px-7">
       {children}
     </footer>
   );
