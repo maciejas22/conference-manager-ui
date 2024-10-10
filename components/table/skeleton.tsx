@@ -17,7 +17,7 @@ type TableSkeletonLoaderProps = {
 
 export function TableSkeletonLoader({
   columns = 4,
-  rows = 5,
+  rows = 6,
 }: TableSkeletonLoaderProps) {
   return (
     <Table aria-label="table skeleton loader">
