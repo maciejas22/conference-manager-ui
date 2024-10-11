@@ -13,11 +13,9 @@ type ProvidersProps = {
 
 export function Providers({ children }: ProvidersProps) {
   return (
-    <TanstackQueryProvider>
-      <NextUIProvider>
-        {children}
-        <Toaster theme="dark" position="bottom-left" />
-      </NextUIProvider>
-    </TanstackQueryProvider>
+    <NextUIProvider>
+      <TanstackQueryProvider>{children}</TanstackQueryProvider>
+      <Toaster theme="dark" position="bottom-left" />
+    </NextUIProvider>
   );
 }

@@ -6,10 +6,12 @@ import {
   type Variables,
 } from 'graphql-request';
 
+import { sessionIdCookie } from '@/config/session';
+
 export const requestMiddleware = <V extends Variables = Variables>(
   req: RequestInitExtended<V>,
 ) => {
-  const token = cookies().get('session')?.value ?? '';
+  const token = cookies().get(sessionIdCookie)?.value ?? '';
 
   const headers = new Headers(req.headers);
   headers.set('Authorization', `Bearer ${token}`);

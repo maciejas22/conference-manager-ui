@@ -82,7 +82,7 @@ async function ConferenceDetails({ data }: ConferenceDetailsProps) {
 
   const metrics = getMetrics(conferenceData);
   return (
-    <div className="grid gap-8 grid-cols-2">
+    <div className="grid grid-cols-2 gap-8">
       <div>
         <h1 className="text-4xl font-bold">{conferenceData.title}</h1>
         <p className="my-4 text-xl text-gray-400">{conferenceData.acronym}</p>
@@ -93,7 +93,7 @@ async function ConferenceDetails({ data }: ConferenceDetailsProps) {
           <div key={metric.id} className="flex space-x-1">
             {metric.icon ? <Icon icon={metric.icon} className="h-6" /> : null}
             <h2>
-              <p className="font-semibold text-lg">{metric.label}: </p>
+              <p className="text-lg font-semibold">{metric.label}: </p>
               {metric.link ? (
                 <Link isExternal href={metric.value}>
                   {metric.value}

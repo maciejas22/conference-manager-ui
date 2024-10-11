@@ -1,6 +1,6 @@
 import { Navbar, NavbarContent, NavbarItem } from '@nextui-org/navbar';
 
-import { type User } from '@/graphql/get-user';
+import { type User } from '@/actions/get-user';
 
 import { Avatar } from './avatar';
 

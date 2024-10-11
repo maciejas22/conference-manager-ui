@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { Card } from '@/components/card';
-import { FormLayout } from '@/layouts';
+import { FormLayout } from '@/layouts/form-layout';
 import { FormStatus } from '@/types/response';
 
 import { updateUser } from './action';

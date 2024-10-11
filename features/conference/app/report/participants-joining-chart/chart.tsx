@@ -2,8 +2,8 @@
 
 import { parseAbsoluteToLocal } from '@internationalized/date';
 import {
-  Area,
-  AreaChart,
+  Bar,
+  BarChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -39,8 +39,7 @@ function CustomTooltip({ active, payload }: any) {
 export function Chart({ chartData }: ChartProps) {
   return (
     <ResponsiveContainer width="100%" height={500}>
-      <AreaChart data={chartData}>
-        <Area type="monotone" dataKey="value" stroke="#006fee" />
+      <BarChart data={chartData}>
         <XAxis
           dataKey="label"
           type="category"
@@ -49,8 +48,9 @@ export function Chart({ chartData }: ChartProps) {
           axisLine={{ stroke: '#ecedee' }}
         />
         <YAxis tick={{ fill: '#ecedee' }} axisLine={{ stroke: '#ecedee' }} />
-        <Tooltip content={<CustomTooltip />} />
-      </AreaChart>
+        <Tooltip content={<CustomTooltip />} cursor={{ fill: '#3f3f46' }} />
+        <Bar dataKey="value" fill="#006fee" />
+      </BarChart>
     </ResponsiveContainer>
   );
 }

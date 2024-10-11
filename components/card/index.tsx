@@ -17,7 +17,7 @@ export function Card({ children, header, footer }: FormLayoutProps) {
   return (
     <NextCard className="p-2">
       {header ? (
-        <CardHeader className="text-2xl gap-2">{header}</CardHeader>
+        <CardHeader className="gap-2 text-2xl">{header}</CardHeader>
       ) : null}
       <CardBody className="space-y-4">{children}</CardBody>
       {footer ? <CardFooter>{footer}</CardFooter> : null}

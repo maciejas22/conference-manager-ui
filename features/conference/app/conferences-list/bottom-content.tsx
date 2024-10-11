@@ -25,7 +25,7 @@ function BottomContent() {
   return (
     Boolean(totalPages) && (
       <Paper>
-        <div className="w-full grid grid-cols-3 items-center">
+        <div className="grid w-full grid-cols-3 items-center">
           <span className="justify-self-start">
             Showing {itemsPointer} - {lastItemPointer} of {totalItems} results
           </span>

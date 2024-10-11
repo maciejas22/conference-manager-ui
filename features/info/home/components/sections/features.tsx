@@ -46,7 +46,7 @@ function FeatureCard({ title, description, icon }: FeatureCardProps) {
     <Card
       header={
         <>
-          <Icon icon={icon} className="w-6 h-6 text-primary" />
+          <Icon icon={icon} className="h-6 w-6 text-primary" />
           <p>{title}</p>
         </>
       }

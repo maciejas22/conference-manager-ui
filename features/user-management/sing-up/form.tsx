@@ -10,13 +10,12 @@ import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { type UserRole } from '@/graphql/get-user';
 import { FormStatus } from '@/types/response';
 
 import { signup } from './action';
 
 type RoleOption = {
-  value: UserRole;
+  value: RegisterSchema['role'];
   label: string;
   description: string;
 };

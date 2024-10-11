@@ -1,3 +1,4 @@
+import { Card } from '@/components/card';
 import {
   ParticipantsChart,
   participantsJoiningTrendFragment,
@@ -28,5 +29,11 @@ export default async function Chart() {
     return null;
   }
 
-  return <ParticipantsChart data={metrics} />;
+  return (
+    <div className="!my-8">
+      <Card header="Popularity trend">
+        <ParticipantsChart data={metrics} />
+      </Card>
+    </div>
+  );
 }

@@ -16,11 +16,11 @@ export function Filters() {
       </PopoverTrigger>
       <PopoverContent className="">
         {(titleProps) => (
-          <div className="px-1 py-2 w-full">
+          <div className="w-full px-1 py-2">
             <p className="text-small font-bold text-foreground" {...titleProps}>
               Filters
             </p>
-            <div className="mt-2 flex flex-col gap-2 w-full whitespace-nowrap">
+            <div className="mt-2 flex w-full flex-col gap-2 whitespace-nowrap">
               <Switch
                 size="sm"
                 isSelected={Boolean(tableConfig.filters.associatedOnly)}
