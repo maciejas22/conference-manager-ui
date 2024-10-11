@@ -1,1 +1,1 @@
-export * from './components/sections';
+export * from './sections';

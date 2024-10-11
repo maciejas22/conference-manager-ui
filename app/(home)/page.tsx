@@ -2,7 +2,7 @@ import { CallToAction, Features, Hero } from '@/features/info/home';
 
 export default function HomePage() {
   return (
-    <article className="m-auto max-w-2xl text-center">
+    <article className="m-auto max-w-3xl text-center">
       <section className="flex h-screen flex-col justify-center">
         <Hero />
       </section>

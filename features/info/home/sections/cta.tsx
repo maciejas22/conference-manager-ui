@@ -1,5 +1,5 @@
-import { Header } from '@/components/header';
-import { Subtext } from '@/components/subtext';
+import { Header } from '../components/header';
+import { SubHeader } from '../components/subheader';
 
 export function CallToAction() {
   return (
@@ -8,10 +8,10 @@ export function CallToAction() {
         <span className="text-primary">Boost</span> Your Conference Planning
         Experience with Conference Manager
       </Header>
-      <Subtext>
+      <SubHeader>
         Get started today and see how Conference Manager can help you plan and
         manage your next conference with ease.
-      </Subtext>
+      </SubHeader>
     </>
   );
 }
