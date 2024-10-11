@@ -1,8 +1,9 @@
 import { Icon } from '@iconify/react';
 
 import { Card } from '@/components/card';
-import { Header } from '@/components/header';
-import { Subtext } from '@/components/subtext';
+
+import { Header } from '../components/header';
+import { SubHeader } from '../components/subheader';
 
 const features = [
   {
@@ -63,11 +64,11 @@ export function Features() {
         Everything you need to plan a{' '}
         <span className="text-primary">successful</span> conference
       </Header>
-      <Subtext>
+      <SubHeader>
         Use Conference Manager to plan and manage your conference with ease. Our
         platform provides all the tools you need to ensure a smooth and
         professional event.
-      </Subtext>
+      </SubHeader>
       <div className="grid grid-cols-2 gap-8">
         {features.map((feature) => (
           <FeatureCard key={feature.id} {...feature} />
