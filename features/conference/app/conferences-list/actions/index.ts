@@ -2,7 +2,7 @@
 
 import { cache } from 'react';
 
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 import { getConferencesQuery, GetConferencesQueryVariables } from './query';
 

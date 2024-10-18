@@ -2,7 +2,7 @@
 
 import { graphql, VariablesOf } from '@/libs/graphql';
 import { FormStatus, ServerResponse } from '@/types/response';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const editPasswordMutation = graphql(`
   mutation EditPassword($password: String!) {

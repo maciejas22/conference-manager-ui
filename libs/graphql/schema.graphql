@@ -126,7 +126,7 @@ input ModifyConferenceInputFile {
 type Mutation {
   createConference(createConferenceInput: CreateConferenceInput!): ID!
   modifyConference(input: ModifyConferenceInput!): ID!
-  addUserToConference(conferenceId: ID!): ID!
+  addUserToConference(conferenceId: ID!): String
   removeUserFromConference(conferenceId: ID!): ID!
   updateSession: String!
   loginUser(loginUserInput: LoginUserInput!): String!

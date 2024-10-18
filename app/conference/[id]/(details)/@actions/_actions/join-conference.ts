@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 
 import { graphql } from '@/libs/graphql';
 import { FormStatus, type ServerResponse } from '@/types/response';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const addUserToConferenceMutation = graphql(`
   mutation AddUserToConference($conferenceId: ID!) {

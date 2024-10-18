@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { getNewsFragment, NewsList } from '@/features/info/news';
 import { graphql } from '@/libs/graphql';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 export const metadata: Metadata = {
   title: 'News | Conference Manager',

@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 import { sessionIdCookie } from '@/config/session';
 import { graphql } from '@/libs/graphql';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const loginPath = '/user/login';
 

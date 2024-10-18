@@ -1,7 +1,7 @@
 'use server';
 
 import { FormStatus } from '@/types/response';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 import {
   ModifyConferenceInput,

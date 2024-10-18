@@ -3,7 +3,7 @@ import {
   conferenceAgendaFragment,
 } from '@/features/conference/app/details/agenda-timeline';
 import { graphql } from '@/libs/graphql';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const getAgendaQuery = graphql(
   `

@@ -3,7 +3,7 @@ import {
   conferenceFilesFragment,
 } from '@/features/conference/app/details/conference-files';
 import { graphql } from '@/libs/graphql';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const getConferenceFilesQuery = graphql(
   `

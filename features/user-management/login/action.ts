@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 import { sessionIdCookie } from '@/config/session';
 import { graphql, VariablesOf } from '@/libs/graphql';
 import { FormStatus } from '@/types/response';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const loginQuery = graphql(`
   mutation Login($loginUserInput: LoginUserInput!) {

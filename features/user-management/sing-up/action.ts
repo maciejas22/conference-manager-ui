@@ -2,7 +2,7 @@
 
 import { graphql, VariablesOf } from '@/libs/graphql';
 import { FormStatus } from '@/types/response';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const signupQuery = graphql(`
   mutation Register($registerUserInput: RegisterUserInput!) {

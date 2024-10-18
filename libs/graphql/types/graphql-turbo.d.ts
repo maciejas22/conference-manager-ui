@@ -9,7 +9,7 @@ declare module 'gql.tada' {
     "\n  query GetUser {\n    user {\n      id\n      name\n      surname\n      username\n      email\n      role\n    }\n  }\n":
       TadaDocumentNode<{ user: { id: number; name: string | null; surname: string | null; username: string | null; email: string; role: "Organizer" | "Participant"; } | null; }, {}, void>;
     "\n  mutation AddUserToConference($conferenceId: ID!) {\n    addUserToConference(conferenceId: $conferenceId)\n  }\n":
-      TadaDocumentNode<{ addUserToConference: number; }, { conferenceId: number; }, void>;
+      TadaDocumentNode<{ addUserToConference: string | null; }, { conferenceId: number; }, void>;
     "\n  mutation RemoveUserFromConference($conferenceId: ID!) {\n    removeUserFromConference(conferenceId: $conferenceId)\n  }\n":
       TadaDocumentNode<{ removeUserFromConference: number; }, { conferenceId: number; }, void>;
     "\n  query isUserAssociatedWithConference($conferenceId: ID!) {\n    isUserAssociatedWithConference(conferenceId: $conferenceId)\n  }\n":
@@ -34,8 +34,8 @@ declare module 'gql.tada' {
       TadaDocumentNode<{ participantsCount: number; averageParticipantsCount: number; runningConferences: number; totalOrganizedConferences: number; }, {}, { fragment: "OrganizerMetrics"; on: "OrganizerMetrics"; masked: true; }>;
     "\n  fragment ParticipantsJoiningTrend on OrganizerMetrics {\n    newParticipantsTrend {\n      date\n      newParticipants\n    }\n  }\n":
       TadaDocumentNode<{ newParticipantsTrend: { date: string; newParticipants: number; }[]; }, {}, { fragment: "ParticipantsJoiningTrend"; on: "OrganizerMetrics"; masked: true; }>;
-    "\n  fragment NewsFragment on News {\n    id\n    title\n    content\n    date\n  }\n":
-      TadaDocumentNode<{ id: number; title: string; content: string; date: string; }, {}, { fragment: "NewsFragment"; on: "News"; masked: true; }>;
+    "\n  fragment NewsFragment on NewsPage {\n    data {\n      id\n      title\n      content\n      date\n    }\n    meta {\n      page {\n        totalItems\n        totalPages\n        number\n        size\n      }\n    }\n  }\n":
+      TadaDocumentNode<{ data: { id: number; title: string; content: string; date: string; }[]; meta: { page: { totalItems: number; totalPages: number; number: number; size: number; }; }; }, {}, { fragment: "NewsFragment"; on: "NewsPage"; masked: true; }>;
     "\n  fragment TermsOfServiceFragment on TermsOfService {\n    introduction\n    acknowledgement\n    updatedAt\n    sections {\n      id\n      title\n      content\n      subsections {\n        id\n        title\n        content\n      }\n    }\n  }\n":
       TadaDocumentNode<{ introduction: string; acknowledgement: string; updatedAt: string; sections: { id: number; title: string | null; content: string | null; subsections: { id: number; title: string; content: string; }[]; }[]; }, {}, { fragment: "TermsOfServiceFragment"; on: "TermsOfService"; masked: true; }>;
     "\n  mutation EditPassword($password: String!) {\n    editPassword(password: $password)\n  }\n":
@@ -60,8 +60,8 @@ declare module 'gql.tada' {
       TadaDocumentNode<{ user: { metrics: { [$tada.fragmentRefs]: { ParticipantsJoiningTrend: "OrganizerMetrics"; }; } | null; } | null; }, {}, void>;
     "\n    query GetOrganizerMetrics {\n      user {\n        metrics {\n          ...OrganizerMetrics\n        }\n      }\n    }\n  ":
       TadaDocumentNode<{ user: { metrics: { [$tada.fragmentRefs]: { OrganizerMetrics: "OrganizerMetrics"; }; } | null; } | null; }, {}, void>;
-    "\n    query GetNews {\n      news {\n        ...NewsFragment\n      }\n    }\n  ":
-      TadaDocumentNode<{ news: {}; }, {}, void>;
+    "\n    query NewsPage($page: Page) {\n      news(page: $page) {\n        ...NewsFragment\n      }\n    }\n  ":
+      TadaDocumentNode<{ news: { [$tada.fragmentRefs]: { NewsFragment: "NewsPage"; }; }; }, { page?: { size: number; number: number; } | null | undefined; }, void>;
     "\n    query GetTermsOfService {\n      termsAndConditions {\n        ...TermsOfServiceFragment\n      }\n    }\n  ":
       TadaDocumentNode<{ termsAndConditions: { [$tada.fragmentRefs]: { TermsOfServiceFragment: "TermsOfService"; }; }; }, {}, void>;
   }

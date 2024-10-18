@@ -3,7 +3,7 @@ import { type Metadata } from 'next';
 import { ConferenceForm } from '@/features/conference/app/form';
 import { conferenceFormInitialDataFragment } from '@/features/conference/app/form/initial-data-fragment';
 import { graphql } from '@/libs/graphql';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 export const metadata: Metadata = {
   title: 'Edit Conference | Conference Manager',
