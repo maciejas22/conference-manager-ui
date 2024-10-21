@@ -45,7 +45,7 @@ export const getFileUrl = (file: ListFile) => {
 export const getFileExtension = (file: ListFile) => {
   switch (true) {
     case isRemoteFile(file):
-      return file.key.split('/').pop();
+      return file.key.split('.').pop();
     case isStoredFile(file):
       return file.name.split('.').pop();
     default:

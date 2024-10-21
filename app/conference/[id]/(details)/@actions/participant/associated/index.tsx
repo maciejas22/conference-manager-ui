@@ -7,24 +7,20 @@ import { toast } from 'sonner';
 
 import { FormStatus } from '@/types/response';
 
-import { joinConferenceAction } from './_actions/join-conference';
-import { leaveConferenceAction } from './_actions/leave-conference';
+import { leaveConferenceAction } from './leave-conference';
 
-type ParticipantActionsProps = {
+type AssociatedParticipantActionsProps = {
   conferenceId: number;
-  isParticipant: boolean;
 };
 
-export function ParticipantActions({
+export function AssociatedParticipantActions({
   conferenceId,
-  isParticipant,
-}: ParticipantActionsProps) {
+}: AssociatedParticipantActionsProps) {
   const [pending, setPending] = useState(false);
-  const action = isParticipant ? leaveConferenceAction : joinConferenceAction;
 
   const handleAction = async () => {
     setPending(true);
-    await action(conferenceId)
+    await leaveConferenceAction(conferenceId)
       .then((res) => {
         res.status === FormStatus.Success
           ? toast.success(res.message)
@@ -41,7 +37,7 @@ export function ParticipantActions({
       isLoading={pending}
       onClick={() => void handleAction()}
     >
-      {isParticipant ? 'Leave conference' : 'Join conference'}
+      Leave conference
     </Button>
   );
 }

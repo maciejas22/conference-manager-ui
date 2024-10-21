@@ -3,21 +3,20 @@
 import { type ReactNode } from 'react';
 
 import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import { loadStripe, type StripeElementsOptions } from '@stripe/stripe-js';
 
 interface CheckoutFormProps {
   children: ReactNode;
-  clientSecret?: string;
+  options?: StripeElementsOptions;
 }
 
 const stripePromise = loadStripe(process.env.PUBLISHABLE_KEY ?? '');
 
-export function StripeProvider({ children, clientSecret }: CheckoutFormProps) {
+export function StripeProvider({ children, options }: CheckoutFormProps) {
   return (
     <Elements
       stripe={stripePromise}
       options={{
-        clientSecret,
         appearance: {
           theme: 'night',
           labels: 'floating',
@@ -36,6 +35,7 @@ export function StripeProvider({ children, clientSecret }: CheckoutFormProps) {
             },
           },
         },
+        ...options,
       }}
     >
       {children}
