@@ -5,12 +5,14 @@ import { type ReactNode } from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe, type StripeElementsOptions } from '@stripe/stripe-js';
 
+import { publicEnv } from '@/config/env';
+
 interface CheckoutFormProps {
   children: ReactNode;
   options?: StripeElementsOptions;
 }
 
-const stripePromise = loadStripe(process.env.PUBLISHABLE_KEY ?? '');
+const stripePromise = loadStripe(publicEnv.stripePublishableKey);
 
 export function StripeProvider({ children, options }: CheckoutFormProps) {
   return (

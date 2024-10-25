@@ -8,19 +8,12 @@ import {
   useStripe,
 } from '@stripe/react-stripe-js';
 
+import { publicEnv } from '@/config/env';
 import { GenericError } from '@/features/error/generic-error';
-import { graphql } from '@/libs/graphql';
-import { clientFetcher } from '@/utils/fetchers/client-fetcher';
 
 type ModalContentProps = {
   conferenceId: number;
 };
-
-const getConferencePaymentIntent = graphql(`
-  mutation AddUserToConference($conferenceId: ID!) {
-    addUserToConference(conferenceId: $conferenceId)
-  }
-`);
 
 export function PaymentForm({ conferenceId }: ModalContentProps) {
   const stripe = useStripe();
@@ -38,27 +31,12 @@ export function PaymentForm({ conferenceId }: ModalContentProps) {
     }
 
     setIsSubmitting(true);
-
-    const { error } = await elements.submit();
-    if (error) {
-      setError(error.message ?? '');
-      setIsSubmitting(false);
-      return;
-    }
-
-    const { addUserToConference: clientSecret } = await clientFetcher({
-      document: getConferencePaymentIntent,
-      variables: { conferenceId },
-    });
-
     const result = await stripe.confirmPayment({
       elements,
-      clientSecret: clientSecret ?? '',
       confirmParams: {
-        return_url: `${process.env.UI_URL}/conference/${conferenceId}`,
+        return_url: `${publicEnv.uiBaseUrl}/conference/${conferenceId}`,
       },
     });
-
     setIsSubmitting(false);
 
     if (result.error) {

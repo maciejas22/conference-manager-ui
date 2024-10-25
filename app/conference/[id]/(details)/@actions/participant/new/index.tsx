@@ -1,11 +1,17 @@
 'use client';
 
+import { useState } from 'react';
+
 import { Button } from '@nextui-org/button';
 import { Modal, ModalContent, useDisclosure } from '@nextui-org/modal';
+import { toast } from 'sonner';
 
+import {
+  joinConferenceAction,
+  PaymentForm,
+} from '@/features/conference/app/join-conference';
 import { StripeProvider } from '@/libs/stripe/provider';
-
-import { PaymentForm } from './payment-form';
+import { FormStatus } from '@/types/response';
 
 type UnassociatedParticipantActionsProps = {
   conferenceId: number;
@@ -14,30 +20,56 @@ type UnassociatedParticipantActionsProps = {
 export function UnassociatedParticipantActions({
   conferenceId,
 }: UnassociatedParticipantActionsProps) {
+  const [clientSecret, setClientSecret] = useState('');
+  const [loading, setLoading] = useState(false);
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
-  const onModalClose = () => {
+  const handleJoin = async () => {
+    setLoading(true);
+    joinConferenceAction(conferenceId)
+      .then((data) => {
+        if (data.clientSecret) {
+          setClientSecret(clientSecret);
+          onOpen();
+          return;
+        }
+
+        switch (data.status) {
+          case FormStatus.Success:
+            toast.success(data.message);
+            break;
+          case FormStatus.Error:
+            toast.error(data.message);
+            break;
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const handleClose = () => {
     onClose();
+    setClientSecret('');
+    setLoading(false);
   };
 
   return (
     <>
-      <Button color="primary" onPress={onOpen}>
+      <Button color="primary" onPress={handleJoin} isLoading={loading}>
         Join conference
       </Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
+        onClose={handleClose}
         backdrop="blur"
-        onClose={onModalClose}
         isDismissable={false}
       >
         <ModalContent>
           <StripeProvider
             options={{
-              mode: 'payment',
-              currency: 'usd',
-              amount: 1000,
+              clientSecret,
             }}
           >
             <PaymentForm conferenceId={conferenceId} />

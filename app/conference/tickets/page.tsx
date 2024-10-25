@@ -2,23 +2,26 @@ import { type Metadata } from 'next';
 
 import { z } from 'zod';
 
-import { getNewsFragment, NewsList } from '@/features/info/news';
+import {
+  getUserTicketsFragment,
+  TicketsList,
+} from '@/features/conference/app/tickets-list';
 import { graphql } from '@/libs/graphql';
 import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 export const metadata: Metadata = {
-  title: 'News | Conference Manager',
+  title: 'Tickets | Conference Manager',
 };
 
-const getNewsQuery = graphql(
+const getUserTicketsQuery = graphql(
   `
-    query NewsPage($page: Page!) {
-      news(page: $page) {
-        ...NewsFragment
+    query UserTicketsPage($page: Page!) {
+      user {
+        ...UserTickets
       }
     }
   `,
-  [getNewsFragment],
+  [getUserTicketsFragment],
 );
 
 const paginationSchema = z.object({
@@ -32,16 +35,16 @@ const paginationSchema = z.object({
     .catch(() => 10),
 });
 
-export default async function NewsPage({
+export default async function TicketsPage({
   searchParams,
 }: {
   searchParams?: Record<string, string | string[] | undefined>;
 }) {
   const { page, pageSize } = paginationSchema.parse(searchParams);
-  const newsData = await serverFetcher({
-    document: getNewsQuery,
+  const ticketsData = await serverFetcher({
+    document: getUserTicketsQuery,
     variables: { page: { number: page, size: pageSize } },
   });
 
-  return <NewsList data={newsData.news} />;
+  return <TicketsList data={ticketsData.user} />;
 }
