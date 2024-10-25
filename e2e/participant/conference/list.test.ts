@@ -79,7 +79,9 @@ test('should allow to adjust columns', async ({ page }) => {
 test('should allow to filter by title', async ({ page }) => {
   const searchInput = page.getByLabel('Search by title');
   await searchInput.fill('FinTech Summit');
+  await page.waitForTimeout(500);
+  await expect(page.getByText('Loading...')).toBeHidden();
 
-  await expect(page.getByRole('row')).toBeVisible();
-  expect(page.getByRole('row').count()).toBe(1);
-})
+  await expect(page.getByRole('row').nth(1)).toBeVisible();
+  expect(await page.getByRole('row').count()).toBe(2);
+});
