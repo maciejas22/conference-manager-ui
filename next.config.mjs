@@ -3,11 +3,6 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  env: {
-    API_URL: process.env.API_URL,
-    UI_URL: process.env.UI_URL,
-    PUBLISHABLE_KEY: process.env.PUBLISHABLE_KEY,
-  },
   redirects: () => [
     {
       source: '/user/settings',
