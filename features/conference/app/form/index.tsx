@@ -44,6 +44,10 @@ function ConferenceForm({ operation, initialData }: ConferenceFormProps) {
     resolver: zodResolver(conferenceFormSchema),
     defaultValues: {
       ...omitBy(formInitialData, (v) => v === null),
+      ticketPrice: formInitialData?.ticketPrice
+        ? formInitialData.ticketPrice / 100
+        : 0,
+      participantsLimit: formInitialData?.participantsLimit ?? 100,
       dateRange: {
         startDate: formInitialData?.startDate,
         endDate: formInitialData?.endDate,
@@ -110,6 +114,7 @@ function ConferenceForm({ operation, initialData }: ConferenceFormProps) {
       id: formInitialData?.id ?? -1,
       startDate: data.dateRange.startDate,
       endDate: data.dateRange.endDate,
+      ticketPrice: data.ticketPrice * 100,
       agenda,
       files,
     });

@@ -29,6 +29,14 @@ export function DetailsForm() {
         isInvalid={Boolean(errors.location?.message)}
         {...register('location')}
       />
+      <Input
+        label="Ticket Price"
+        type="number"
+        isRequired
+        errorMessage={errors.ticketPrice?.message}
+        isInvalid={Boolean(errors.ticketPrice?.message)}
+        {...register('ticketPrice', { valueAsNumber: true })}
+      />
       <Controller
         control={control}
         name="dateRange"

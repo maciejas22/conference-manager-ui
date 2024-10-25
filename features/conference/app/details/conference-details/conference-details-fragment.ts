@@ -13,5 +13,6 @@ export const conferenceDetailsFragment = graphql(`
     participantsLimit
     eventsCount
     registrationDeadline
+    ticketPrice
   }
 `);

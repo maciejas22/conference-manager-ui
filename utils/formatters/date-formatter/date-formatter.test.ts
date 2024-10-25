@@ -1,5 +1,4 @@
 import { parseZonedDateTime } from '@internationalized/date';
-import { describe, expect, it } from 'vitest';
 
 import { getFormattedDate, getFormattedDateTime } from '.';
 
@@ -22,8 +21,8 @@ describe('Date Formatter Functions', () => {
     },
   ];
 
-  it.each(testCases)(
-    'formats date $date correctly',
+  test.each(testCases)(
+    'formats date %s correctly',
     ({ date, formattedDate, formattedDateTime }) => {
       expect(getFormattedDate(date)).toBe(formattedDate);
       expect(getFormattedDateTime(date)).toBe(formattedDateTime);

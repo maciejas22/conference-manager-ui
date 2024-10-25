@@ -22,6 +22,8 @@ export function LimitsForm() {
     <Card header="Limits">
       <Input
         label="Limit of Participants"
+        type="number"
+        isRequired
         errorMessage={errors.participantsLimit?.message}
         isInvalid={Boolean(errors.participantsLimit?.message)}
         {...register('participantsLimit', { valueAsNumber: true })}

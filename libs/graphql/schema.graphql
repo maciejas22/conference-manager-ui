@@ -37,6 +37,7 @@ type Conference {
   registrationDeadline: Time
   files: [File!]!
   eventsCount: Int!
+  ticketPrice: Float
 }
 
 type ConferenceMeta {
@@ -45,6 +46,7 @@ type ConferenceMeta {
 
 input ConferencesFilters {
   associatedOnly: Boolean
+  runningOnly: Boolean
   title: String
 }
 
@@ -77,6 +79,7 @@ input CreateConferenceInput {
   registrationDeadline: Time
   agenda: [CreateAgendaItemInput!]
   files: [CreateConferenceInputFile!]
+  ticketPrice: Float
 }
 
 input CreateConferenceInputFile {
@@ -116,6 +119,7 @@ input ModifyConferenceInput {
   registrationDeadline: Time
   agenda: [ModifyAgendaItemInput!]
   files: [ModifyConferenceInputFile!]
+  ticketPrice: Float
 }
 
 input ModifyConferenceInputFile {
@@ -184,7 +188,7 @@ type PageInfo {
 type Query {
   conference(id: ID!): Conference!
   conferences(page: Page, sort: Sort, filters: ConferencesFilters): ConferencesPage!
-  news(page: Page): NewsPage!
+  news(page: Page!): NewsPage!
   termsAndConditions: TermsOfService!
   user: User
   isUserAssociatedWithConference(conferenceId: ID!): Boolean!
@@ -227,6 +231,16 @@ type TermsOfService {
   sections: [Section!]!
 }
 
+type Ticket {
+  id: String!
+  conference: Conference!
+}
+
+type TicketsPage {
+  data: [Ticket!]!
+  meta: PageInfo!
+}
+
 scalar Time
 
 input UpdateUserInput {
@@ -251,4 +265,5 @@ type User {
   email: String!
   role: Role!
   metrics: OrganizerMetrics
+  tickets(page: Page!): TicketsPage!
 }

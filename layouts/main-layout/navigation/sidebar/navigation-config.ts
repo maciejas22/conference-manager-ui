@@ -16,6 +16,12 @@ export const topLinks: NavLink[] = [
     icon: 'solar:videocamera-outline',
   },
   {
+    href: '/conference/tickets',
+    label: 'Tickets',
+    icon: 'solar:ticket-sale-outline',
+    role: 'Participant',
+  },
+  {
     href: '/conference/create',
     label: 'Create conference',
     role: 'Organizer',
