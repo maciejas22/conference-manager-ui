@@ -45,6 +45,9 @@ export default async function TicketsPage({
     document: getUserTicketsQuery,
     variables: { page: { number: page, size: pageSize } },
   });
+  if (!ticketsData.user) {
+    throw new Error('Failed to fetch user tickets');
+  }
 
   return <TicketsList data={ticketsData.user} />;
 }
