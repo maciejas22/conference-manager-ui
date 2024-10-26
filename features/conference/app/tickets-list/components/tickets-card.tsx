@@ -1,6 +1,15 @@
 import { parseAbsoluteToLocal } from '@internationalized/date';
+import { Button } from '@nextui-org/button';
 import { Link } from '@nextui-org/link';
-import { useBarcode } from 'next-barcode';
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from '@nextui-org/modal';
+import QRCode from 'react-qr-code';
 
 import { Card } from '@/components/card';
 import { Subtext } from '@/components/subtext';
@@ -21,24 +30,13 @@ export function Ticket({
   conferenceEndDate,
   ticketNumber,
 }: TicketProps) {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const formattedStartDate = getFormattedDateTime(
     parseAbsoluteToLocal(conferenceStartDate),
   );
   const formattedEndDate = getFormattedDateTime(
     parseAbsoluteToLocal(conferenceEndDate),
   );
-  const { inputRef } = useBarcode({
-    value: ticketNumber,
-    options: {
-      format: 'CODE128',
-      margin: 0,
-      displayValue: false,
-      background: '#18181A',
-      lineColor: '#fff',
-      height: 68,
-      width: 1,
-    },
-  });
 
   return (
     <Card>
@@ -49,7 +47,37 @@ export function Ticket({
           </Link>
           <Subtext>{`${formattedStartDate} - ${formattedEndDate}`}</Subtext>
         </div>
-        <canvas ref={inputRef} />
+        <button onClick={onOpen}>
+          <QRCode
+            size={68}
+            value={ticketNumber}
+            bgColor="#18181A"
+            fgColor="#FFFFFF"
+          />
+        </button>
+
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+          <ModalContent>
+            {(onClose) => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">
+                  {conferenceName}
+                </ModalHeader>
+                <ModalBody className="flex w-full items-center">
+                  <QRCode
+                    size={256}
+                    value={ticketNumber}
+                    bgColor="#18181A"
+                    fgColor="#FFFFFF"
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  <Button onPress={onClose}>Close</Button>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
       </div>
     </Card>
   );
