@@ -37,7 +37,7 @@ type Conference {
   registrationDeadline: Time
   files: [File!]!
   eventsCount: Int!
-  ticketPrice: Float
+  ticketPrice: Int
 }
 
 type ConferenceMeta {
@@ -79,7 +79,7 @@ input CreateConferenceInput {
   registrationDeadline: Time
   agenda: [CreateAgendaItemInput!]
   files: [CreateConferenceInputFile!]
-  ticketPrice: Float
+  ticketPrice: Int
 }
 
 input CreateConferenceInputFile {
@@ -119,7 +119,7 @@ input ModifyConferenceInput {
   registrationDeadline: Time
   agenda: [ModifyAgendaItemInput!]
   files: [ModifyConferenceInputFile!]
-  ticketPrice: Float
+  ticketPrice: Int
 }
 
 input ModifyConferenceInputFile {
@@ -135,6 +135,7 @@ type Mutation {
   updateSession: String!
   loginUser(loginUserInput: LoginUserInput!): String!
   registerUser(registerUserInput: RegisterUserInput!): String!
+  logout: Boolean!
   updateUser(updateUserInput: UpdateUserInput!): ID!
   editPassword(password: String!): Boolean
 }

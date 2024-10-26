@@ -27,7 +27,6 @@ const getPaginationQueryString = ({
 
 export function TicketsList({ data }: TicketsListProps) {
   const ticketsData = readFragment(getUserTicketsFragment, data);
-  console.log(ticketsData.tickets.meta);
   const pathname = usePathname();
   const router = useRouter();
 

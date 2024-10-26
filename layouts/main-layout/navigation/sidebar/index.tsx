@@ -1,15 +1,14 @@
 import Image from 'next/image';
 
-import { type User } from '@/actions/get-user';
+import { getUser } from '@/actions/get-user';
 
 import { SidebarLink } from './link';
 import { bottomLinks, topLinks } from './navigation-config';
 
-type SidebarProps = {
-  userRole: NonNullable<User>['role'];
-};
+export async function Sidebar() {
+  const { user } = await getUser();
+  const userRole = user?.role;
 
-export function Sidebar({ userRole }: SidebarProps) {
   return (
     <nav className="fixed left-0 top-0 z-40 flex h-full w-sidebar flex-col border-r border-zinc-900 px-6">
       <div className="relative flex h-16 w-full items-center justify-center">

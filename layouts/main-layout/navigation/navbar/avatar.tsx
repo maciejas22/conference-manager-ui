@@ -8,6 +8,8 @@ import {
 } from '@nextui-org/dropdown';
 import { User } from '@nextui-org/user';
 
+import { logoutUser } from '@/actions/logout';
+
 type UserAvatarProps = {
   username?: string;
   role?: string;
@@ -43,7 +45,7 @@ const items: Item[] = [
     label: 'Logout',
     color: 'danger',
     className: 'text-danger',
-    action: async () => {},
+    action: () => void logoutUser(),
     redirectUrl: '/user/login',
   },
 ];

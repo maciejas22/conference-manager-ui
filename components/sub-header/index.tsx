@@ -11,7 +11,6 @@ function SubHeader({ children, className, ...props }: SubHeaderProps) {
     <h2
       {...props}
       className={cn('my-4', 'text-xl', 'text-gray-400', className)}
-      {...props}
     >
       {children}
     </h2>
