@@ -51,7 +51,7 @@ export function DetailsForm() {
                 errors.dateRange?.startDate?.message,
                 errors.dateRange?.endDate?.message,
               ]),
-            ]}
+            ].join(', ')}
             isInvalid={
               Boolean(errors.dateRange?.startDate?.message) ||
               Boolean(errors.dateRange?.endDate?.message)
@@ -86,7 +86,7 @@ export function DetailsForm() {
         {...register('website')}
       />
       <Textarea
-        label="Additional informations"
+        label="Additional Informations"
         errorMessage={errors.additionalInfo?.message}
         isInvalid={Boolean(errors.additionalInfo?.message)}
         {...register('additionalInfo')}

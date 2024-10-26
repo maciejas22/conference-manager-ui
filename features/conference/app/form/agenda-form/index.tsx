@@ -79,7 +79,7 @@ export function AgendaForm() {
     <Card header="Agenda Informations">
       <Input
         name="eventName"
-        label="Event name"
+        label="Event Name"
         value={event}
         onChange={(e) => {
           setEvent(e.target.value);
@@ -101,7 +101,7 @@ export function AgendaForm() {
         hideTimeZone
         granularity="minute"
         minValue={now(getLocalTimeZone())}
-        errorMessage={fieldErrors.dateRange}
+        errorMessage={fieldErrors.dateRange?.join(', ')}
         isInvalid={
           Array.isArray(fieldErrors.dateRange) &&
           fieldErrors.dateRange.length > 0
