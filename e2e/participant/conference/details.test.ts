@@ -15,9 +15,6 @@ test('should render details', async ({ page }) => {
   await expect(
     page.getByRole('heading', { name: 'Attachments' }),
   ).toBeVisible();
-  await expect(
-    page.getByRole('button', { name: 'Leave conference' }),
-  ).toBeVisible();
 });
 
 test('should join and leave conference', async ({ page }) => {

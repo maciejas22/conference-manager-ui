@@ -3,6 +3,7 @@ import { Navbar, NavbarContent, NavbarItem } from '@nextui-org/navbar';
 import { getUser, type User } from '@/actions/get-user';
 
 import { Avatar } from './avatar';
+import { StripeOnBoardingCta } from './stripe-onboarding-cta';
 
 const getUserIdentifier = (user: User) => {
   if (user?.name && user?.surname) {
@@ -28,6 +29,11 @@ async function Nav() {
       }}
     >
       <NavbarContent justify="end">
+        {user?.role === 'Organizer' && (
+          <NavbarItem>
+            <StripeOnBoardingCta />
+          </NavbarItem>
+        )}
         <NavbarItem>
           <Avatar username={getUserIdentifier(user)} role={user?.role} />
         </NavbarItem>

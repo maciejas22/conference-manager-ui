@@ -19,8 +19,14 @@ export async function Sidebar() {
         <div>
           {topLinks
             .filter((link) => !link.role || link.role === userRole)
-            .map(({ href, label, icon }) => (
-              <SidebarLink key={href} href={href} label={label} icon={icon} />
+            .map(({ href, label, icon, isExternal }) => (
+              <SidebarLink
+                key={href}
+                href={href}
+                label={label}
+                icon={icon}
+                isExternal={isExternal}
+              />
             ))}
         </div>
         <div>

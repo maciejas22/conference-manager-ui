@@ -1,7 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
 import { cookiesNames } from '@/config/cookies';
-import { headersNames } from '@/config/headers';
 import { graphql } from '@/libs/graphql';
 import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
@@ -27,7 +26,6 @@ export async function updateSession(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  req.headers.set(headersNames.isUserAuthenticated, 'true');
   req.cookies.set(cookiesNames.sessionId, sessionId);
   return req;
 }

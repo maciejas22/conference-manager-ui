@@ -70,6 +70,7 @@ export function Ticket({
                     bgColor="#18181A"
                     fgColor="#FFFFFF"
                   />
+                  <p>{ticketNumber}</p>
                 </ModalBody>
                 <ModalFooter>
                   <Button onPress={onClose}>Close</Button>

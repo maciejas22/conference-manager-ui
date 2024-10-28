@@ -134,7 +134,8 @@ type Mutation {
   removeUserFromConference(conferenceId: ID!): ID!
   updateSession: String!
   loginUser(loginUserInput: LoginUserInput!): String!
-  registerUser(registerUserInput: RegisterUserInput!): String!
+  registerUser(registerUserInput: RegisterUserInput!): ID!
+  stripeOnboard(returnUrl: String!, refreshUrl: String!): String!
   logout: Boolean!
   updateUser(updateUserInput: UpdateUserInput!): ID!
   editPassword(password: String!): Boolean
@@ -218,6 +219,11 @@ input Sort {
   order: Order!
 }
 
+type StripeAccountDetails {
+  id: String!
+  isVerified: Boolean!
+}
+
 type SubSection {
   id: ID!
   title: String!
@@ -267,4 +273,5 @@ type User {
   role: Role!
   metrics: OrganizerMetrics
   tickets(page: Page!): TicketsPage!
+  stripeAccountDetails: StripeAccountDetails
 }

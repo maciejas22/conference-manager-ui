@@ -6,10 +6,12 @@ declare module 'gql.tada' {
  interface setupCache {
     "\n  mutation UpdateSession {\n    updateSession\n  }\n":
       TadaDocumentNode<{ updateSession: string; }, {}, void>;
+    "\n  query GetStripeAccount {\n    user {\n      stripeAccountDetails {\n        id\n        isVerified\n        balance\n      }\n    }\n  }\n":
+      TadaDocumentNode<{ user: { stripeAccountDetails: { id: string; isVerified: boolean; balance: unknown; } | null; } | null; }, {}, void>;
     "\n  query GetUser {\n    user {\n      id\n      name\n      surname\n      username\n      email\n      role\n    }\n  }\n":
       TadaDocumentNode<{ user: { id: number; name: string | null; surname: string | null; username: string | null; email: string; role: "Organizer" | "Participant"; } | null; }, {}, void>;
-    "\n  mutation LogoutUser {\n    l\n  }\n":
-      TadaDocumentNode<{ l: unknown; }, {}, void>;
+    "\n  mutation LogoutUser {\n    logout\n  }\n":
+      TadaDocumentNode<{ logout: boolean; }, {}, void>;
     "\n  mutation RemoveUserFromConference($conferenceId: ID!) {\n    removeUserFromConference(conferenceId: $conferenceId)\n  }\n":
       TadaDocumentNode<{ removeUserFromConference: number; }, { conferenceId: number; }, void>;
     "\n  query GetConferences($filters: ConferencesFilters, $page: Page, $sort: Sort) {\n    conferences(filters: $filters, page: $page, sort: $sort) {\n      data {\n        id\n        title\n        acronym\n        startDate\n        endDate\n        location\n        participantsCount\n        registrationDeadline\n      }\n      meta {\n        page {\n          totalItems\n          totalPages\n        }\n      }\n    }\n  }\n":
@@ -47,7 +49,7 @@ declare module 'gql.tada' {
     "\n  mutation UpdateUser($updateUserInput: UpdateUserInput!) {\n    updateUser(updateUserInput: $updateUserInput)\n  }\n":
       TadaDocumentNode<{ updateUser: number; }, { updateUserInput: { email: string; username: string; surname: string; name: string; }; }, void>;
     "\n  mutation Register($registerUserInput: RegisterUserInput!) {\n    registerUser(registerUserInput: $registerUserInput)\n  }\n":
-      TadaDocumentNode<{ registerUser: string; }, { registerUserInput: { role: "Organizer" | "Participant"; password: string; email: string; }; }, void>;
+      TadaDocumentNode<{ registerUser: number; }, { registerUserInput: { role: "Organizer" | "Participant"; password: string; email: string; }; }, void>;
     "\n  query isUserAssociatedWithConference($conferenceId: ID!) {\n    isUserAssociatedWithConference(conferenceId: $conferenceId)\n  }\n":
       TadaDocumentNode<{ isUserAssociatedWithConference: boolean; }, { conferenceId: number; }, void>;
     "\n    query GetAgenda($id: ID!) {\n      conference(id: $id) {\n        ...AgendaFragment\n      }\n    }\n  ":
@@ -70,5 +72,7 @@ declare module 'gql.tada' {
       TadaDocumentNode<{ news: { [$tada.fragmentRefs]: { NewsFragment: "NewsPage"; }; }; }, { page: { size: number; number: number; }; }, void>;
     "\n    query GetTermsOfService {\n      termsAndConditions {\n        ...TermsOfServiceFragment\n      }\n    }\n  ":
       TadaDocumentNode<{ termsAndConditions: { [$tada.fragmentRefs]: { TermsOfServiceFragment: "TermsOfService"; }; }; }, {}, void>;
+    "\n  mutation GetAccontLink($returnUrl: String!, $refreshUrl: String!) {\n    stripeOnboard(returnUrl: $returnUrl, refreshUrl: $refreshUrl)\n  }\n":
+      TadaDocumentNode<{ stripeOnboard: string; }, { refreshUrl: string; returnUrl: string; }, void>;
   }
 }

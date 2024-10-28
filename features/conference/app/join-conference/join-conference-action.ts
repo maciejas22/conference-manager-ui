@@ -13,7 +13,7 @@ const getConferencePaymentIntent = graphql(`
 `);
 
 type JoinConferenceActionResponse = {
-  status: FormStatus;
+  status: FormStatus | 'paywall';
   message?: string;
   clientSecret?: string;
 };
@@ -27,14 +27,16 @@ export const joinConferenceAction = (
   })
     .then(({ addUserToConference: clientSecret }) => {
       if (!clientSecret) {
+        revalidatePath(`conference/${conferenceId}`);
         return {
           status: FormStatus.Success,
           message: 'Successfully joined conference',
         };
       }
+
       return {
-        status: FormStatus.Success,
-        data: { clientSecret },
+        status: 'paywall' as const,
+        clientSecret,
       };
     })
     .catch((err) => {
@@ -42,7 +44,4 @@ export const joinConferenceAction = (
         status: FormStatus.Error,
         message: err.response.errors.map((e: any) => e.message).toString(),
       };
-    })
-    .finally(() => {
-      revalidatePath(`conference/${conferenceId}`);
     });

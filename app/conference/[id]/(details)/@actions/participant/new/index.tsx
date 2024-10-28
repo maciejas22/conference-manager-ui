@@ -22,14 +22,14 @@ export function UnassociatedParticipantActions({
 }: UnassociatedParticipantActionsProps) {
   const [clientSecret, setClientSecret] = useState('');
   const [loading, setLoading] = useState(false);
-  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const { onOpen, isOpen, onOpenChange } = useDisclosure();
 
   const handleJoin = async () => {
     setLoading(true);
     joinConferenceAction(conferenceId)
       .then((data) => {
-        if (data.clientSecret) {
-          setClientSecret(clientSecret);
+        if (data?.clientSecret) {
+          setClientSecret(data?.clientSecret);
           onOpen();
           return;
         }
@@ -48,34 +48,30 @@ export function UnassociatedParticipantActions({
       });
   };
 
-  const handleClose = () => {
-    onClose();
-    setClientSecret('');
-    setLoading(false);
-  };
-
   return (
-    <>
+    <StripeProvider
+      options={{
+        mode: 'payment',
+        currency: 'usd',
+        amount: 1000,
+      }}
+    >
       <Button color="primary" onPress={handleJoin} isLoading={loading}>
         Join conference
       </Button>
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        onClose={handleClose}
         backdrop="blur"
         isDismissable={false}
       >
         <ModalContent>
-          <StripeProvider
-            options={{
-              clientSecret,
-            }}
-          >
-            <PaymentForm conferenceId={conferenceId} />
-          </StripeProvider>
+          <PaymentForm
+            clientSecret={clientSecret}
+            conferenceId={conferenceId}
+          />
         </ModalContent>
       </Modal>
-    </>
+    </StripeProvider>
   );
 }

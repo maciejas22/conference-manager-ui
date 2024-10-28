@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { headers } from 'next/headers';
-
-import { headersNames } from '@/config/headers';
+import { getUser } from '@/actions/get-user';
 
 import { Navbar } from './navigation/navbar';
 import { Sidebar } from './navigation/sidebar';
@@ -11,9 +9,8 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-export function MainLayout({ children }: LayoutProps) {
-  const isAuthenticated =
-    headers().get(headersNames.isUserAuthenticated) === 'true';
+export async function MainLayout({ children }: LayoutProps) {
+  const isAuthenticated = await getUser().catch(() => null);
 
   return isAuthenticated ? (
     <>

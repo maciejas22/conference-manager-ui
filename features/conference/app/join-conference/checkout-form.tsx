@@ -12,14 +12,16 @@ import { publicEnv } from '@/config/env';
 import { GenericError } from '@/features/error/generic-error';
 
 type ModalContentProps = {
+  clientSecret: string;
   conferenceId: number;
 };
 
-export function PaymentForm({ conferenceId }: ModalContentProps) {
+export function PaymentForm({ clientSecret, conferenceId }: ModalContentProps) {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  console.log('clientSecret', clientSecret);
 
   const didLoad = stripe && elements;
 
@@ -31,8 +33,15 @@ export function PaymentForm({ conferenceId }: ModalContentProps) {
     }
 
     setIsSubmitting(true);
+    const { error } = await elements.submit();
+    if (error) {
+      setError(error.message ?? '');
+      setIsSubmitting(false);
+      return;
+    }
     const result = await stripe.confirmPayment({
       elements,
+      clientSecret,
       confirmParams: {
         return_url: `${publicEnv.uiBaseUrl}/conference/${conferenceId}`,
       },
