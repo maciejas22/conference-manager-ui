@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 
+import { makeid } from '@/utils/makeid';
+
 test.use({ storageState: 'e2e/.auth/organizer.json' });
 
 test('should load form correctly', async ({ page }) => {
@@ -59,4 +61,25 @@ test('should fire validation', async ({ page }) => {
   await expect(
     page.getByText('Start Date is required, End Date is required'),
   ).toHaveCount(2);
+});
+
+test.describe.serial('should create and view conference', async () => {
+  const conferenceName = makeid(10);
+
+  test('should create conference', async ({ page }) => {
+    await page.goto('/conference/create');
+
+    await page.getByLabel('Title').fill(conferenceName);
+    await page.getByLabel('Acronym').fill(conferenceName.slice(0, 3));
+    await page.getByLabel('Location').fill('Online');
+    await page.getByLabel('Ticket Price').fill('100');
+
+    await page.getByRole('button', { name: 'Calendar Duration*' }).click();
+    await page.getByText('10').first().click();
+    await page.getByText('20').first().click();
+    await page.getByRole('group', { name: 'Start time' }).click();
+    await page.getByRole('group', { name: 'End time' }).click();
+
+    await expect(page).toHaveURL(/\/conference\/\d+/);
+  });
 });
