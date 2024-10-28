@@ -21,7 +21,6 @@ export function PaymentForm({ clientSecret, conferenceId }: ModalContentProps) {
   const elements = useElements();
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  console.log('clientSecret', clientSecret);
 
   const didLoad = stripe && elements;
 
