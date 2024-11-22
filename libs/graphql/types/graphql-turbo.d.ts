@@ -6,8 +6,8 @@ declare module 'gql.tada' {
  interface setupCache {
     "\n  mutation UpdateSession {\n    updateSession\n  }\n":
       TadaDocumentNode<{ updateSession: string; }, {}, void>;
-    "\n  query GetStripeAccount {\n    user {\n      stripeAccountDetails {\n        id\n        isVerified\n        balance\n      }\n    }\n  }\n":
-      TadaDocumentNode<{ user: { stripeAccountDetails: { id: string; isVerified: boolean; balance: unknown; } | null; } | null; }, {}, void>;
+    "\n  query GetStripeAccount {\n    user {\n      stripeAccountDetails {\n        id\n        isVerified\n      }\n    }\n  }\n":
+      TadaDocumentNode<{ user: { stripeAccountDetails: { id: string; isVerified: boolean; } | null; } | null; }, {}, void>;
     "\n  query GetUser {\n    user {\n      id\n      name\n      surname\n      username\n      email\n      role\n    }\n  }\n":
       TadaDocumentNode<{ user: { id: number; name: string | null; surname: string | null; username: string | null; email: string; role: "Organizer" | "Participant"; } | null; }, {}, void>;
     "\n  mutation LogoutUser {\n    logout\n  }\n":
@@ -50,6 +50,8 @@ declare module 'gql.tada' {
       TadaDocumentNode<{ updateUser: number; }, { updateUserInput: { email: string; username: string; surname: string; name: string; }; }, void>;
     "\n  mutation Register($registerUserInput: RegisterUserInput!) {\n    registerUser(registerUserInput: $registerUserInput)\n  }\n":
       TadaDocumentNode<{ registerUser: number; }, { registerUserInput: { role: "Organizer" | "Participant"; password: string; email: string; }; }, void>;
+    "\n  mutation ValidateTicket($validateTicketInput: ValidateTicketInput!) {\n    validateTicket(input: $validateTicketInput)\n  }\n":
+      TadaDocumentNode<{ validateTicket: boolean; }, { validateTicketInput: { conferenceId: number; ticketId: string; }; }, void>;
     "\n  query isUserAssociatedWithConference($conferenceId: ID!) {\n    isUserAssociatedWithConference(conferenceId: $conferenceId)\n  }\n":
       TadaDocumentNode<{ isUserAssociatedWithConference: boolean; }, { conferenceId: number; }, void>;
     "\n    query GetAgenda($id: ID!) {\n      conference(id: $id) {\n        ...AgendaFragment\n      }\n    }\n  ":

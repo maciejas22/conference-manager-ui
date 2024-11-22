@@ -132,13 +132,14 @@ type Mutation {
   modifyConference(input: ModifyConferenceInput!): ID!
   addUserToConference(conferenceId: ID!): String
   removeUserFromConference(conferenceId: ID!): ID!
-  updateSession: String!
+  validateTicket(input: ValidateTicketInput!): Boolean!
   loginUser(loginUserInput: LoginUserInput!): String!
   registerUser(registerUserInput: RegisterUserInput!): ID!
   stripeOnboard(returnUrl: String!, refreshUrl: String!): String!
   logout: Boolean!
   updateUser(updateUserInput: UpdateUserInput!): ID!
   editPassword(password: String!): Boolean
+  updateSession: String!
 }
 
 type NewParticipantsTrend {
@@ -274,4 +275,9 @@ type User {
   metrics: OrganizerMetrics
   tickets(page: Page!): TicketsPage!
   stripeAccountDetails: StripeAccountDetails
+}
+
+input ValidateTicketInput {
+  ticketId: String!
+  conferenceId: ID!
 }

@@ -16,9 +16,9 @@ const updateSessionAction = () =>
   serverFetcher({ document: updateSessionMutation });
 
 export async function updateSession(req: NextRequest) {
-  const sessionId = await updateSessionAction()
-    .then((data) => data.updateSession)
-    .catch(() => '');
+  const { updateSession: sessionId } = await updateSessionAction()
+    .then((data) => data)
+    .catch(() => ({ updateSession: '' }));
 
   if (!sessionId) {
     const url = req.nextUrl.clone();

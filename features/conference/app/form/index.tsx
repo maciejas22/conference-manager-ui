@@ -111,7 +111,7 @@ function ConferenceForm({ operation, initialData }: ConferenceFormProps) {
     const { dateRange, attachments, ...conferenceData } = data;
     const response = await action({
       ...conferenceData,
-      id: formInitialData?.id ?? -1,
+      id: formInitialData?.id,
       startDate: data.dateRange.startDate,
       endDate: data.dateRange.endDate,
       ticketPrice: data.ticketPrice * 100,

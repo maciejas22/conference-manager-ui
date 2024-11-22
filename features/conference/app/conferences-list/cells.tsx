@@ -35,7 +35,7 @@ function Cell({ item, columnKey }: CellProps) {
       );
     case ColumnKey.Actions:
       return (
-        <Tooltip content="Details">
+        <Tooltip content="Details" placement="right">
           <Link href={`/conference/${item.id.toString()}`} color="foreground">
             <Icon icon="el:eye-open" />
           </Link>

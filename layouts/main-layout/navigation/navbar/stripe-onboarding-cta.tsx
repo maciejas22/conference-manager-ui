@@ -5,11 +5,13 @@ import { Link } from '@nextui-org/link';
 import { getStripeAccountDetails } from '@/actions/get-stripe-account';
 
 export async function StripeOnBoardingCta() {
-  const stripeAccountDetails = await getStripeAccountDetails();
+  const stripeAccountDetails = await getStripeAccountDetails().catch(
+    () => null,
+  );
 
-  return !stripeAccountDetails.user?.stripeAccountDetails?.isVerified ? (
+  return !stripeAccountDetails?.user?.stripeAccountDetails?.isVerified ? (
     <Button
-      href={`/user/stripe/${stripeAccountDetails.user?.stripeAccountDetails?.id}/refresh`}
+      href={`/user/stripe/${stripeAccountDetails?.user?.stripeAccountDetails?.id}/refresh`}
       color="primary"
       as={Link}
       showAnchorIcon
