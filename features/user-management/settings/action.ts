@@ -12,7 +12,7 @@ const updateUserMutation = graphql(`
   }
 `);
 
-export const updateUser = (
+export const updateUser = async (
   input: VariablesOf<typeof updateUserMutation>['updateUserInput'],
 ): Promise<ServerResponse> =>
   serverFetcher({

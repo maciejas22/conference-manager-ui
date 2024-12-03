@@ -17,7 +17,9 @@ test('should load form correctly', async ({ page }) => {
   await expect(page.getByText('Details', { exact: true })).toBeVisible();
   await expect(page.getByLabel('Location')).toBeVisible();
   await expect(page.getByLabel('Ticket Price')).toBeVisible();
-  await expect(page.getByRole('group', { name: 'Duration' })).toBeVisible();
+  await expect(
+    page.getByRole('group', { name: 'Duration*', exact: true }),
+  ).toBeVisible();
   await expect(page.getByLabel('Website')).toBeVisible();
   await expect(page.getByLabel('Additional Information')).toBeVisible();
 
@@ -39,7 +41,9 @@ test('should load form correctly', async ({ page }) => {
   ).toBeVisible();
   await expect(page.getByLabel('Event Name')).toBeVisible();
   await expect(page.getByLabel('Speaker')).toBeVisible();
-  await expect(page.getByRole('group', { name: 'Start Time' })).toBeVisible();
+  await expect(
+    page.getByRole('group', { name: 'Event Duration*', exact: true }),
+  ).toBeVisible();
   await expect(
     page.getByRole('button', { name: 'Add agenda item to timeline' }),
   ).toBeVisible();
@@ -114,14 +118,14 @@ test.describe.serial('should create and view conference', async () => {
     await page.getByLabel('Acronym').fill(conferenceName.slice(0, 3));
     await page.getByLabel('Location').fill('Online');
     await page.getByLabel('Ticket Price').fill('0');
-    await selectDateTimeRange(page, 'Calendar Duration');
+    await selectDateTimeRange(page, 'Calendar Duration*');
 
     await page.getByLabel('Limit of Participants').fill('100');
     await selectDateTime(page, 'Calendar Registration Deadline');
 
     await page.getByLabel('Event Name').fill('Test Agenda Event');
     await page.getByLabel('Speaker').fill('Test Agenda Speaker');
-    await selectDateTimeRange(page, 'Calendar Start Time');
+    await selectDateTimeRange(page, 'Calendar Event Duration*');
     await page
       .getByRole('button', { name: 'Add agenda item to timeline' })
       .click();
@@ -149,7 +153,7 @@ test.describe.serial('should create and view conference', async () => {
 
     await page.getByLabel('Event Name').fill('Better Test Agenda Event');
     await page.getByLabel('Speaker').fill('Better Test Agenda Speaker');
-    await selectDateTimeRange(page, 'Calendar Start Time');
+    await selectDateTimeRange(page, 'Calendar Event Duration*');
     await page
       .getByRole('button', { name: 'Add agenda item to timeline' })
       .click();

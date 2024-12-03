@@ -63,7 +63,7 @@ export function AgendaForm() {
         name="dateRange"
         render={({ field }) => (
           <DateRangePicker
-            label="Duration"
+            label="Event Duration"
             hideTimeZone
             isRequired
             granularity="minute"

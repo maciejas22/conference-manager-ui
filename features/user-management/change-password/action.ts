@@ -10,7 +10,7 @@ const editPasswordMutation = graphql(`
   }
 `);
 
-export const changePassword = (
+export const changePassword = async (
   input: VariablesOf<typeof editPasswordMutation>['password'],
 ): Promise<ServerResponse> =>
   serverFetcher({

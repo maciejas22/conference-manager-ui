@@ -24,6 +24,7 @@ export function Chart({ chartData }: ChartProps) {
         tooltip: {
           axisPointer: {
             label: {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               formatter: (params: any) =>
                 getFormattedDate(parseAbsoluteToLocal(params.value)),
             },

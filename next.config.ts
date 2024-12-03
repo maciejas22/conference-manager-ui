@@ -21,7 +21,6 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '10mb',
     },
     reactCompiler: true,
-    typedRoutes: true,
   },
 };
 

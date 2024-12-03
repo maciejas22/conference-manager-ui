@@ -86,7 +86,7 @@ function TableProvider({ defaultTableConfig, children }: TableContextProps) {
         },
       }));
     },
-    [tableConfig.sort],
+    [tableConfig.sort, defaultTableConfig.sort.column],
   );
 
   const contextData = useMemo<TableContextState>(

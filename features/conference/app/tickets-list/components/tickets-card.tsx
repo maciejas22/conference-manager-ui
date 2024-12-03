@@ -40,7 +40,7 @@ export function Ticket({
 
   return (
     <Card>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between" role="listitem">
         <div>
           <Link href={`/conference/${conferenceId}`} className="text-2xl">
             {conferenceName}

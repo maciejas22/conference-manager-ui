@@ -8,7 +8,7 @@ type TicketGroupProps = {
 
 export function TicketGroup({ tickets }: TicketGroupProps) {
   return (
-    <div className="space-y-8">
+    <div className="space-y-8" role="list">
       {tickets.map((ticket) => (
         <Ticket key={ticket.ticketNumber} {...ticket} />
       ))}
