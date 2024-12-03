@@ -9,4 +9,5 @@ const logoutUserMutation = graphql(`
   }
 `);
 
-export const logoutUser = () => serverFetcher({ document: logoutUserMutation });
+export const logoutUser = async () =>
+  serverFetcher({ document: logoutUserMutation });

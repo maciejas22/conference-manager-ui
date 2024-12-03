@@ -12,7 +12,7 @@ const removeUserFromConferenceMutation = graphql(`
   }
 `);
 
-export const leaveConferenceAction = (
+export const leaveConferenceAction = async (
   conferenceId: number,
 ): Promise<ServerResponse> =>
   serverFetcher({

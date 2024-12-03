@@ -1,9 +1,10 @@
+import { type NextConfig } from 'next';
+
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
-  redirects: () => [
+  redirects: async () => [
     {
       source: '/user/settings',
       destination: '/user/settings/personal',
@@ -19,6 +20,8 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: '10mb',
     },
+    reactCompiler: true,
+    typedRoutes: true,
   },
 };
 

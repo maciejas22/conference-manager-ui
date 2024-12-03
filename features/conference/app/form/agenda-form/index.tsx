@@ -1,17 +1,20 @@
 'use client';
 
-import { useState } from 'react';
-
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   getLocalTimeZone,
-  now,
+  parseAbsoluteToLocal,
   toZoned,
-  type ZonedDateTime,
 } from '@internationalized/date';
 import { Button } from '@nextui-org/button';
 import { DateRangePicker } from '@nextui-org/date-picker';
 import { Input } from '@nextui-org/input';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import {
+  Controller,
+  useFieldArray,
+  useForm,
+  useFormContext,
+} from 'react-hook-form';
 import { type z } from 'zod';
 
 import { Card } from '@/components/card';
@@ -22,105 +25,89 @@ import {
 } from '../types/form-schema';
 
 type AgendaFormInputs = z.infer<typeof agendaItemSchema>;
-type AgendaFormErrors = Partial<Record<keyof AgendaFormInputs, string[]>>;
 
 export function AgendaForm() {
-  const { control } = useFormContext<ConferenceFormSchema>();
-  const { append } = useFieldArray({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
     control,
+  } = useForm<AgendaFormInputs>({
+    resolver: zodResolver(agendaItemSchema),
+    defaultValues: {
+      dateRange: {},
+    },
+  });
+  const { control: mainFormControl } = useFormContext<ConferenceFormSchema>();
+  const { append } = useFieldArray({
+    control: mainFormControl,
     name: 'agenda',
   });
-  const [event, setEvent] = useState('');
-  const [speaker, setSpeaker] = useState('');
-  const [dateRange, setDateRange] = useState<{
-    start: ZonedDateTime;
-    end: ZonedDateTime;
-  } | null>(null);
-  const [fieldErrors, setFieldErrors] = useState<AgendaFormErrors>({});
-
-  const resetErrors = () => {
-    setFieldErrors({});
-  };
-
-  const resetInputs = () => {
-    setEvent('');
-    setSpeaker('');
-    setDateRange(null);
-  };
-
-  const addAgendaItem = () => {
-    const data = {
-      event,
-      speaker,
-      dateRange: {
-        startDate: dateRange?.start.toAbsoluteString(),
-        endDate: dateRange?.end.toAbsoluteString(),
-      },
-    };
-    const validationResult = agendaItemSchema.safeParse(data);
-
-    switch (validationResult.success) {
-      case true:
-        resetErrors();
-        resetInputs();
-        append(validationResult.data);
-        return;
-      case false:
-        setFieldErrors({
-          ...validationResult.error.flatten().fieldErrors,
-          dateRange: [
-            ...new Set(validationResult.error.flatten().fieldErrors.dateRange),
-          ],
-        });
-    }
-  };
 
   return (
     <Card header="Agenda Informations">
       <Input
-        name="eventName"
         label="Event Name"
-        value={event}
-        onChange={(e) => {
-          setEvent(e.target.value);
-        }}
-        isInvalid={Boolean(fieldErrors.event)}
-        errorMessage={fieldErrors.event}
+        errorMessage={errors.event?.message}
+        isInvalid={Boolean(errors.event?.message)}
+        {...register('event')}
       />
       <Input
         label="Speaker"
-        value={speaker}
-        onChange={(e) => {
-          setSpeaker(e.target.value);
-        }}
-        isInvalid={Boolean(fieldErrors.speaker)}
-        errorMessage={fieldErrors.speaker}
+        errorMessage={errors.speaker?.message}
+        isInvalid={Boolean(errors.speaker?.message)}
+        {...register('speaker')}
       />
-      <DateRangePicker
-        label="Start Time"
-        hideTimeZone
-        granularity="minute"
-        minValue={now(getLocalTimeZone())}
-        errorMessage={fieldErrors.dateRange?.join(', ')}
-        isInvalid={
-          Array.isArray(fieldErrors.dateRange) &&
-          fieldErrors.dateRange.length > 0
-        }
-        value={dateRange}
-        onChange={(value) => {
-          setDateRange({
-            start: toZoned(value.start, getLocalTimeZone()),
-            end: toZoned(value.end, getLocalTimeZone()),
-          });
-        }}
+      <Controller
+        control={control}
+        name="dateRange"
+        render={({ field }) => (
+          <DateRangePicker
+            label="Duration"
+            hideTimeZone
+            isRequired
+            granularity="minute"
+            popoverProps={{
+              shouldCloseOnScroll: false,
+            }}
+            errorMessage={[
+              ...new Set([
+                errors.dateRange?.startDate?.message,
+                errors.dateRange?.endDate?.message,
+              ]),
+            ].join(', ')}
+            isInvalid={
+              Boolean(errors.dateRange?.startDate?.message) ||
+              Boolean(errors.dateRange?.endDate?.message)
+            }
+            value={
+              field.value?.startDate && field.value?.endDate
+                ? {
+                    start: parseAbsoluteToLocal(field.value.startDate),
+                    end: parseAbsoluteToLocal(field.value.endDate),
+                  }
+                : null
+            }
+            onChange={(value) => {
+              field.onChange({
+                startDate: toZoned(
+                  value.start,
+                  getLocalTimeZone(),
+                ).toAbsoluteString(),
+                endDate: toZoned(
+                  value.end,
+                  getLocalTimeZone(),
+                ).toAbsoluteString(),
+              });
+            }}
+          />
+        )}
       />
       <Button
         color="primary"
         variant="light"
         fullWidth
-        onClick={() => {
-          addAgendaItem();
-        }}
+        onClick={handleSubmit((data) => append(data))}
       >
         Add agenda item to timeline
       </Button>

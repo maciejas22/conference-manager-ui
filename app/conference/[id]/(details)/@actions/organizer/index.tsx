@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
+import { Alert } from '@nextui-org/alert';
 import { Button } from '@nextui-org/button';
-import { Chip } from '@nextui-org/chip';
 import { Input } from '@nextui-org/input';
 import { Link } from '@nextui-org/link';
 import {
@@ -15,7 +15,6 @@ import {
   useDisclosure,
 } from '@nextui-org/modal';
 
-import { Alert } from '@/components/alert';
 import { graphql } from '@/libs/graphql';
 import { clientFetcher } from '@/utils/fetchers/client-fetcher';
 
@@ -94,13 +93,8 @@ export function OrganizerActions({ conferenceId }: OrganizerActionsProps) {
             />
             {isTicketValid !== undefined && (
               <Alert
-                type={isTicketValid ? 'success' : 'error'}
+                color={isTicketValid ? 'success' : 'danger'}
                 title={isTicketValid ? 'Ticket is valid' : 'Ticket is invalid'}
-                message={
-                  isTicketValid
-                    ? 'The ticket is valid and can be used to enter the conference.'
-                    : 'The ticket is invalid. Please check the ticket ID and try again.'
-                }
               />
             )}
           </ModalBody>

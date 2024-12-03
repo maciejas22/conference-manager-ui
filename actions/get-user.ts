@@ -16,5 +16,7 @@ const getUserQuery = graphql(`
   }
 `);
 
-export const getUser = cache(() => serverFetcher({ document: getUserQuery }));
+export const getUser = cache(async () =>
+  serverFetcher({ document: getUserQuery }),
+);
 export type User = ResultOf<typeof getUserQuery>['user'];

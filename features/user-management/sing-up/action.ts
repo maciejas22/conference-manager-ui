@@ -23,7 +23,7 @@ export async function signup(
       document: signupQuery,
       variables: { registerUserInput },
     });
-  } catch (err) {
+  } catch {
     return {
       status: FormStatus.Error,
       message: 'Failed to signup',

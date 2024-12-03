@@ -22,12 +22,13 @@ export async function login(
   loginUserInput: VariablesOf<typeof loginQuery>['loginUserInput'],
 ): Promise<LoginResponse> {
   try {
+    const cookieStore = await cookies();
     const res = await serverFetcher({
       document: loginQuery,
       variables: { loginUserInput },
     });
-    cookies().set(cookiesNames.sessionId, res.loginUser ?? '');
-  } catch (err) {
+    cookieStore.set(cookiesNames.sessionId, res.loginUser ?? '');
+  } catch {
     return {
       status: FormStatus.Error,
       message: 'Failed to login',

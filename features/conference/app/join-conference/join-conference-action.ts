@@ -18,7 +18,7 @@ type JoinConferenceActionResponse = {
   clientSecret?: string;
 };
 
-export const joinConferenceAction = (
+export const joinConferenceAction = async (
   conferenceId: number,
 ): Promise<JoinConferenceActionResponse> =>
   serverFetcher({

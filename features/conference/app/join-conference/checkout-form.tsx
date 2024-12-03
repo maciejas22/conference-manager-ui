@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 
 import { Button } from '@nextui-org/button';
 import { ModalBody, ModalFooter, ModalHeader } from '@nextui-org/modal';
@@ -24,7 +24,7 @@ export function PaymentForm({ clientSecret, conferenceId }: ModalContentProps) {
 
   const didLoad = stripe && elements;
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!didLoad) {

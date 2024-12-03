@@ -23,9 +23,9 @@ const getConferenceFormInitialDataQuery = graphql(
 export default async function ConferenceEditPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const conferenceId = Number(params.id);
+  const conferenceId = await params.then((p) => Number(p.id));
   const conferenceData = await serverFetcher({
     document: getConferenceFormInitialDataQuery,
     variables: { id: conferenceId },

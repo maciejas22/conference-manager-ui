@@ -13,13 +13,14 @@ const getAccountLinkMutation = graphql(`
 export default async function StripeRefreshPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const id = await params.then((p) => p.id);
   const accountLink = await serverFetcher({
     document: getAccountLinkMutation,
     variables: {
       returnUrl: `${publicEnv.uiBaseUrl}/user/stripe`,
-      refreshUrl: `${publicEnv.apiBaseUrl}/api/stripe/${params.id}/refresh`,
+      refreshUrl: `${publicEnv.apiBaseUrl}/api/stripe/${id}/refresh`,
     },
   });
 

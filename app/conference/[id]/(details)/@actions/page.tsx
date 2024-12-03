@@ -12,8 +12,12 @@ const isUserAssociatedWithConferenceQuery = graphql(`
   }
 `);
 
-export default async function Actions({ params }: { params: { id: string } }) {
-  const conferenceId = Number(params.id);
+export default async function Actions({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const conferenceId = await params.then((p) => Number(p.id));
   const userData = await getUser();
   const user = userData.user;
   const { isUserAssociatedWithConference } = await serverFetcher({

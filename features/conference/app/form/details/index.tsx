@@ -46,6 +46,9 @@ export function DetailsForm() {
             hideTimeZone
             isRequired
             granularity="minute"
+            popoverProps={{
+              shouldCloseOnScroll: false,
+            }}
             errorMessage={[
               ...new Set([
                 errors.dateRange?.startDate?.message,

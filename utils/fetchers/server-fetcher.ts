@@ -9,7 +9,8 @@ import { getGqlClient } from '@/libs/gql-client';
 export const serverFetcher = async <T, V extends Variables = Variables>(
   options: RequestOptions<V, T>,
 ) => {
-  const sessionId = cookies().get(cookiesNames.sessionId);
+  const cookieStore = await cookies();
+  const sessionId = cookieStore.get(cookiesNames.sessionId);
   const headers = new Headers();
   if (sessionId) {
     headers.set('Authorization', `Bearer ${sessionId?.value}`);

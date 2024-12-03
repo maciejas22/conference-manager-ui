@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react';
+
 import type { Metadata } from 'next';
 
 import { MainLayout } from '@/layouts/main-layout';
@@ -16,7 +18,7 @@ export const metadata: Metadata = {
 export default async function Layout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <RootLayout font={asap.className}>

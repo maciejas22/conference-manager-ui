@@ -98,7 +98,7 @@ function ConferenceForm({ operation, initialData }: ConferenceFormProps) {
               endTime: agendaItem.dateRange.endDate,
             },
           };
-        } else if (!!agendaItem._destroy) {
+        } else if (agendaItem._destroy) {
           return {
             deleteItem: agendaItem.id,
           };

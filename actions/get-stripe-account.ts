@@ -14,6 +14,6 @@ const getStripeAccountQuery = graphql(`
   }
 `);
 
-export const getStripeAccountDetails = cache(() =>
+export const getStripeAccountDetails = cache(async () =>
   serverFetcher({ document: getStripeAccountQuery }),
 );

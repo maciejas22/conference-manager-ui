@@ -16,10 +16,15 @@ const getConferenceFilesQuery = graphql(
   [conferenceFilesFragment],
 );
 
-export default async function Files({ params }: { params: { id: string } }) {
+export default async function Files({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const conferenceIdParam = await params.then((p) => Number(p.id));
   const conferenceData = await serverFetcher({
     document: getConferenceFilesQuery,
-    variables: { id: Number(params.id) },
+    variables: { id: conferenceIdParam },
   });
   const conference = conferenceData.conference;
 

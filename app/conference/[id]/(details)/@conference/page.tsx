@@ -19,11 +19,12 @@ const getConferenceDetailsQuery = graphql(
 export default async function Conference({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const conferenceIdParam = await params.then((p) => Number(p.id));
   const conferenceData = await serverFetcher({
     document: getConferenceDetailsQuery,
-    variables: { id: Number(params.id) },
+    variables: { id: conferenceIdParam },
   });
   const conference = conferenceData.conference;
 

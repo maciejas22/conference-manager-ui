@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, Page, test } from '@playwright/test';
 
 import { makeid } from '@/utils/makeid';
 
@@ -63,6 +63,47 @@ test('should fire validation', async ({ page }) => {
   ).toHaveCount(2);
 });
 
+const selectDateTimeRange = async (
+  page: Page,
+  btnName: string,
+  dateTime = {
+    startDate: '10',
+    endDate: '20',
+    startTime: '1111',
+    endTime: '2222',
+  },
+) => {
+  await page.getByRole('button', { name: btnName }).click();
+  const calendar = page.getByRole('dialog');
+  await calendar.getByRole('button', { name: 'Next' }).first().click();
+  const datePickerGrid = calendar.getByRole('grid');
+  await datePickerGrid.getByText(dateTime.startDate).first().click();
+  await datePickerGrid.getByText(dateTime.endDate).first().click();
+  await calendar.getByText('Start time').click();
+  await page.keyboard.type(dateTime.startTime);
+  await calendar.getByText('End time').click();
+  await page.keyboard.type(dateTime.endTime);
+  await page.keyboard.press('Escape');
+};
+
+const selectDateTime = async (
+  page: Page,
+  btnName: string,
+  dateTime = {
+    date: '10',
+    time: '1111',
+  },
+) => {
+  await page.getByRole('button', { name: btnName }).click();
+  const calendar = page.getByRole('dialog');
+  await calendar.getByRole('button', { name: 'Next' }).first().click();
+  const datePickerGrid = calendar.getByRole('grid');
+  await datePickerGrid.getByText(dateTime.date).first().click();
+  await calendar.getByText('Time').click();
+  await page.keyboard.type(dateTime.time);
+  await page.keyboard.press('Escape');
+};
+
 test.describe.serial('should create and view conference', async () => {
   const conferenceName = makeid(10);
 
@@ -72,14 +113,49 @@ test.describe.serial('should create and view conference', async () => {
     await page.getByLabel('Title').fill(conferenceName);
     await page.getByLabel('Acronym').fill(conferenceName.slice(0, 3));
     await page.getByLabel('Location').fill('Online');
-    await page.getByLabel('Ticket Price').fill('100');
+    await page.getByLabel('Ticket Price').fill('0');
+    await selectDateTimeRange(page, 'Calendar Duration');
 
-    await page.getByRole('button', { name: 'Calendar Duration*' }).click();
-    await page.getByText('10').first().click();
-    await page.getByText('20').first().click();
-    await page.getByRole('group', { name: 'Start time' }).click();
-    await page.getByRole('group', { name: 'End time' }).click();
+    await page.getByLabel('Limit of Participants').fill('100');
+    await selectDateTime(page, 'Calendar Registration Deadline');
 
-    await expect(page).toHaveURL(/\/conference\/\d+/);
+    await page.getByLabel('Event Name').fill('Test Agenda Event');
+    await page.getByLabel('Speaker').fill('Test Agenda Speaker');
+    await selectDateTimeRange(page, 'Calendar Start Time');
+    await page
+      .getByRole('button', { name: 'Add agenda item to timeline' })
+      .click();
+
+    await page.getByRole('button', { name: 'Create' }).click();
+
+    await expect(
+      page.getByText('Conference created successfully'),
+    ).toBeVisible();
+  });
+
+  test('should edit conference', async ({ page }) => {
+    await page.goto('/conference/list');
+    await page.getByLabel('Search by title').fill(conferenceName);
+    await page.getByLabel(conferenceName).getByRole('link').click();
+
+    await page.getByRole('button', { name: 'Edit' }).click();
+    await page.getByLabel('Title').fill('Updated ' + conferenceName);
+    await page
+      .getByLabel('Acronym')
+      .fill('Updated ' + conferenceName.slice(0, 3));
+    await page.getByLabel('Location').fill('Offile');
+
+    await page.getByLabel('Delete Test Agenda Speaker').click();
+
+    await page.getByLabel('Event Name').fill('Better Test Agenda Event');
+    await page.getByLabel('Speaker').fill('Better Test Agenda Speaker');
+    await selectDateTimeRange(page, 'Calendar Start Time');
+    await page
+      .getByRole('button', { name: 'Add agenda item to timeline' })
+      .click();
+    await page.getByRole('button', { name: 'Save' }).click();
+    await expect(
+      page.getByText('Conference modified successfully'),
+    ).toBeVisible();
   });
 });
