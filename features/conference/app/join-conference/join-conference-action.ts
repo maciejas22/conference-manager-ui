@@ -2,6 +2,8 @@
 
 import { revalidatePath } from 'next/cache';
 
+import { GraphQLResponse } from 'graphql-request';
+
 import { graphql } from '@/libs/graphql';
 import { FormStatus } from '@/types/response';
 import { serverFetcher } from '@/utils/fetchers/server-fetcher';
@@ -42,6 +44,8 @@ export const joinConferenceAction = async (
     .catch((err) => {
       return {
         status: FormStatus.Error,
-        message: err.response.errors.map((e: any) => e.message).toString(),
+        message: err.response.errors
+          .map((e: GraphQLResponse) => e.message)
+          .toString(),
       };
     });
