@@ -40,6 +40,8 @@ export function LimitsForm() {
             isInvalid={Boolean(errors.registrationDeadline?.message)}
             value={field.value ? parseAbsoluteToLocal(field.value) : undefined}
             onChange={(value) => {
+              if (!value) return;
+
               field.onChange(
                 toZoned(value, getLocalTimeZone()).toAbsoluteString(),
               );

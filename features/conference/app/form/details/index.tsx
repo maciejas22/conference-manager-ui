@@ -68,6 +68,8 @@ export function DetailsForm() {
                 : null
             }
             onChange={(value) => {
+              if (!value) return;
+
               field.onChange({
                 startDate: toZoned(
                   value.start,
