@@ -7,6 +7,7 @@ import { DropZone } from '@/components/drop-zone';
 
 import { FileList } from '../../../components/file-list';
 import { type ConferenceFormSchema } from '../types/form-schema';
+import { isDeletedFile, isUploadedFile } from '../utils/fileUtils';
 
 export function AttachmentsForm() {
   const {
@@ -24,11 +25,11 @@ export function AttachmentsForm() {
             <FileList
               mode="edit"
               attachments={field.value
-                .filter((file) => file instanceof File || !file._destroy)
+                .filter((file) => isUploadedFile(file) || !isDeletedFile(file))
                 .map((i) => ({
                   file: i,
                   onDeleteClick: () => {
-                    i instanceof File
+                    isUploadedFile(i)
                       ? field.onChange(field.value.filter((file) => file !== i))
                       : field.onChange(
                           field.value.map((file) =>

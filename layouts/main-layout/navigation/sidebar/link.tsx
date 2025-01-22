@@ -10,9 +10,15 @@ type SidebarLinkProps = {
   href: string;
   label: string;
   icon: string;
+  isExternal?: boolean;
 };
 
-export function SidebarLink({ href, label, icon }: SidebarLinkProps) {
+export function SidebarLink({
+  href,
+  label,
+  icon,
+  isExternal,
+}: SidebarLinkProps) {
   const pathname = usePathname();
 
   return (
@@ -29,6 +35,7 @@ export function SidebarLink({ href, label, icon }: SidebarLinkProps) {
         pathname === href ? 'text-gray-200' : 'text-gray-400',
         { 'main-bg-zinc-800': pathname === href },
       )}
+      isExternal={isExternal}
     >
       <Icon icon={icon} className="text-2xl" />
       {label}

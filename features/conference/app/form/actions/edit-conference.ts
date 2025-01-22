@@ -1,7 +1,9 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
 import { FormStatus } from '@/types/response';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 import {
   ModifyConferenceInput,
@@ -17,6 +19,7 @@ export const modifyConferenceAction = async (
     variables: { input },
   })
     .then((responseData) => {
+      revalidatePath(`/conference/${responseData.modifyConference}`);
       return {
         conferenceId: responseData.modifyConference?.toString() ?? '',
         status: FormStatus.Success,

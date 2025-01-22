@@ -3,7 +3,7 @@ import { type Metadata } from 'next';
 import { ConferenceForm } from '@/features/conference/app/form';
 import { conferenceFormInitialDataFragment } from '@/features/conference/app/form/initial-data-fragment';
 import { graphql } from '@/libs/graphql';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 export const metadata: Metadata = {
   title: 'Edit Conference | Conference Manager',
@@ -23,9 +23,9 @@ const getConferenceFormInitialDataQuery = graphql(
 export default async function ConferenceEditPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const conferenceId = Number(params.id);
+  const conferenceId = await params.then((p) => Number(p.id));
   const conferenceData = await serverFetcher({
     document: getConferenceFormInitialDataQuery,
     variables: { id: conferenceId },

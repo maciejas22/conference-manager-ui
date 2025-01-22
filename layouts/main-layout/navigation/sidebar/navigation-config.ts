@@ -6,6 +6,7 @@ type NavLink = {
   label: string;
   icon: string;
   role?: NonNullable<User>['role'];
+  isExternal?: boolean;
 };
 
 export const topLinks: NavLink[] = [
@@ -14,6 +15,12 @@ export const topLinks: NavLink[] = [
     href: '/conference/list',
     label: 'Conferences',
     icon: 'solar:videocamera-outline',
+  },
+  {
+    href: '/conference/tickets',
+    label: 'Tickets',
+    icon: 'solar:ticket-sale-outline',
+    role: 'Participant',
   },
   {
     href: '/conference/create',
@@ -26,6 +33,13 @@ export const topLinks: NavLink[] = [
     label: 'Reporting',
     icon: 'solar:chart-outline',
     role: 'Organizer',
+  },
+  {
+    href: `https://dashboard.stripe.com/`,
+    label: 'Stripe Dashboard',
+    icon: 'solar:dollar-outline',
+    role: 'Organizer',
+    isExternal: true,
   },
 ];
 

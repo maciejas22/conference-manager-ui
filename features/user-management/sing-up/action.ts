@@ -2,7 +2,7 @@
 
 import { graphql, VariablesOf } from '@/libs/graphql';
 import { FormStatus } from '@/types/response';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const signupQuery = graphql(`
   mutation Register($registerUserInput: RegisterUserInput!) {
@@ -23,7 +23,7 @@ export async function signup(
       document: signupQuery,
       variables: { registerUserInput },
     });
-  } catch (err) {
+  } catch {
     return {
       status: FormStatus.Error,
       message: 'Failed to signup',

@@ -12,27 +12,28 @@ export const listFileSchema = z.union([
 
 export const agendaItemSchema = z.object({
   id: z.number().optional(),
-  speaker: z.string().min(1),
-  event: z.string().min(1),
+  speaker: z.string().min(1, { message: 'Speaker is required' }),
+  event: z.string().min(1, { message: 'Event is required' }),
   dateRange: z.object({
-    startDate: z.string().datetime(),
-    endDate: z.string().datetime(),
+    startDate: z.string({ message: 'Start Date is required' }).datetime(),
+    endDate: z.string({ message: 'End Date is required' }).datetime(),
   }),
   _destroy: z.boolean().optional(),
 });
 
 export const conferenceFormSchema = z.object({
-  title: z.string().min(1),
+  title: z.string().min(1, { message: 'Title is required' }),
   acronym: z.string().optional(),
 
-  participantsLimit: z.number().optional(),
+  participantsLimit: z.number(),
   registrationDeadline: z.string().datetime().optional(),
 
-  location: z.string().min(1),
+  location: z.string().min(1, { message: 'Location is required' }),
   dateRange: z.object({
-    startDate: z.string().datetime(),
-    endDate: z.string().datetime(),
+    startDate: z.string({ message: 'Start Date is required' }).datetime(),
+    endDate: z.string({ message: 'End Date is required' }).datetime(),
   }),
+  ticketPrice: z.number().min(0),
   website: z.string().optional(),
   additionalInfo: z.string().optional(),
 

@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 
 import { graphql } from '@/libs/graphql';
 import { FormStatus, type ServerResponse } from '@/types/response';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const removeUserFromConferenceMutation = graphql(`
   mutation RemoveUserFromConference($conferenceId: ID!) {
@@ -12,7 +12,7 @@ const removeUserFromConferenceMutation = graphql(`
   }
 `);
 
-export const leaveConferenceAction = (
+export const leaveConferenceAction = async (
   conferenceId: number,
 ): Promise<ServerResponse> =>
   serverFetcher({

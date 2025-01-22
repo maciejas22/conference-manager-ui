@@ -4,7 +4,7 @@ import {
   participantsJoiningTrendFragment,
 } from '@/features/conference/app/report/participants-joining-chart';
 import { graphql } from '@/libs/graphql';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const getParticipantsJoiningTrendQuery = graphql(
   `

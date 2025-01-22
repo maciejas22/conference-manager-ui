@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import {
   Dropdown,
   DropdownItem,
@@ -7,6 +9,8 @@ import {
   DropdownTrigger,
 } from '@nextui-org/dropdown';
 import { User } from '@nextui-org/user';
+
+import { logoutUser } from '@/actions/logout';
 
 type UserAvatarProps = {
   username?: string;
@@ -43,12 +47,14 @@ const items: Item[] = [
     label: 'Logout',
     color: 'danger',
     className: 'text-danger',
-    action: async () => {},
+    action: () => void logoutUser(),
     redirectUrl: '/user/login',
   },
 ];
 
 function UserAvatar({ username, role }: UserAvatarProps) {
+  const router = useRouter();
+
   return (
     <Dropdown>
       <DropdownTrigger>
@@ -75,7 +81,7 @@ function UserAvatar({ username, role }: UserAvatarProps) {
             color={item.color}
             onClick={async () => {
               item.action && (await item.action());
-              item.redirectUrl && (window.location.href = item.redirectUrl);
+              item.redirectUrl && router.push(item.redirectUrl);
             }}
             className={item.className}
           >

@@ -1,6 +1,7 @@
+import { type ReactNode } from 'react';
+
 import type { Metadata } from 'next';
 
-import { getUser } from '@/actions/get-user';
 import { MainLayout } from '@/layouts/main-layout';
 import { RootLayout } from '@/layouts/root-layout';
 import { Providers } from '@/providers';
@@ -17,14 +18,12 @@ export const metadata: Metadata = {
 export default async function Layout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
-  const userData = await getUser().catch(() => null);
-
   return (
     <RootLayout font={asap.className}>
       <Providers>
-        <MainLayout user={userData?.user}>{children}</MainLayout>
+        <MainLayout>{children}</MainLayout>
       </Providers>
       <Trackers />
     </RootLayout>

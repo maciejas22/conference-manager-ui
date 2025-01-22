@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 
 import { graphql, type VariablesOf } from '@/libs/graphql';
 import { FormStatus, ServerResponse } from '@/types/response';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const updateUserMutation = graphql(`
   mutation UpdateUser($updateUserInput: UpdateUserInput!) {
@@ -12,7 +12,7 @@ const updateUserMutation = graphql(`
   }
 `);
 
-export const updateUser = (
+export const updateUser = async (
   input: VariablesOf<typeof updateUserMutation>['updateUserInput'],
 ): Promise<ServerResponse> =>
   serverFetcher({

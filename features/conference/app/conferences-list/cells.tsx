@@ -1,3 +1,5 @@
+import { type ReactNode } from 'react';
+
 import { Icon } from '@iconify/react';
 import { parseAbsoluteToLocal } from '@internationalized/date';
 import { Link } from '@nextui-org/link';
@@ -13,7 +15,7 @@ type CellProps = {
   columnKey: ColumnKey;
 };
 
-function DefaultCell({ children }: { children: React.ReactNode }) {
+function DefaultCell({ children }: { children: ReactNode }) {
   return (
     <span className="overflow-hidden text-ellipsis whitespace-nowrap">
       {children}
@@ -35,7 +37,7 @@ function Cell({ item, columnKey }: CellProps) {
       );
     case ColumnKey.Actions:
       return (
-        <Tooltip content="Details">
+        <Tooltip content="Details" placement="right">
           <Link href={`/conference/${item.id.toString()}`} color="foreground">
             <Icon icon="el:eye-open" />
           </Link>

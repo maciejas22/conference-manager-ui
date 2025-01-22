@@ -37,6 +37,7 @@ type Conference {
   registrationDeadline: Time
   files: [File!]!
   eventsCount: Int!
+  ticketPrice: Int
 }
 
 type ConferenceMeta {
@@ -45,6 +46,7 @@ type ConferenceMeta {
 
 input ConferencesFilters {
   associatedOnly: Boolean
+  runningOnly: Boolean
   title: String
 }
 
@@ -77,6 +79,7 @@ input CreateConferenceInput {
   registrationDeadline: Time
   agenda: [CreateAgendaItemInput!]
   files: [CreateConferenceInputFile!]
+  ticketPrice: Int
 }
 
 input CreateConferenceInputFile {
@@ -116,6 +119,7 @@ input ModifyConferenceInput {
   registrationDeadline: Time
   agenda: [ModifyAgendaItemInput!]
   files: [ModifyConferenceInputFile!]
+  ticketPrice: Int
 }
 
 input ModifyConferenceInputFile {
@@ -126,13 +130,16 @@ input ModifyConferenceInputFile {
 type Mutation {
   createConference(createConferenceInput: CreateConferenceInput!): ID!
   modifyConference(input: ModifyConferenceInput!): ID!
-  addUserToConference(conferenceId: ID!): ID!
+  addUserToConference(conferenceId: ID!): String
   removeUserFromConference(conferenceId: ID!): ID!
-  updateSession: String!
+  validateTicket(input: ValidateTicketInput!): Boolean!
   loginUser(loginUserInput: LoginUserInput!): String!
-  registerUser(registerUserInput: RegisterUserInput!): String!
+  registerUser(registerUserInput: RegisterUserInput!): ID!
+  stripeOnboard(returnUrl: String!, refreshUrl: String!): String!
+  logout: Boolean!
   updateUser(updateUserInput: UpdateUserInput!): ID!
   editPassword(password: String!): Boolean
+  updateSession: String!
 }
 
 type NewParticipantsTrend {
@@ -184,7 +191,7 @@ type PageInfo {
 type Query {
   conference(id: ID!): Conference!
   conferences(page: Page, sort: Sort, filters: ConferencesFilters): ConferencesPage!
-  news(page: Page): NewsPage!
+  news(page: Page!): NewsPage!
   termsAndConditions: TermsOfService!
   user: User
   isUserAssociatedWithConference(conferenceId: ID!): Boolean!
@@ -213,6 +220,11 @@ input Sort {
   order: Order!
 }
 
+type StripeAccountDetails {
+  id: String!
+  isVerified: Boolean!
+}
+
 type SubSection {
   id: ID!
   title: String!
@@ -225,6 +237,16 @@ type TermsOfService {
   introduction: String!
   acknowledgement: String!
   sections: [Section!]!
+}
+
+type Ticket {
+  id: String!
+  conference: Conference!
+}
+
+type TicketsPage {
+  data: [Ticket!]!
+  meta: PageInfo!
 }
 
 scalar Time
@@ -251,4 +273,11 @@ type User {
   email: String!
   role: Role!
   metrics: OrganizerMetrics
+  tickets(page: Page!): TicketsPage!
+  stripeAccountDetails: StripeAccountDetails
+}
+
+input ValidateTicketInput {
+  ticketId: String!
+  conferenceId: ID!
 }

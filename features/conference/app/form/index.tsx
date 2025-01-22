@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@nextui-org/button';
 import { FragmentOf, readFragment } from 'gql.tada';
+import omit from 'lodash.omit';
 import omitBy from 'lodash.omitby';
 import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -28,6 +29,7 @@ import {
   conferenceFormSchema,
   type ConferenceFormSchema,
 } from './types/form-schema';
+import { isDeletedFile, isUploadedFile } from './utils/fileUtils';
 
 type ConferenceFormProps = {
   operation: 'create' | 'edit';
@@ -44,6 +46,10 @@ function ConferenceForm({ operation, initialData }: ConferenceFormProps) {
     resolver: zodResolver(conferenceFormSchema),
     defaultValues: {
       ...omitBy(formInitialData, (v) => v === null),
+      ticketPrice: formInitialData?.ticketPrice
+        ? formInitialData.ticketPrice / 100
+        : 0,
+      participantsLimit: formInitialData?.participantsLimit ?? 100,
       dateRange: {
         startDate: formInitialData?.startDate,
         endDate: formInitialData?.endDate,
@@ -61,19 +67,16 @@ function ConferenceForm({ operation, initialData }: ConferenceFormProps) {
   });
 
   const onSubmit: SubmitHandler<ConferenceFormSchema> = async (data) => {
-    const action =
-      operation === 'edit' ? modifyConferenceAction : createConferenceAction;
-
     const files = await Promise.all(
       data.attachments.map(async (file) => {
-        if (file instanceof File) {
+        if (isUploadedFile(file)) {
           return {
             uploadFile: {
               fileName: file.name,
               base64Content: await fileToBase64(file),
             },
           };
-        } else if ('_destroy' in file) {
+        } else if (isDeletedFile(file)) {
           return {
             deleteFile: {
               key: file.key,
@@ -94,7 +97,7 @@ function ConferenceForm({ operation, initialData }: ConferenceFormProps) {
               endTime: agendaItem.dateRange.endDate,
             },
           };
-        } else if (!!agendaItem._destroy) {
+        } else if (agendaItem._destroy) {
           return {
             deleteItem: agendaItem.id,
           };
@@ -104,15 +107,21 @@ function ConferenceForm({ operation, initialData }: ConferenceFormProps) {
       })
       .filter((agendaItem) => agendaItem !== undefined);
 
-    const { dateRange, attachments, ...conferenceData } = data;
-    const response = await action({
-      ...conferenceData,
-      id: formInitialData?.id ?? -1,
+    const payload = {
+      ...omit(data, ['dateRange', 'attachments']),
+      id: formInitialData?.id,
       startDate: data.dateRange.startDate,
       endDate: data.dateRange.endDate,
+      ticketPrice: data.ticketPrice * 100,
       agenda,
       files,
-    });
+    };
+
+    const action =
+      operation === 'edit' ? modifyConferenceAction : createConferenceAction;
+
+    // @ts-expect-error - ts complains about id being undefined, but it's not
+    const response = await action(payload);
 
     switch (response.status) {
       case FormStatus.Success:

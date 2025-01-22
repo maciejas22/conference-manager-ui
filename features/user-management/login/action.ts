@@ -2,10 +2,10 @@
 
 import { cookies } from 'next/headers';
 
-import { sessionIdCookie } from '@/config/session';
+import { cookiesNames } from '@/config/cookies';
 import { graphql, VariablesOf } from '@/libs/graphql';
 import { FormStatus } from '@/types/response';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const loginQuery = graphql(`
   mutation Login($loginUserInput: LoginUserInput!) {
@@ -22,12 +22,13 @@ export async function login(
   loginUserInput: VariablesOf<typeof loginQuery>['loginUserInput'],
 ): Promise<LoginResponse> {
   try {
+    const cookieStore = await cookies();
     const res = await serverFetcher({
       document: loginQuery,
       variables: { loginUserInput },
     });
-    cookies().set(sessionIdCookie, res.loginUser ?? '');
-  } catch (err) {
+    cookieStore.set(cookiesNames.sessionId, res.loginUser ?? '');
+  } catch {
     return {
       status: FormStatus.Error,
       message: 'Failed to login',

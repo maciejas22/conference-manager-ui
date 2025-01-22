@@ -1,24 +1,23 @@
 import { Navbar, NavbarContent, NavbarItem } from '@nextui-org/navbar';
 
-import { type User } from '@/actions/get-user';
+import { getUser, type User } from '@/actions/get-user';
 
 import { Avatar } from './avatar';
+import { StripeOnBoardingCta } from './stripe-onboarding-cta';
 
-const getUserIdentifier = (user: NonNullable<User>) => {
-  if (user.name && user.surname) {
+const getUserIdentifier = (user: User) => {
+  if (user?.name && user?.surname) {
     return `${user.name} ${user.surname}`;
-  } else if (user.username) {
+  } else if (user?.username) {
     return user.username;
   }
 
-  return user.email;
+  return user?.email ?? 'Anonymous';
 };
 
-type NavProps = {
-  user: NonNullable<User>;
-};
+async function Nav() {
+  const { user } = await getUser();
 
-function Nav({ user }: NavProps) {
   return (
     <Navbar
       isBordered
@@ -30,8 +29,13 @@ function Nav({ user }: NavProps) {
       }}
     >
       <NavbarContent justify="end">
+        {user?.role === 'Organizer' && (
+          <NavbarItem>
+            <StripeOnBoardingCta />
+          </NavbarItem>
+        )}
         <NavbarItem>
-          <Avatar username={getUserIdentifier(user)} role={user.role} />
+          <Avatar username={getUserIdentifier(user)} role={user?.role} />
         </NavbarItem>
       </NavbarContent>
     </Navbar>

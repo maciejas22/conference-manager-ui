@@ -1,7 +1,7 @@
 import { cache } from 'react';
 
 import { graphql, ResultOf } from '@/libs/graphql';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const getUserQuery = graphql(`
   query GetUser {
@@ -16,5 +16,7 @@ const getUserQuery = graphql(`
   }
 `);
 
-export const getUser = cache(() => serverFetcher({ document: getUserQuery }));
+export const getUser = cache(async () =>
+  serverFetcher({ document: getUserQuery }),
+);
 export type User = ResultOf<typeof getUserQuery>['user'];

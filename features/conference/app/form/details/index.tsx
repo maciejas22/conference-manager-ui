@@ -29,6 +29,14 @@ export function DetailsForm() {
         isInvalid={Boolean(errors.location?.message)}
         {...register('location')}
       />
+      <Input
+        label="Ticket Price"
+        type="number"
+        isRequired
+        errorMessage={errors.ticketPrice?.message}
+        isInvalid={Boolean(errors.ticketPrice?.message)}
+        {...register('ticketPrice', { valueAsNumber: true })}
+      />
       <Controller
         control={control}
         name="dateRange"
@@ -38,12 +46,15 @@ export function DetailsForm() {
             hideTimeZone
             isRequired
             granularity="minute"
+            popoverProps={{
+              shouldCloseOnScroll: false,
+            }}
             errorMessage={[
               ...new Set([
                 errors.dateRange?.startDate?.message,
                 errors.dateRange?.endDate?.message,
               ]),
-            ]}
+            ].join(', ')}
             isInvalid={
               Boolean(errors.dateRange?.startDate?.message) ||
               Boolean(errors.dateRange?.endDate?.message)
@@ -57,6 +68,8 @@ export function DetailsForm() {
                 : null
             }
             onChange={(value) => {
+              if (!value) return;
+
               field.onChange({
                 startDate: toZoned(
                   value.start,
@@ -78,7 +91,7 @@ export function DetailsForm() {
         {...register('website')}
       />
       <Textarea
-        label="Additional informations"
+        label="Additional Informations"
         errorMessage={errors.additionalInfo?.message}
         isInvalid={Boolean(errors.additionalInfo?.message)}
         {...register('additionalInfo')}

@@ -12,6 +12,7 @@ export const conferenceFormInitialDataFragment = graphql(`
     additionalInfo
     participantsLimit
     registrationDeadline
+    ticketPrice
     agenda {
       id
       startTime

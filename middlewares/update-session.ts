@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
-import { sessionIdCookie } from '@/config/session';
+import { cookiesNames } from '@/config/cookies';
 import { graphql } from '@/libs/graphql';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const loginPath = '/user/login';
 
@@ -16,9 +16,9 @@ const updateSessionAction = () =>
   serverFetcher({ document: updateSessionMutation });
 
 export async function updateSession(req: NextRequest) {
-  const sessionId = await updateSessionAction()
-    .then((data) => data.updateSession)
-    .catch(() => '');
+  const { updateSession: sessionId } = await updateSessionAction()
+    .then((data) => data)
+    .catch(() => ({ updateSession: '' }));
 
   if (!sessionId) {
     const url = req.nextUrl.clone();
@@ -26,6 +26,6 @@ export async function updateSession(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  req.cookies.set(sessionIdCookie, sessionId);
+  req.cookies.set(cookiesNames.sessionId, sessionId);
   return req;
 }

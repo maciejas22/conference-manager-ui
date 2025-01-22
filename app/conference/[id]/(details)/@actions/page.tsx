@@ -1,13 +1,23 @@
 import { getUser } from '@/actions/get-user';
 import { Footer } from '@/components/footer';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { graphql } from '@/libs/graphql';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
-import { isUserAssociatedWithConferenceQuery } from './_graphql/is-associated-with-conference';
-import { OrganizerActions } from './organizer-actions';
-import { ParticipantActions } from './participant-actions';
+import { OrganizerActions } from './organizer';
+import { ParticipantActions } from './participant';
 
-export default async function Actions({ params }: { params: { id: string } }) {
-  const conferenceId = Number(params.id);
+const isUserAssociatedWithConferenceQuery = graphql(`
+  query isUserAssociatedWithConference($conferenceId: ID!) {
+    isUserAssociatedWithConference(conferenceId: $conferenceId)
+  }
+`);
+
+export default async function Actions({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const conferenceId = await params.then((p) => Number(p.id));
   const userData = await getUser();
   const user = userData.user;
   const { isUserAssociatedWithConference } = await serverFetcher({

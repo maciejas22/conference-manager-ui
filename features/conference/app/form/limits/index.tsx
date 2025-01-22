@@ -22,6 +22,8 @@ export function LimitsForm() {
     <Card header="Limits">
       <Input
         label="Limit of Participants"
+        type="number"
+        isRequired
         errorMessage={errors.participantsLimit?.message}
         isInvalid={Boolean(errors.participantsLimit?.message)}
         {...register('participantsLimit', { valueAsNumber: true })}
@@ -38,6 +40,8 @@ export function LimitsForm() {
             isInvalid={Boolean(errors.registrationDeadline?.message)}
             value={field.value ? parseAbsoluteToLocal(field.value) : undefined}
             onChange={(value) => {
+              if (!value) return;
+
               field.onChange(
                 toZoned(value, getLocalTimeZone()).toAbsoluteString(),
               );

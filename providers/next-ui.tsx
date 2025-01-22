@@ -1,9 +1,11 @@
+import { type ReactNode } from 'react';
+
 import { useRouter } from 'next/navigation';
 
 import { NextUIProvider as SystemProvider } from '@nextui-org/system';
 
 type NextUIProviderProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export function NextUIProvider({ children }: NextUIProviderProps) {

@@ -15,6 +15,7 @@ type ConferenceMetrics = {
   participantsLimit?: number | null;
   website?: string | null;
   registrationDeadline?: string | null;
+  ticketPrice?: number | null;
 };
 
 type Metric = {
@@ -67,6 +68,14 @@ const getMetrics = (conferenceMetrics: ConferenceMetrics): Metric[] => {
         parseAbsoluteToLocal(conferenceMetrics.registrationDeadline),
       ),
       icon: 'ri:time-line',
+    });
+  }
+  if (conferenceMetrics.ticketPrice) {
+    metrics.push({
+      id: 6,
+      label: 'Ticket Price',
+      value: `$${(conferenceMetrics.ticketPrice / 100).toFixed(2)}`,
+      icon: 'ri:money-dollar-circle-line',
     });
   }
 

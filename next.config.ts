@@ -1,13 +1,10 @@
+import { type NextConfig } from 'next';
+
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
-  env: {
-    API_URL: process.env.API_URL,
-    UI_URL: process.env.UI_URL,
-  },
-  redirects: () => [
+  redirects: async () => [
     {
       source: '/user/settings',
       destination: '/user/settings/personal',
@@ -23,6 +20,7 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: '10mb',
     },
+    reactCompiler: true,
   },
 };
 

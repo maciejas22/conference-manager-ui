@@ -4,7 +4,7 @@ import {
   TermsOfService,
 } from '@/features/info/terms-of-service';
 import { graphql } from '@/libs/graphql';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const getTermsOfServiceQuery = graphql(
   `

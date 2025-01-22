@@ -1,56 +1,61 @@
 'use client';
 
-import { parseAbsoluteToLocal } from '@internationalized/date';
-import {
-  Bar,
-  BarChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import React, { useEffect, useRef } from 'react';
 
+import { parseAbsoluteToLocal } from '@internationalized/date';
+import * as echarts from 'echarts';
+import merge from 'lodash.merge';
+
+import { getChartOptions } from '@/components/charts/shared-options';
 import { getFormattedDate } from '@/utils/formatters/date-formatter';
 
 type ChartProps = {
   chartData: { label: string; value: number }[];
 };
 
-const xAxisTickFormatter = (value: string) =>
-  getFormattedDate(parseAbsoluteToLocal(value));
-
-function CustomTooltip({ active, payload }: any) {
-  if (active && payload?.length) {
-    return (
-      <div className="rounded-large bg-content1 p-3">
-        <p className="text-foreground">
-          {getFormattedDate(parseAbsoluteToLocal(payload[0].payload.label))}
-        </p>
-        <p className="text-foreground-500">
-          New Participants: {payload[0].payload.value}
-        </p>
-      </div>
-    );
-  }
-
-  return null;
-}
-
 export function Chart({ chartData }: ChartProps) {
-  return (
-    <ResponsiveContainer width="100%" height={500}>
-      <BarChart data={chartData}>
-        <XAxis
-          dataKey="label"
-          type="category"
-          tickFormatter={xAxisTickFormatter}
-          tick={{ fill: '#ecedee' }}
-          axisLine={{ stroke: '#ecedee' }}
-        />
-        <YAxis tick={{ fill: '#ecedee' }} axisLine={{ stroke: '#ecedee' }} />
-        <Tooltip content={<CustomTooltip />} cursor={{ fill: '#3f3f46' }} />
-        <Bar dataKey="value" fill="#006fee" />
-      </BarChart>
-    </ResponsiveContainer>
-  );
+  const chartRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (chartRef.current) {
+      const chartInstance = echarts.init(chartRef.current);
+
+      const option = merge(getChartOptions({}), {
+        tooltip: {
+          axisPointer: {
+            label: {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              formatter: (params: any) =>
+                getFormattedDate(parseAbsoluteToLocal(params.value)),
+            },
+          },
+        },
+        xAxis: {
+          data: chartData.map((item) => item.label),
+          axisLabel: {
+            formatter: (value: string) =>
+              getFormattedDate(parseAbsoluteToLocal(value)),
+          },
+        },
+        series: [
+          {
+            name: 'New Participants',
+            data: chartData.map((item) => item.value),
+            type: 'bar',
+            itemStyle: {
+              color: '#006fee',
+            },
+          },
+        ],
+      });
+
+      chartInstance.setOption(option);
+
+      return () => {
+        chartInstance.dispose();
+      };
+    }
+  }, [chartData]);
+
+  return <div ref={chartRef} className="h-[500px] w-full" />;
 }

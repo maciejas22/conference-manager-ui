@@ -1,27 +1,24 @@
-import { cookies } from 'next/headers';
-
 import {
   GraphQLClient,
   type RequestInitExtended,
   type Variables,
 } from 'graphql-request';
 
-import { sessionIdCookie } from '@/config/session';
-
 export const requestMiddleware = <V extends Variables = Variables>(
   req: RequestInitExtended<V>,
+  headers: Headers,
 ) => {
-  const token = cookies().get(sessionIdCookie)?.value ?? '';
-
-  const headers = new Headers(req.headers);
-  headers.set('Authorization', `Bearer ${token}`);
-  req.headers = headers;
+  const reqHeaders = new Headers(req.headers);
+  headers.forEach((value, key) => {
+    reqHeaders.set(key, value);
+  });
+  req.headers = reqHeaders;
   return req;
 };
 
-const getGqlClient = (url: string) =>
+const getGqlClient = (url: string, headers: Headers) =>
   new GraphQLClient(url, {
-    requestMiddleware,
+    requestMiddleware: (req) => requestMiddleware(req, headers),
     fetch,
   });
 

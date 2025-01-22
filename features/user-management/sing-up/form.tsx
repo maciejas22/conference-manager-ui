@@ -74,7 +74,7 @@ function RegisterForm() {
     switch (result.status) {
       case FormStatus.Success:
         toast.success(result.message);
-        router.push('/login');
+        router.push('/user/login');
         break;
 
       case FormStatus.Error:

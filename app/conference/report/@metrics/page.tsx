@@ -3,7 +3,7 @@ import {
   organizerMetricsFragment,
 } from '@/features/conference/app/report/organizer-metrics';
 import { graphql } from '@/libs/graphql';
-import { serverFetcher } from '@/utils/server-fetcher';
+import { serverFetcher } from '@/utils/fetchers/server-fetcher';
 
 const getOrganizerMetricsQuery = graphql(
   `
