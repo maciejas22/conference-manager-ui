@@ -65,7 +65,6 @@ export function AgendaForm() {
           <DateRangePicker
             label="Event Duration"
             hideTimeZone
-            isRequired
             granularity="minute"
             popoverProps={{
               shouldCloseOnScroll: false,
