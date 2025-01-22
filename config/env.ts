@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
 const publicEnvSchema = z.object({
-  uiBaseUrl: z.string().url(),
-  apiBaseUrl: z.string().url(),
-  stripePublishableKey: z.string(),
+  uiBaseUrl: z.string().url().default('http://localhost:3000'),
+  apiBaseUrl: z.string().url().default('http://localhost:8080'),
+  stripePublishableKey: z.string().default('pk_test_2137'),
 });
 
 export const publicEnv = publicEnvSchema.parse({
