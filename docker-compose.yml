@@ -1,0 +1,19 @@
+services:
+  cm-ui:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+      - /app/.pnpm-store
+      - /app/.swc
+    ports:
+      - '3000:3000'
+    command: sh -c "npm install -g pnpm && pnpm install && pnpm build && pnpm start"
+    networks:
+      - cm-network
+
+networks:
+  cm-network:
+    external: true
